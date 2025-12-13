@@ -1,140 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BMW Complete Database</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+<title>Student Profile</title>
 
-<nav>
-    <div>BMW Models</div>
-    <div>Engines</div>
-    <div>Diagrams</div>
-    <div>Generations</div>
-</nav>
-
-<input id="searchBox" placeholder="Search BMW Model, Code, Engine…">
-
-<div class="model-container" id="modelContainer"></div>
-
-<script>
-/*--------------------------------------------------------------------
-    DATABASE OF 30+ BMW MODELS
---------------------------------------------------------------------*/
-const bmwModels = [
-    {name:"BMW 1 Series (F20)", years:"2011–2019", engine:"N13, N47, B47"},
-    {name:"BMW 1 Series (E87)", years:"2004–2013", engine:"N45, N46, N47"},
-
-    {name:"BMW 2 Series (F22)", years:"2013–2021", engine:"N20, B48, N55"},
-    {name:"BMW 2 Series (G42)", years:"2021–present", engine:"B48, B58"},
-
-    {name:"BMW 3 Series (E46)", years:"1998–2006", engine:"M43, M52, M54"},
-    {name:"BMW 3 Series (E90)", years:"2005–2013", engine:"N46, N52, N54, N55"},
-    {name:"BMW 3 Series (F30)", years:"2012–2019", engine:"N20, B48, B58"},
-    {name:"BMW 3 Series (G20)", years:"2019–present", engine:"B48, B58"},
-
-    {name:"BMW 4 Series (F32)", years:"2013–2020", engine:"N20, N55, B48"},
-    {name:"BMW 4 Series (G22)", years:"2020–present", engine:"B48, B58"},
-
-    {name:"BMW 5 Series (E39)", years:"1995–2004", engine:"M52, M54, M62"},
-    {name:"BMW 5 Series (E60)", years:"2003–2010", engine:"N52, N54, N62"},
-    {name:"BMW 5 Series (F10)", years:"2010–2017", engine:"N20, N55, N63"},
-    {name:"BMW 5 Series (G30)", years:"2017–present", engine:"B48, B58, N63"},
-
-    {name:"BMW 6 Series (E63)", years:"2003–2010", engine:"N62, S85"},
-    {name:"BMW 6 Series (F13)", years:"2011–2019", engine:"N55, N63"},
-
-    {name:"BMW 7 Series (E65)", years:"2001–2008", engine:"N62, N73"},
-    {name:"BMW 7 Series (F01)", years:"2008–2015", engine:"N55, N63"},
-    {name:"BMW 7 Series (G11)", years:"2015–2022", engine:"B48, B58, N63"},
-
-    {name:"BMW 8 Series (E31)", years:"1990–1999", engine:"M60, M70"},
-    {name:"BMW 8 Series (G15)", years:"2018–present", engine:"B58, N63"},
-
-    {name:"BMW X1 (F48)", years:"2015–2022", engine:"B38, B48"},
-    {name:"BMW X3 (F25)", years:"2010–2017", engine:"N20, N55"},
-    {name:"BMW X5 (E70)", years:"2006–2013", engine:"N52, N55, N62"},
-
-    {name:"BMW Z4 (E85)", years:"2002–2008", engine:"M54, N52"},
-    {name:"BMW Z4 (G29)", years:"2018–present", engine:"B48, B58"},
-
-    {name:"BMW M3 (E46)", years:"2000–2006", engine:"S54"},
-    {name:"BMW M3 (F80)", years:"2014–2020", engine:"S55"},
-
-    {name:"BMW i3", years:"2013–2022", engine:"Electric (170–184 hp)"}
-];
-
-/*--------------------------------------------------------------------
-    PART DIAGRAM IMAGE SOURCES (PUBLIC URLS)
---------------------------------------------------------------------*/
-const diagrams = {
-    engine: "https://bmwtuning.co/wp-content/uploads/2023/05/N54-Engine.png",
-    turbo: "https://scontent.fdel41-1.fna.fbcdn.net/v/t39.30808-6/569036145_24861747523445697_6665176974125373925_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=edBhYl3dWbUQ7kNvwF3hyY8&_nc_oc=AdmqpqfK8SxuHcYorAUbKjSvScmXyeOs0tC9ehaTj05Sf26_RPgvL0stbAv03HHHNZc&_nc_zt=23&_nc_ht=scontent.fdel41-1.fna&_nc_gid=ji-fEkZ8wOKD2BAeX934gw&oh=00_AfkOvur2Jd4KxKOpH-lhExYlq-L4GlfYuJGuFKYyuMM__Q&oe=694298A2",
-    suspension: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeyAJVtxoP4SuQbgRO5lSLVy7z4snnApYucQ&s",
-    gearbox: "https://hips.hearstapps.com/hmg-prod/images/zf-8-speed-trans-1538511984.jpg?resize=640:*",
-    battery: "https://www.researchgate.net/profile/Valentin-Muenzel/publication/340598950/figure/fig2/AS:879710766645248@1586750799479/BMW-i3-module-layout-and-components-3.png"
-};
-
-/*--------------------------------------------------------------------
-    RENDER MODELS TO PAGE
---------------------------------------------------------------------*/
-function renderModels(list) {
-    const container = document.getElementById("modelContainer");
-    container.innerHTML = "";
-
-    list.forEach(model => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-            <h2>${model.name}</h2>
-            <p><b>Production:</b> ${model.years}</p>
-            <p><b>Engines:</b> ${model.engine}</p>
-
-            <div class="collapsible">Engine Diagram</div>
-            <div class="content"><img class="diagram" src="${diagrams.engine}"></div>
-
-            <div class="collapsible">Turbocharger</div>
-            <div class="content"><img class="diagram" src="${diagrams.turbo}"></div>
-
-            <div class="collapsible">Suspension</div>
-            <div class="content"><img class="diagram" src="${diagrams.suspension}"></div>
-
-            <div class="collapsible">Gearbox</div>
-            <div class="content"><img class="diagram" src="${diagrams.gearbox}"></div>
-
-            <div class="collapsible">Battery / EV System</div>
-            <div class="content"><img class="diagram" src="${diagrams.battery}"></div>
-        `;
-        container.appendChild(card);
-    });
-}
-
-/*--------------------------------------------------------------------
-    COLLAPSIBLE FUNCTION
---------------------------------------------------------------------*/
-document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("collapsible")) {
-        let content = e.target.nextElementSibling;
-        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #fff;
     }
-});
 
-/*--------------------------------------------------------------------
-    SEARCH FUNCTION
---------------------------------------------------------------------*/
-document.getElementById("searchBox").addEventListener("input", function() {
-    const q = this.value.toLowerCase();
-    const filtered = bmwModels.filter(m =>
-        m.name.toLowerCase().includes(q) ||
-        m.engine.toLowerCase().includes(q)
-    );
-    renderModels(filtered);
-});
+    .card {
+        width: 320px;
+        padding: 25px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        text-align: center;
+    }
 
-renderModels(bmwModels);
-</script>
+    .card h1 {
+        margin: 0;
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
 
+    .line {
+        width: 60px;
+        height: 3px;
+        background: #00e5ff;
+        margin: 12px auto 20px;
+        border-radius: 10px;
+    }
+
+    .info {
+        font-size: 15px;
+        line-height: 1.8;
+        opacity: 0.95;
+    }
+
+    .label {
+        color: #00e5ff;
+        font-weight: 600;
+    }
+</style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Shaurya Chauhan</h1>
+        <div class="line"></div>
+
+        <div class="info">
+            <div><span class="label">Class:</span> 7th A</div>
+            <div><span class="label">School:</span> DPS</div>
+            <div><span class="label">Phone:</span> 7988757238</div>
+        </div>
+    </div>
 </body>
 </html>
-
