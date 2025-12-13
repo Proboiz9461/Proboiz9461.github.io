@@ -3,107 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BMW Complete Database</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #0a0f1f, #000);
-    color: white;
-}
-
-/*--------------------------------------------------------------------
-    GLASSY NAVBAR
---------------------------------------------------------------------*/
-nav {
-    backdrop-filter: blur(15px);
-    background: rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/*--------------------------------------------------------------------
-    SEARCH BAR
---------------------------------------------------------------------*/
-#searchBox {
-    width: 60%;
-    padding: 15px;
-    margin: 20px auto;
-    display: block;
-    border-radius: 15px;
-    border: 1px solid rgba(0,140,255,0.7);
-    background: rgba(255,255,255,0.08);
-    color: cyan;
-    outline: none;
-    font-size: 18px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 15px rgba(0,140,255,0.5);
-}
-
-/*--------------------------------------------------------------------
-    MODEL CONTAINER GRID
---------------------------------------------------------------------*/
-.model-container {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
-    gap: 20px;
-}
-
-/*--------------------------------------------------------------------
-    GLASS CARD PANEL
---------------------------------------------------------------------*/
-.card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 18px;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(0,140,255,0.3);
-    transition: 0.3s;
-}
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 35px rgba(0,140,255,0.7);
-}
-
-/*--------------------------------------------------------------------
-    COLLAPSIBLE SECTIONS
---------------------------------------------------------------------*/
-.collapsible {
-    background: rgba(0,140,255,0.2);
-    padding: 15px;
-    cursor: pointer;
-    border-radius: 12px;
-    margin-top: 10px;
-    border: 1px solid rgba(0,140,255,0.5);
-    text-align: center;
-}
-.content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding-left: 10px;
-}
-
-/*--------------------------------------------------------------------
-    PART DIAGRAM IMAGES
---------------------------------------------------------------------*/
-.diagram {
-    width: 100%;
-    margin-top: 12px;
-    border-radius: 10px;
-    border: 1px solid rgba(0,140,255,0.6);
-    box-shadow: 0 0 20px rgba(0,140,255,0.4);
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -114,7 +14,7 @@ nav {
     <div>Generations</div>
 </nav>
 
-<input id="searchBox" placeholder="Search BMW Model, Code, Engine…">
+<input id="searchBox" placeholder="Search BMW Model, Code, Engineâ€¦">
 
 <div class="model-container" id="modelContainer"></div>
 
@@ -123,46 +23,46 @@ nav {
     DATABASE OF 30+ BMW MODELS
 --------------------------------------------------------------------*/
 const bmwModels = [
-    {name:"BMW 1 Series (F20)", years:"2011–2019", engine:"N13, N47, B47"},
-    {name:"BMW 1 Series (E87)", years:"2004–2013", engine:"N45, N46, N47"},
+    {name:"BMW 1 Series (F20)", years:"2011â€“2019", engine:"N13, N47, B47"},
+    {name:"BMW 1 Series (E87)", years:"2004â€“2013", engine:"N45, N46, N47"},
 
-    {name:"BMW 2 Series (F22)", years:"2013–2021", engine:"N20, B48, N55"},
-    {name:"BMW 2 Series (G42)", years:"2021–present", engine:"B48, B58"},
+    {name:"BMW 2 Series (F22)", years:"2013â€“2021", engine:"N20, B48, N55"},
+    {name:"BMW 2 Series (G42)", years:"2021â€“present", engine:"B48, B58"},
 
-    {name:"BMW 3 Series (E46)", years:"1998–2006", engine:"M43, M52, M54"},
-    {name:"BMW 3 Series (E90)", years:"2005–2013", engine:"N46, N52, N54, N55"},
-    {name:"BMW 3 Series (F30)", years:"2012–2019", engine:"N20, B48, B58"},
-    {name:"BMW 3 Series (G20)", years:"2019–present", engine:"B48, B58"},
+    {name:"BMW 3 Series (E46)", years:"1998â€“2006", engine:"M43, M52, M54"},
+    {name:"BMW 3 Series (E90)", years:"2005â€“2013", engine:"N46, N52, N54, N55"},
+    {name:"BMW 3 Series (F30)", years:"2012â€“2019", engine:"N20, B48, B58"},
+    {name:"BMW 3 Series (G20)", years:"2019â€“present", engine:"B48, B58"},
 
-    {name:"BMW 4 Series (F32)", years:"2013–2020", engine:"N20, N55, B48"},
-    {name:"BMW 4 Series (G22)", years:"2020–present", engine:"B48, B58"},
+    {name:"BMW 4 Series (F32)", years:"2013â€“2020", engine:"N20, N55, B48"},
+    {name:"BMW 4 Series (G22)", years:"2020â€“present", engine:"B48, B58"},
 
-    {name:"BMW 5 Series (E39)", years:"1995–2004", engine:"M52, M54, M62"},
-    {name:"BMW 5 Series (E60)", years:"2003–2010", engine:"N52, N54, N62"},
-    {name:"BMW 5 Series (F10)", years:"2010–2017", engine:"N20, N55, N63"},
-    {name:"BMW 5 Series (G30)", years:"2017–present", engine:"B48, B58, N63"},
+    {name:"BMW 5 Series (E39)", years:"1995â€“2004", engine:"M52, M54, M62"},
+    {name:"BMW 5 Series (E60)", years:"2003â€“2010", engine:"N52, N54, N62"},
+    {name:"BMW 5 Series (F10)", years:"2010â€“2017", engine:"N20, N55, N63"},
+    {name:"BMW 5 Series (G30)", years:"2017â€“present", engine:"B48, B58, N63"},
 
-    {name:"BMW 6 Series (E63)", years:"2003–2010", engine:"N62, S85"},
-    {name:"BMW 6 Series (F13)", years:"2011–2019", engine:"N55, N63"},
+    {name:"BMW 6 Series (E63)", years:"2003â€“2010", engine:"N62, S85"},
+    {name:"BMW 6 Series (F13)", years:"2011â€“2019", engine:"N55, N63"},
 
-    {name:"BMW 7 Series (E65)", years:"2001–2008", engine:"N62, N73"},
-    {name:"BMW 7 Series (F01)", years:"2008–2015", engine:"N55, N63"},
-    {name:"BMW 7 Series (G11)", years:"2015–2022", engine:"B48, B58, N63"},
+    {name:"BMW 7 Series (E65)", years:"2001â€“2008", engine:"N62, N73"},
+    {name:"BMW 7 Series (F01)", years:"2008â€“2015", engine:"N55, N63"},
+    {name:"BMW 7 Series (G11)", years:"2015â€“2022", engine:"B48, B58, N63"},
 
-    {name:"BMW 8 Series (E31)", years:"1990–1999", engine:"M60, M70"},
-    {name:"BMW 8 Series (G15)", years:"2018–present", engine:"B58, N63"},
+    {name:"BMW 8 Series (E31)", years:"1990â€“1999", engine:"M60, M70"},
+    {name:"BMW 8 Series (G15)", years:"2018â€“present", engine:"B58, N63"},
 
-    {name:"BMW X1 (F48)", years:"2015–2022", engine:"B38, B48"},
-    {name:"BMW X3 (F25)", years:"2010–2017", engine:"N20, N55"},
-    {name:"BMW X5 (E70)", years:"2006–2013", engine:"N52, N55, N62"},
+    {name:"BMW X1 (F48)", years:"2015â€“2022", engine:"B38, B48"},
+    {name:"BMW X3 (F25)", years:"2010â€“2017", engine:"N20, N55"},
+    {name:"BMW X5 (E70)", years:"2006â€“2013", engine:"N52, N55, N62"},
 
-    {name:"BMW Z4 (E85)", years:"2002–2008", engine:"M54, N52"},
-    {name:"BMW Z4 (G29)", years:"2018–present", engine:"B48, B58"},
+    {name:"BMW Z4 (E85)", years:"2002â€“2008", engine:"M54, N52"},
+    {name:"BMW Z4 (G29)", years:"2018â€“present", engine:"B48, B58"},
 
-    {name:"BMW M3 (E46)", years:"2000–2006", engine:"S54"},
-    {name:"BMW M3 (F80)", years:"2014–2020", engine:"S55"},
+    {name:"BMW M3 (E46)", years:"2000â€“2006", engine:"S54"},
+    {name:"BMW M3 (F80)", years:"2014â€“2020", engine:"S55"},
 
-    {name:"BMW i3", years:"2013–2022", engine:"Electric (170–184 hp)"}
+    {name:"BMW i3", years:"2013â€“2022", engine:"Electric (170â€“184 hp)"}
 ];
 
 /*--------------------------------------------------------------------
@@ -237,3 +137,4 @@ renderModels(bmwModels);
 
 </body>
 </html>
+
