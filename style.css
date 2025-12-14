@@ -1,3 +1,13 @@
+:root {
+    --bg-dark: #05070f;
+    --glass: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.18);
+    --cyan: #4fd1ff;
+    --blue: #6aa9ff;
+    --text-light: #e9f1ff;
+    --text-muted: #9aa6c3;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,45 +15,121 @@
 }
 
 body {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #ffffff;
+    background: radial-gradient(circle at top, #0b1230, var(--bg-dark));
+    color: var(--text-light);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(18px);
+    background: rgba(5, 7, 15, 0.65);
+    border-bottom: 1px solid var(--border);
+}
+
+nav {
+    max-width: 1200px;
+    margin: auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cyan);
+}
+
+.nav-links a {
+    margin-left: 24px;
+    color: var(--text-muted);
+}
+
+.nav-links a:hover {
+    color: var(--cyan);
+}
+
+.hero {
+    max-width: 1200px;
+    margin: auto;
+    padding: 90px 24px 70px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero span {
+    color: var(--cyan);
+}
+
+.hero p {
+    color: var(--text-muted);
+    max-width: 520px;
+    margin-bottom: 30px;
+}
+
+.hero-buttons a {
+    display: inline-block;
+    padding: 14px 28px;
+    margin-right: 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(79,209,255,0.15), rgba(106,169,255,0.05));
+}
+
+section {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 24px;
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
 }
 
 .card {
-    width: 330px;
-    padding: 28px;
-    border-radius: 18px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 26px;
+    backdrop-filter: blur(18px);
+}
+
+.card h3 {
+    color: var(--cyan);
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+footer {
+    border-top: 1px solid var(--border);
     text-align: center;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-}
-
-.card h1 {
-    font-size: 26px;
-    letter-spacing: 1px;
-}
-
-.line {
-    width: 60px;
-    height: 3px;
-    margin: 14px auto 22px;
-    background: #00e5ff;
-    border-radius: 10px;
-}
-
-.info p {
-    font-size: 15px;
-    margin: 10px 0;
-    opacity: 0.95;
-}
-
-.info span {
-    color: #00e5ff;
-    font-weight: 600;
+    padding: 30px 24px;
+    color: var(--text-muted);
 }
