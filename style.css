@@ -1,60 +1,48 @@
+/* RESET */
 * {
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
+/* PAGE BACKGROUND */
 body {
-margin: 0;
-min-height: 100vh;
-font-family: "Segoe UI", sans-serif;
-background: radial-gradient(circle at top, #0f2027, #000);
-color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #8fd3f4, #3a7bd5);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 
-
-.top-bar {
-text-align: center;
-padding: 30px 10px;
+/* GAME CONTAINER EFFECT */
+canvas {
+  border-radius: 18px;
+  background: linear-gradient(
+    to bottom,
+    #6bd6e5,
+    #4ec0ca
+  );
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.top-bar h1 {
-font-size: 2.5rem;
+/* SUBTLE HOVER EFFECT (DESKTOP) */
+canvas:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 35px 80px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.35);
 }
 
-
-.grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 25px;
-padding: 30px;
-}
-
-
-.card {
-background: rgba(255, 255, 255, 0.12);
-backdrop-filter: blur(14px);
-border-radius: 18px;
-padding: 25px;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-border: 1px solid rgba(255,255,255,0.2);
-}
-
-
-.card:hover {
-transform: translateY(-8px) scale(1.03);
-box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
-}
-
-
-.card h2 {
-margin: 0 0 10px;
-}
-
-
-footer {
-text-align: center;
-padding: 20px;
-opacity: 0.7;
+/* MOBILE OPTIMIZATION */
+@media (max-width: 480px) {
+  canvas {
+    width: 90vw;
+    height: auto;
+  }
 }
