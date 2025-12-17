@@ -17,5 +17,6 @@ box-shadow:
 }
 
 
-html { scroll-behavior: very-smooth; }
+html { scroll-behavior: smooth; }
+
 
