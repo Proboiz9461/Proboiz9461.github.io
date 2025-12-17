@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>JS Question Bank AI</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Glassy Games Hub</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
-    <h1>JS Question Bank AI</h1>
 
-    <div id="questionBox">Click "Generate Question"</div>
+<header class="top-bar">
+<h1>🎮 Games Hub</h1>
+<p>Play. Chill. Repeat.</p>
+</header>
 
-    <input type="text" id="answerInput" placeholder="Type your answer">
 
-    <div class="buttons">
-        <button onclick="generateQuestion()">Generate Question</button>
-        <button onclick="submitAnswer()">Submit Answer</button>
-    </div>
+<main class="grid">
 
-    <div id="feedback"></div>
+
+<div class="card" onclick="openGame('chess')">
+<h2>Chess</h2>
+<p>Classic strategy game</p>
 </div>
+
+
+<div class="card" onclick="openGame('tetris')">
+<h2>Tetris</h2>
+<p>Block puzzle fun</p>
+</div>
+
+
+<div class="card" onclick="openGame('snake')">
+<h2>Snake</h2>
+<p>Retro arcade vibes</p>
+</div>
+
+
+<div class="card" onclick="openGame('coming')">
+<h2>Coming Soon</h2>
+<p>More games loading</p>
+</div>
+
+
+</main>
+
+
+<footer>
+<p>© 2025 Glassy Games Hub</p>
+</footer>
+
 
 <script src="script.js"></script>
 </body>
