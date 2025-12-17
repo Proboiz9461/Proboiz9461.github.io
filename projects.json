@@ -1,0 +1,14 @@
+[
+{
+"title": "Tetris",
+"desc": "Modern playable Tetris",
+"page": "projects/tetris.html",
+"type": "game"
+},
+{
+"title": "Chess",
+"desc": "Clean chess board UI",
+"page": "projects/chess.html",
+"type": "game"
+}
+]
