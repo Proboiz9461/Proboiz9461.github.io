@@ -20,3 +20,9 @@ box-shadow:
 html { scroll-behavior: smooth; }
 
 
+const hoverSound = new Audio('sounds/hover.mp3');
+const launchSound = new Audio('sounds/launch.mp3');
+hoverSound.volume = 0.3;
+launchSound.volume = 0.4;
+
+
