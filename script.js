@@ -1,71 +1,49 @@
-const box = document.getElementById("box");
-const gameArea = document.getElementById("gameArea");
-const scoreEl = document.getElementById("score");
-const timeEl = document.getElementById("time");
+window.onload = () => {
 
-let score;
-let timeLeft;
-let gameActive;
-let timer;
+    const box = document.getElementById("box");
+    const gameArea = document.getElementById("gameArea");
+    const scoreEl = document.getElementById("score");
+    const timeEl = document.getElementById("time");
 
-// Initialize / Reset game
-function startGame() {
-    score = 0;
-    timeLeft = 30;
-    gameActive = true;
+    let score = 0;
+    let timeLeft = 30;
+    let timer;
 
-    scoreEl.textContent = score;
-    timeEl.textContent = timeLeft;
+    function moveBox() {
+        const maxX = gameArea.clientWidth - box.clientWidth;
+        const maxY = gameArea.clientHeight - box.clientHeight;
 
-    box.style.display = "block";
-    moveBox();
-
-    clearInterval(timer);
-    timer = setInterval(updateTimer, 1000);
-}
-
-// Move box to random position
-function moveBox() {
-    const maxX = gameArea.clientWidth - box.clientWidth;
-    const maxY = gameArea.clientHeight - box.clientHeight;
-
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    box.style.left = `${x}px`;
-    box.style.top = `${y}px`;
-}
-
-// Click handler
-box.addEventListener("click", () => {
-    if (!gameActive) return;
-
-    score++;
-    scoreEl.textContent = score;
-    moveBox();
-});
-
-// Timer logic
-function updateTimer() {
-    timeLeft--;
-    timeEl.textContent = timeLeft;
-
-    if (timeLeft <= 0) {
-        endGame();
+        box.style.left = Math.random() * maxX + "px";
+        box.style.top = Math.random() * maxY + "px";
     }
-}
 
-// End game
-function endGame() {
-    gameActive = false;
-    clearInterval(timer);
-    box.style.display = "none";
+    box.addEventListener("click", () => {
+        score++;
+        scoreEl.textContent = score;
+        moveBox();
+    });
 
-    setTimeout(() => {
-        alert(`Game Over!\nYour score: ${score}\nReload or refresh to play again.`);
-    }, 100);
-}
+    function startGame() {
+        score = 0;
+        timeLeft = 30;
+        scoreEl.textContent = score;
+        timeEl.textContent = timeLeft;
+        box.style.display = "block";
+        moveBox();
 
-// Auto-start game on page load
-window.onload = startGame;
+        clearInterval(timer);
+        timer = setInterval(() => {
+            timeLeft--;
+            timeEl.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                box.style.display = "none";
+                alert("Game Over! Score: " + score);
+            }
+        }, 1000);
+    }
+
+    startGame();
+};
 
