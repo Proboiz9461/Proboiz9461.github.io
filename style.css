@@ -1,63 +1,52 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* PAGE */
 body {
+    margin: 0;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    font-family: Arial, Helvetica, sans-serif;
-    color: #ffffff;
-    overflow: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
 }
 
-/* HUD */
-#hud {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+h1 {
+    margin-bottom: 20px;
+}
+
+#puzzle {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 8px;
+}
+
+.tile {
     display: flex;
-    gap: 40px;
-    font-size: 18px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px 25px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* GAME AREA */
-#gameArea {
-    position: relative;
-    width: 80vw;
-    height: 80vh;
-    border-radius: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
-}
-
-/* CLICK BOX */
-#box {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #00f2ff, #00c6ff);
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    background: cyan;
+    color: black;
     border-radius: 12px;
     cursor: pointer;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
-    transition: transform 0.1s ease;
+    box-shadow: 0 0 15px rgba(0,255,255,0.8);
+    user-select: none;
 }
 
-#box:active {
-    transform: scale(0.9);
+.empty {
+    background: transparent;
+    box-shadow: none;
+    cursor: default;
 }
 
+button {
+    margin-top: 25px;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background: cyan;
+    cursor: pointer;
+}
