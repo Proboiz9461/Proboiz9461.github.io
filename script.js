@@ -1,49 +1,54 @@
-window.onload = () => {
+const puzzle = document.getElementById("puzzle");
 
-    const box = document.getElementById("box");
-    const gameArea = document.getElementById("gameArea");
-    const scoreEl = document.getElementById("score");
-    const timeEl = document.getElementById("time");
+let tiles = [1, 2, 3, 4, 5, 6, 7, 8, null];
 
-    let score = 0;
-    let timeLeft = 30;
-    let timer;
+function drawPuzzle() {
+    puzzle.innerHTML = "";
 
-    function moveBox() {
-        const maxX = gameArea.clientWidth - box.clientWidth;
-        const maxY = gameArea.clientHeight - box.clientHeight;
+    tiles.forEach((value, index) => {
+        const tile = document.createElement("div");
 
-        box.style.left = Math.random() * maxX + "px";
-        box.style.top = Math.random() * maxY + "px";
-    }
+        if (value === null) {
+            tile.className = "tile empty";
+        } else {
+            tile.className = "tile";
+            tile.textContent = value;
+            tile.onclick = () => moveTile(index);
+        }
 
-    box.addEventListener("click", () => {
-        score++;
-        scoreEl.textContent = score;
-        moveBox();
+        puzzle.appendChild(tile);
     });
+}
 
-    function startGame() {
-        score = 0;
-        timeLeft = 30;
-        scoreEl.textContent = score;
-        timeEl.textContent = timeLeft;
-        box.style.display = "block";
-        moveBox();
+function moveTile(index) {
+    const emptyIndex = tiles.indexOf(null);
 
-        clearInterval(timer);
-        timer = setInterval(() => {
-            timeLeft--;
-            timeEl.textContent = timeLeft;
+    const validMoves = [
+        index - 1,
+        index + 1,
+        index - 3,
+        index + 3
+    ];
 
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                box.style.display = "none";
-                alert("Game Over! Score: " + score);
-            }
-        }, 1000);
+    if (validMoves.includes(emptyIndex)) {
+        [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+        drawPuzzle();
+        checkWin();
     }
+}
 
-    startGame();
-};
+function shuffle() {
+    for (let i = 0; i < 100; i++) {
+        const index = Math.floor(Math.random() * tiles.length);
+        moveTile(index);
+    }
+}
 
+function checkWin() {
+    const win = [1, 2, 3, 4, 5, 6, 7, 8, null];
+    if (tiles.every((v, i) => v === win[i])) {
+        setTimeout(() => alert("🎉 You solved the puzzle!"), 100);
+    }
+}
+
+drawPuzzle();
