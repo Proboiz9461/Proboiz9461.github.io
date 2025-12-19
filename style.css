@@ -1,52 +1,50 @@
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background: #0f2027;
     font-family: Arial, sans-serif;
     color: white;
 }
 
-h1 {
-    margin-bottom: 20px;
-}
-
+/* VERY IMPORTANT */
 #puzzle {
+    width: 320px;
+    height: 320px;
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 8px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.1);
+    padding: 8px;
+    border-radius: 12px;
 }
 
 .tile {
+    background: cyan;
+    color: black;
+    font-size: 32px;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
-    font-weight: bold;
-    background: cyan;
-    color: black;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(0,255,255,0.8);
-    user-select: none;
 }
 
 .empty {
     background: transparent;
-    box-shadow: none;
     cursor: default;
 }
 
 button {
-    margin-top: 25px;
-    padding: 10px 25px;
+    padding: 10px 24px;
     font-size: 16px;
-    border: none;
     border-radius: 20px;
-    background: cyan;
+    border: none;
     cursor: pointer;
 }
