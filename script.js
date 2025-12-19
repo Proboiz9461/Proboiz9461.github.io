@@ -33,21 +33,12 @@ function moveTile(index) {
     if (validMoves.includes(emptyIndex)) {
         [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
         drawPuzzle();
-        checkWin();
     }
 }
 
 function shuffle() {
     for (let i = 0; i < 100; i++) {
-        const index = Math.floor(Math.random() * tiles.length);
-        moveTile(index);
-    }
-}
-
-function checkWin() {
-    const win = [1, 2, 3, 4, 5, 6, 7, 8, null];
-    if (tiles.every((v, i) => v === win[i])) {
-        setTimeout(() => alert("🎉 You solved the puzzle!"), 100);
+        moveTile(Math.floor(Math.random() * tiles.length));
     }
 }
 
