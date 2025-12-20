@@ -1,6 +1,4 @@
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -13,65 +11,59 @@ body {
     color: white;
 }
 
-/* Glass container */
 #modeScreen, #game {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255,255,255,0.08);
     backdrop-filter: blur(18px);
     border-radius: 20px;
-    padding: 30px 40px;
+    padding: 30px;
     text-align: center;
-    box-shadow:
-        0 0 40px rgba(0, 255, 255, 0.25),
-        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 40px rgba(0,255,255,0.25);
 }
 
-/* Puzzle grid */
+#moves {
+    margin-bottom: 10px;
+}
+
 #puzzle {
-    width: 330px;
-    height: 330px;
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
-    margin: 20px auto;
+    gap: 5px;
 }
 
-/* Tiles */
 .tile {
-    background: linear-gradient(145deg, #00f2ff, #007a80);
-    color: black;
-    font-size: 32px;
-    font-weight: bold;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 12px;
+    background-image: url("puzzle.jpg");
+    background-size: 300px 300px;
     cursor: pointer;
-    box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.9),
-        inset 0 0 10px rgba(255, 255, 255, 0.5);
-    transition: transform 0.15s ease;
-}
-
-.tile:active {
-    transform: scale(0.95);
+    transition: transform 0.25s ease;
+    box-shadow: 0 0 15px rgba(0,255,255,0.8);
 }
 
 .empty {
-    background: transparent;
+    background: none;
     box-shadow: none;
     cursor: default;
 }
 
-/* Buttons */
+.win {
+    animation: glow 0.6s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 15px cyan; }
+    to { box-shadow: 0 0 40px cyan; }
+}
+
 button {
-    margin: 8px;
-    padding: 10px 26px;
-    font-size: 16px;
-    border-radius: 20px;
+    margin: 6px;
+    padding: 10px 22px;
+    border-radius: 18px;
     border: none;
     cursor: pointer;
     background: linear-gradient(135deg, #00f2ff, #008b8b);
     color: black;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
