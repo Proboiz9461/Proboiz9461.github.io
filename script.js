@@ -2,7 +2,6 @@
 // 3x3 SLIDING PUZZLE – FULL SCRIPT
 // ===============================
 
-// DOM
 const puzzle = document.getElementById("puzzle");
 
 // State
@@ -30,7 +29,7 @@ function drawPuzzle() {
 }
 
 // -------------------------------
-// MOVE TILE (USER MOVE)
+// MOVE TILE
 // -------------------------------
 function moveTile(index) {
     const emptyIndex = tiles.indexOf(null);
@@ -52,7 +51,7 @@ function moveTile(index) {
 }
 
 // -------------------------------
-// SHUFFLE (SAFE, ALWAYS SOLVABLE)
+// SHUFFLE (SAFE)
 // -------------------------------
 function shuffle() {
     for (let i = 0; i < 200; i++) {
@@ -75,7 +74,7 @@ function shuffle() {
 }
 
 // -------------------------------
-// SOLVER (BFS – SHORTEST PATH)
+// SOLVER (BFS)
 // -------------------------------
 function getNeighbors(state) {
     const neighbors = [];
@@ -137,11 +136,25 @@ function animateSolution(path) {
 }
 
 // -------------------------------
-// DEVTOOLS COMMAND
+// DEVTOOLS SOLVER (UNCHANGED)
 // -------------------------------
 window.solveWithSteps = () => {
     const solution = solvePuzzleBFS(tiles.slice());
     if (solution) animateSolution(solution);
+};
+
+// -------------------------------
+// PASSWORD-PROTECTED SOLVE BUTTON
+// -------------------------------
+window.solveWithPassword = () => {
+    const password = prompt("Enter solve password:");
+
+    if (password === "67") {
+        const solution = solvePuzzleBFS(tiles.slice());
+        if (solution) animateSolution(solution);
+    } else {
+        alert("Wrong password ❌");
+    }
 };
 
 // -------------------------------
