@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Sliding Puzzle</title>
-
-    <!-- CSS LINK -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Sliding Puzzle</h1>
+<!-- MODE SCREEN -->
+<div id="modeScreen">
+    <h1>Select Mode</h1>
+    <button onclick="startNormal()">Normal</button>
+    <button onclick="startAdmin()">Admin</button>
+</div>
 
-<div id="puzzle"></div>
+<!-- GAME -->
+<div id="game" style="display:none;">
+    <h1>Sliding Puzzle</h1>
 
-<button onclick="shuffle()">Shuffle</button>
-<button onclick="solveWithPassword()">Solve</button>
+    <div id="puzzle"></div>
 
+    <button onclick="shuffle()">Shuffle</button>
+    <button id="solveBtn" style="display:none;">Solve</button>
+</div>
 
-<!-- JS MUST BE LAST -->
-<script src="./script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-
