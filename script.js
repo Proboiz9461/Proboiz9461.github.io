@@ -3,10 +3,12 @@ const modeScreen = document.getElementById("modeScreen");
 const game = document.getElementById("game");
 const puzzle = document.getElementById("puzzle");
 
-// STATE
+// State
 let tiles = [1, 2, 3, 4, 5, 6, 7, 8, null];
 
+// ------------------
 // MODE
+// ------------------
 function startNormal() {
     modeScreen.style.display = "none";
     game.style.display = "block";
@@ -24,26 +26,67 @@ function startAdmin() {
     }
 }
 
+// ------------------
 // DRAW
+// ------------------
 function drawPuzzle() {
     puzzle.innerHTML = "";
+
     tiles.forEach((value, index) => {
         const tile = document.createElement("div");
-        tile.textContent = value ?? "";
-        tile.style.width = "100px";
-        tile.style.height = "100px";
-        tile.style.display = "inline-flex";
-        tile.style.alignItems = "center";
-        tile.style.justifyContent = "center";
-        tile.style.fontSize = "30px";
-        tile.style.border = "1px solid white";
-        tile.style.margin = "4px";
+
+        if (value === null) {
+            tile.className = "tile empty";
+        } else {
+            tile.className = "tile";
+            tile.textContent = value;
+            tile.onclick = () => moveTile(index);
+        }
+
         puzzle.appendChild(tile);
     });
 }
 
-// SHUFFLE
+// ------------------
+// REAL SLIDE LOGIC
+// ------------------
+function moveTile(index) {
+    const emptyIndex = tiles.indexOf(null);
+
+    const row = Math.floor(index / 3);
+    const col = index % 3;
+    const erow = Math.floor(emptyIndex / 3);
+    const ecol = emptyIndex % 3;
+
+    const isAdjacent =
+        (row === erow && Math.abs(col - ecol) === 1) ||
+        (col === ecol && Math.abs(row - erow) === 1);
+
+    if (isAdjacent) {
+        [tiles[index], tiles[emptyIndex]] =
+            [tiles[emptyIndex], tiles[index]];
+        drawPuzzle();
+    }
+}
+
+// ------------------
+// SAFE SHUFFLE
+// ------------------
 function shuffle() {
-    tiles.sort(() => Math.random() - 0.5);
+    for (let i = 0; i < 200; i++) {
+        const empty = tiles.indexOf(null);
+        const moves = [];
+
+        const r = Math.floor(empty / 3);
+        const c = empty % 3;
+
+        if (r > 0) moves.push(empty - 3);
+        if (r < 2) moves.push(empty + 3);
+        if (c > 0) moves.push(empty - 1);
+        if (c < 2) moves.push(empty + 1);
+
+        const m = moves[Math.floor(Math.random() * moves.length)];
+        [tiles[empty], tiles[m]] = [tiles[m], tiles[empty]];
+    }
     drawPuzzle();
 }
