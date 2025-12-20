@@ -1,50 +1,77 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0f2027;
+    background: radial-gradient(circle at top, #0ff, #001018 60%);
     font-family: Arial, sans-serif;
     color: white;
 }
 
+/* Glass container */
 #modeScreen, #game {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    padding: 30px 40px;
     text-align: center;
+    box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.25),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
+/* Puzzle grid */
 #puzzle {
-    width: 320px;
-    height: 320px;
+    width: 330px;
+    height: 330px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 8px;
+    gap: 10px;
     margin: 20px auto;
 }
 
+/* Tiles */
 .tile {
-    background: cyan;
+    background: linear-gradient(145deg, #00f2ff, #007a80);
     color: black;
     font-size: 32px;
     font-weight: bold;
+    border-radius: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
     cursor: pointer;
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.9),
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: transform 0.15s ease;
+}
+
+.tile:active {
+    transform: scale(0.95);
 }
 
 .empty {
     background: transparent;
+    box-shadow: none;
     cursor: default;
 }
 
+/* Buttons */
 button {
-    padding: 10px 24px;
     margin: 8px;
+    padding: 10px 26px;
     font-size: 16px;
     border-radius: 20px;
     border: none;
     cursor: pointer;
+    background: linear-gradient(135deg, #00f2ff, #008b8b);
+    color: black;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
