@@ -1,128 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+/* MOBILE APP LOOK */
+.launcher {
+  padding-bottom: 90px;
 }
 
-body {
-  background: radial-gradient(circle at top, #ff5fd2, #7f00ff, #12001a);
-  min-height: 100vh;
-  color: white;
-  overflow-x: hidden;
+.launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 30px;
 }
 
-/* NAV */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 10%;
-}
-
-.logo {
-  font-weight: 700;
-  font-size: 1.4rem;
-}
-
-.nav-links a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: white;
-  opacity: 0.8;
-}
-
-.nav-links a.active,
-.nav-links a:hover {
-  opacity: 1;
-}
-
-/* HERO */
-.hero {
-  height: 80vh;
+.launcher-tile {
+  height: 140px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 26px;
+  backdrop-filter: blur(18px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  animation: fadeUp 1.2s ease;
+  transition: 0.35s cubic-bezier(.2,.8,.2,1);
+  cursor: pointer;
 }
 
-.hero h2 {
-  font-size: 3rem;
+.launcher-tile span {
+  font-size: 2.2rem;
 }
 
-.cta {
-  margin-top: 20px;
-  padding: 12px 30px;
-  border-radius: 30px;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(12px);
-  color: white;
-  text-decoration: none;
-  transition: 0.3s;
+.launcher-tile:hover {
+  transform: scale(1.08) translateY(-6px);
 }
 
-.cta:hover {
-  transform: scale(1.08);
+/* PLAY MODE */
+.play-mode {
+  margin: 0;
+  background: black;
 }
 
-/* GAMES */
-.games {
-  padding: 60px 10%;
-}
-
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
-
-.game-card {
-  padding: 25px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(16px);
-  transition: transform 0.35s;
-}
-
-.game-card:hover {
-  transform: translateY(-10px) scale(1.03);
-}
-
-.game-card a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #ffd6ff;
-  text-decoration: none;
-}
-
-/* ABOUT */
-.about {
-  padding: 80px 15%;
-  animation: fadeUp 1s ease;
-}
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* PARTICLES */
-#particles span {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: rgba(255,255,255,0.5);
-  border-radius: 50%;
-  animation: float 20s linear infinite;
-}
-
-@keyframes float {
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
+iframe {
+  width: 100vw;
+  height: 100vh;
+  border: none;
 }
