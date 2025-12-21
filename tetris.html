@@ -14,8 +14,6 @@ html, body {
 }
 canvas {
   display: block;
-  margin: 0 auto;
-  background: #111;
 }
 </style>
 </head>
@@ -27,22 +25,23 @@ canvas {
 const canvas = document.getElementById("tetris");
 const ctx = canvas.getContext("2d");
 
+let arenaWidth = 12;
+let arenaHeight = 20;
+let blockSize;
+
+// Resize canvas and recalc blockSize
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  draw();
+  blockSize = Math.min(canvas.width / arenaWidth, canvas.height / arenaHeight);
 }
 window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
 // Sounds
 const moveS = new Audio("move.mp3");
 const rotateS = new Audio("rotate.mp3");
 const dropS = new Audio("drop.mp3");
-
-// Game variables
-let dropCounter = 0;
-let dropInterval = 500;
-let lastTime = 0;
 
 // Arena & player
 function createMatrix(w,h){return Array.from({length:h},()=>new Array(w).fill(0));}
@@ -55,7 +54,8 @@ function createPiece(type){
   if(type==='S') return [[0,6,6],[6,6,0],[0,0,0]];
   if(type==='Z') return [[7,7,0],[0,7,7],[0,0,0]];
 }
-const arena = createMatrix(12,20);
+
+const arena = createMatrix(arenaWidth,arenaHeight);
 const player = {pos:{x:0,y:0},matrix:null};
 
 // Collision
@@ -114,8 +114,8 @@ function drawMatrix(matrix,offset){
   matrix.forEach((row,y)=>{
     row.forEach((value,x)=>{
       if(value!==0){
-        ctx.fillStyle="hsl("+value*40+",80%,60%)";
-        ctx.fillRect(x+offset.x,y+offset.y,1,1);
+        ctx.fillStyle = `hsl(${value*40},80%,60%)`;
+        ctx.fillRect((x+offset.x)*blockSize,(y+offset.y)*blockSize,blockSize,blockSize);
       }
     });
   });
@@ -148,16 +148,18 @@ function playerDrop(){
 }
 
 // Animation
+let lastTime = 0;
+let dropCounter = 0;
+let dropInterval = 500;
 function update(time=0){
   const delta = time - lastTime;
   lastTime = time;
   dropCounter += delta;
-  if(dropCounter > dropInterval){ playerDrop(); dropCounter=0; }
+  if(dropCounter>dropInterval){ playerDrop(); dropCounter=0; }
   draw();
   requestAnimationFrame(update);
 }
 
-resizeCanvas();
 resetPlayer();
 update();
 </script>
