@@ -1,55 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Website</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="hero">
-    <h1>Welcome</h1>
-    <p>Student • Developer • Creator</p>
-    <button onclick="scrollToSection('projects')">View Projects</button>
-</header>
+<div id="particles"></div>
 
-<section class="about">
-    <h2>About Me</h2>
-    <p>
-        I am a student interested in coding, games, and creative web projects.
-        This website showcases my work and experiments.
-    </p>
+<nav>
+  <h1 class="logo">MyHub</h1>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h2>Welcome</h2>
+  <p>Games • Experiments • Creations</p>
+  <a class="cta" href="games.html">Enter Games Hub</a>
 </section>
 
-<section id="projects" class="projects">
-    <h2>Projects</h2>
-
-    <div class="card-grid">
-        <div class="card">
-            <h3>Game Project</h3>
-            <p>Simple web-based game using HTML, CSS and JavaScript.</p>
-            <a href="#">Open</a>
-        </div>
-
-        <div class="card">
-            <h3>Website UI</h3>
-            <p>Modern glass-style interface built for practice.</p>
-            <a href="#">Open</a>
-        </div>
-
-        <div class="card">
-            <h3>Mini Tool</h3>
-            <p>A small utility made with JavaScript.</p>
-            <a href="#">Open</a>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <p>© 2025 | Built with HTML, CSS & JS</p>
-</footer>
-
-<script src="script.js"></script>
+<script src="particles.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
