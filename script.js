@@ -158,3 +158,4 @@ puzzle.addEventListener("touchend", e => {
 function tryMove(i) {
     if (i >= 0 && i < 9) move(i);
 }
+
