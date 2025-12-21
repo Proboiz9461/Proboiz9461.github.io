@@ -13,7 +13,6 @@ body {
     justify-content: center;
     align-items: center;
 
-    /* Neon background */
     background:
         radial-gradient(circle at top, #00ffff, #001018 65%),
         linear-gradient(135deg, #001018, #000);
@@ -75,12 +74,12 @@ h1 {
     position: relative;
     border-radius: 14px;
 
-    /* Image */
+    /* Image (DO NOT set background-position here) */
     background-image: url("puzzle.png");
     background-size: 300px 300px;
     background-repeat: no-repeat;
 
-    /* Visual boost */
+    /* Image enhancement */
     filter: brightness(1.18) contrast(1.15) saturate(1.25);
 
     cursor: pointer;
@@ -96,7 +95,7 @@ h1 {
         filter 0.22s ease;
 }
 
-/* Overlay glow */
+/* Glow overlay */
 .tile::after {
     content: "";
     position: absolute;
