@@ -1,18 +1,47 @@
-alert("JS LOADED");
+// ================================
 // DOM
+// ================================
 const modeScreen = document.getElementById("modeScreen");
 const game = document.getElementById("game");
 const puzzle = document.getElementById("puzzle");
+const movesEl = document.getElementById("moves");
 
-// State
+// ================================
+// STATE
+// ================================
 let tiles = [1, 2, 3, 4, 5, 6, 7, 8, null];
+let moves = 0;
 
-// ------------------
+// ================================
 // MODE
-// ------------------
+// ================================
 function startNormal() {
     modeScreen.style.display = "none";
     game.style.display = "block";
+    init();
+}
+
+function startAdmin() {
+    const pwd = prompt("Enter admin password:");
+    if (pwd === "67") {
+        startNormal();
+    } else {
+        alert("Wrong password");
+    }
+}
+
+// ================================
+// INIT
+// ================================
+function init() {
+    moves = 0;
+    movesEl.textContent = "Moves: 0";
+    draw();
+}
+
+// ================================
+// DRAW
+// ================================
 function draw() {
     puzzle.innerHTML = "";
 
@@ -25,55 +54,107 @@ function draw() {
             tile.className = "tile";
             tile.style.backgroundPosition =
                 `${-((v - 1) % 3) * 100}px ${-Math.floor((v - 1) / 3) * 100}px`;
-            tile.textContent = ""; // IMPORTANT: remove numbers
             tile.onclick = () => move(i);
         }
 
         puzzle.appendChild(tile);
     });
-}
 
-
-// ------------------
-// REAL SLIDE LOGIC
-// ------------------
-function moveTile(index) {
-    const emptyIndex = tiles.indexOf(null);
-
-    const row = Math.floor(index / 3);
-    const col = index % 3;
-    const erow = Math.floor(emptyIndex / 3);
-    const ecol = emptyIndex % 3;
-
-    const isAdjacent =
-        (row === erow && Math.abs(col - ecol) === 1) ||
-        (col === ecol && Math.abs(row - erow) === 1);
-
-    if (isAdjacent) {
-        [tiles[index], tiles[emptyIndex]] =
-            [tiles[emptyIndex], tiles[index]];
-        drawPuzzle();
+    if (isSolved()) {
+        puzzle.classList.add("win");
+    } else {
+        puzzle.classList.remove("win");
     }
 }
 
-// ------------------
-// SAFE SHUFFLE
-// ------------------
+// ================================
+// MOVE LOGIC
+// ================================
+function move(index) {
+    const empty = tiles.indexOf(null);
+
+    const r = Math.floor(index / 3);
+    const c = index % 3;
+    const er = Math.floor(empty / 3);
+    const ec = empty % 3;
+
+    const adjacent =
+        (r === er && Math.abs(c - ec) === 1) ||
+        (c === ec && Math.abs(r - er) === 1);
+
+    if (!adjacent) return;
+
+    [tiles[index], tiles[empty]] = [tiles[empty], tiles[index]];
+    moves++;
+    movesEl.textContent = "Moves: " + moves;
+    draw();
+}
+
+// ================================
+// SHUFFLE (SOLVABLE)
+// ================================
 function shuffle() {
-    for (let i = 0; i < 200; i++) {
-        const empty = tiles.indexOf(null);
-        const moves = [];
-
-        const r = Math.floor(empty / 3);
-        const c = empty % 3;
-
-        if (r > 0) moves.push(empty - 3);
-        if (r < 2) moves.push(empty + 3);
-        if (c > 0) moves.push(empty - 1);
-        if (c < 2) moves.push(empty + 1);
-
-        const m = moves[Math.floor(Math.random() * moves.length)];
-        [tiles[empty], tiles[m]] = [tiles[m], tiles[empty]];
+    for (let i = 0; i < 150; i++) {
+        randomMove();
     }
-    drawPuzzle();
+    moves = 0;
+    movesEl.textContent = "Moves: 0";
+    draw();
+}
+
+function randomMove() {
+    const empty = tiles.indexOf(null);
+    const options = [];
+
+    const r = Math.floor(empty / 3);
+    const c = empty % 3;
+
+    if (r > 0) options.push(empty - 3);
+    if (r < 2) options.push(empty + 3);
+    if (c > 0) options.push(empty - 1);
+    if (c < 2) options.push(empty + 1);
+
+    const choice = options[Math.floor(Math.random() * options.length)];
+    [tiles[empty], tiles[choice]] = [tiles[choice], tiles[empty]];
+}
+
+// ================================
+// SOLVED CHECK
+// ================================
+function isSolved() {
+    for (let i = 0; i < 8; i++) {
+        if (tiles[i] !== i + 1) return false;
+    }
+    return tiles[8] === null;
+}
+
+// ================================
+// MOBILE SWIPE SUPPORT
+// ================================
+let startX = 0;
+let startY = 0;
+
+puzzle.addEventListener("touchstart", e => {
+    const t = e.touches[0];
+    startX = t.clientX;
+    startY = t.clientY;
+});
+
+puzzle.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+
+    const empty = tiles.indexOf(null);
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 40) tryMove(empty - 1);
+        else if (dx < -40) tryMove(empty + 1);
+    } else {
+        if (dy > 40) tryMove(empty - 3);
+        else if (dy < -40) tryMove(empty + 3);
+    }
+});
+
+function tryMove(i) {
+    if (i >= 0 && i < 9) move(i);
 }
