@@ -1,37 +1,188 @@
+/* ================================
+   GLOBAL RESET
+================================ */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: #f5f5f5;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at top, #00ffff, #001018 65%),
+        linear-gradient(135deg, #001018, #000);
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: white;
 }
 
+/* ================================
+   GLASS CONTAINERS
+================================ */
+#modeScreen,
+#game {
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    border-radius: 22px;
+    padding: 32px 40px;
+    text-align: center;
+
+    box-shadow:
+        0 0 45px rgba(0, 255, 255, 0.35),
+        inset 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+/* ================================
+   HEADINGS & TEXT
+================================ */
+h1 {
+    margin-top: 0;
+    letter-spacing: 1px;
+}
+
+#moves {
+    margin-bottom: 14px;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+/* ================================
+   PUZZLE GRID
+================================ */
 #puzzle {
-  width: 300px;
-  height: 300px;
-  margin: 20px auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+    width: 300px;
+    height: 300px;
+    margin: 22px auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
 }
 
+/* ================================
+   PUZZLE TILES (IMAGE + NEON)
+================================ */
 .tile {
-  width: 100px;
-  height: 100px;
-  background-image: url("image.jpg");
-  background-size: 300px 300px;
-  cursor: pointer;
+    position: relative;
+    border-radius: 14px;
+
+    /* Image (DO NOT set background-position here) */
+    background-image: url("puzzle.png");
+    background-size: 300px 300px;
+    background-repeat: no-repeat;
+
+    /* Image enhancement */
+    filter: brightness(1.18) contrast(1.15) saturate(1.25);
+
+    cursor: pointer;
+
+    /* Neon glow */
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 1),
+        inset 0 0 14px rgba(255, 255, 255, 0.35);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        filter 0.22s ease;
 }
 
+/* Glow overlay */
+.tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at top, rgba(0,255,255,0.35), transparent 70%);
+    pointer-events: none;
+}
+
+/* Hover / press */
+.tile:hover {
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 1),
+        inset 0 0 18px rgba(255, 255, 255, 0.45);
+}
+
+.tile:active {
+    transform: scale(0.94);
+}
+
+/* Empty tile */
 .empty {
-  background: #ddd;
-  cursor: default;
+    background: none;
+    box-shadow: none;
+    filter: none;
+    cursor: default;
 }
 
+/* ================================
+   BUTTONS (NEON GLASS)
+================================ */
 button {
-  padding: 10px 15px;
-  margin: 5px;
+    margin: 8px;
+    padding: 10px 28px;
+
+    font-size: 16px;
+    letter-spacing: 0.5px;
+
+    border-radius: 22px;
+    border: none;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, #00f2ff, #009999);
+    color: black;
+
+    box-shadow: 0 0 18px rgba(0,255,255,0.9);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+button:hover {
+    box-shadow: 0 0 28px rgba(0,255,255,1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* ================================
+   WIN EFFECT
+================================ */
+.win {
+    animation: winGlow 0.7s infinite alternate;
+}
+
+@keyframes winGlow {
+    from {
+        box-shadow: 0 0 25px rgba(0,255,255,0.8);
+    }
+    to {
+        box-shadow: 0 0 55px rgba(0,255,255,1);
+    }
+}
+
+/* ================================
+   MOBILE OPTIMIZATION
+================================ */
+@media (max-width: 400px) {
+    #puzzle {
+        width: 240px;
+        height: 240px;
+    }
+
+    .tile {
+        background-size: 240px 240px;
+    }
 }
