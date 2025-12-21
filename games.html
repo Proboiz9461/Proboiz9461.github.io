@@ -1,20 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Games Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Mobile App Feel -->
+    <meta name="theme-color" content="#7f00ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Optional particles -->
+<div id="particles"></div>
+
+<nav>
+    <h1 class="logo">MyHub</h1>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="games.html" class="active">Games</a>
+        <a href="about.html">About</a>
+    </div>
+</nav>
+
 <section class="games launcher">
-  <h2>Games</h2>
+    <h2>Games</h2>
 
-  <div class="launcher-grid">
-    <div class="launcher-tile" onclick="openGame('tetris.html')">
-      <span>🎮</span>
-      <h3>Tetris</h3>
-    </div>
+    <div class="launcher-grid">
+        <div class="launcher-tile" onclick="openGame('tetris.html')">
+            <span>🎮</span>
+            <h3>Tetris</h3>
+        </div>
 
-    <div class="launcher-tile" onclick="openGame('flappy.html')">
-      <span>🐦</span>
-      <h3>Flappy</h3>
-    </div>
+        <div class="launcher-tile" onclick="openGame('flappy.html')">
+            <span>🐦</span>
+            <h3>Flappy Bird</h3>
+        </div>
 
-    <div class="launcher-tile" onclick="openGame('puzzle.html')">
-      <span>🧩</span>
-      <h3>Puzzle</h3>
+        <div class="launcher-tile" onclick="openGame('puzzle.html')">
+            <span>🧩</span>
+            <h3>Sliding Puzzle</h3>
+        </div>
     </div>
-  </div>
 </section>
+
+<!-- Scripts -->
+<script src="particles.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>
