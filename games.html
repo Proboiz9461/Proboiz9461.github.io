@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Games Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ff92c4,#9b59b6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+.launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+  width: 90%;
+  max-width: 600px;
+}
+.launcher-tile {
+  height: 140px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 26px;
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: 0.35s cubic-bezier(.2,.8,.2,1);
+}
+.launcher-tile:hover {
+  transform: scale(1.08) translateY(-6px);
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+#gameContainer {
+  position: fixed;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background:black;
+  display:none;
+  z-index:100;
+}
+.closeBtn {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  z-index: 101;
+  font-size: 2rem;
+  background: rgba(255,255,255,0.3);
+  border: none;
+  border-radius: 12px;
+  padding: 5px 12px;
+  cursor: pointer;
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<h1>Games Hub</h1>
+<div class="launcher-grid">
+  <div class="launcher-tile" onclick="startGame('tetris')">Tetris</div>
+  <div class="launcher-tile" onclick="startGame('flappy')">Flappy Bird</div>
+</div>
+
+<div id="gameContainer"></div>
+<button class="closeBtn" onclick="closeGame()">✖</button>
+
+<script>
+// Sound effects
+const clickS = new Audio("drop.mp3");
+
+// Globals
+let currentGame = null;
+
+// Start game
+function startGame(game){
+  clickS.play().catch(()=>{});
+  const container = document.getElementById("gameContainer");
+  container.innerHTML = '';
+  container.style.display = 'block';
+  document.querySelector(".closeBtn").style.display = 'block';
+  
+  if(game==='tetris') startTetris(container);
+  if(game==='flappy') startFlappy(container);
+}
+
+// Close game
+function closeGame(){
+  const container = document.getElementById("gameContainer");
+  container.style.display = 'none';
+  container.innerHTML = '';
+  document.querySelector(".closeBtn").style.display = 'none';
+}
+
+// ---------------- TETRIS ----------------
+function startTetris(container){
+  const canvas = document.createElement('canvas');
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  let arenaWidth = 12;
+  let arenaHeight = 20;
+  let blockSize;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    blockSize = Math.min(canvas.width / arenaWidth, canvas.height / arenaHeight);
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const moveS = new Audio("move.mp3");
+  const rotateS = new Audio("rotate.mp3");
+  const dropS = new Audio("drop.mp3");
+
+  function createMatrix(w,h){return Array.from({length:h},()=>new Array(w).fill(0));}
+  function createPiece(type){
+    if(type==='T') return [[0,1,0],[1,1,1],[0,0,0]];
+    if(type==='O') return [[2,2],[2,2]];
+    if(type==='L') return [[0,3,0],[0,3,0],[0,3,3]];
+    if(type==='J') return [[0,4,0],[0,4,0],[4,4,0]];
+    if(type==='I') return [[0,5,0,0],[0,5,0,0],[0,5,0,0],[0,5,0,0]];
+    if(type==='S') return [[0,6,6],[6,6,0],[0,0,0]];
+    if(type==='Z') return [[7,7,0],[0,7,7],[0,0,0]];
+  }
+
+  const arena = createMatrix(arenaWidth,arenaHeight);
+  const player = {pos:{x:0,y:0},matrix:null};
+
+  function collide(arena, player){
+    const m = player.matrix, o = player.pos;
+    for(let y=0;y<m.length;y++){
+      for(let x=0;x<m[y].length;x++){
+        if(m[y][x]!==0 && (arena[y+o.y] && arena[y+o.y][x+o.x])!==0) return true;
+      }
+    }
+    return false;
+  }
+
+  function merge(arena,player){
+    player.matrix.forEach((row,y)=>{
+      row.forEach((value,x)=>{
+        if(value!==0) arena[y+player.pos.y][x+player.pos.x] = value;
+      });
+    });
+  }
+
+  function rotate(matrix){
+    matrix.forEach((row,i)=>{
+      for(let j=0;j<i;j++){
+        [row[j],matrix[j][i]]=[matrix[j][i],row[j]];
+      }
+    });
+    matrix.forEach(row=>row.reverse());
+  }
+
+  function arenaSweep(){
+    outer: for(let y=arena.length-1;y>0;y--){
+      for(let x=0;x<arena[y].length;x++){
+        if(arena[y][x]===0) continue outer;
+      }
+      arena.splice(y,1);
+      arena.unshift(new Array(arena[0].length).fill(0));
+      dropS.play().catch(()=>{});
+    }
+  }
+
+  function resetPlayer(){
+    const pieces = 'TJLOSZI';
+    player.matrix = createPiece(pieces[Math.random()*pieces.length|0]);
+    player.pos.y = 0;
+    player.pos.x = (arena[0].length/2|0) - (player.matrix[0].length/2|0);
+    if(collide(arena,player)) arena.forEach(row=>row.fill(0));
+  }
+
+  function drawMatrix(matrix,offset){
+    matrix.forEach((row,y)=>{
+      row.forEach((value,x)=>{
+        if(value!==0){
+          ctx.fillStyle = `hsl(${value*40},80%,60%)`;
+          ctx.fillRect((x+offset.x)*blockSize,(y+offset.y)*blockSize,blockSize,blockSize);
+        }
+      });
+    });
+  }
+
+  function draw(){
+    ctx.fillStyle="#000";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    drawMatrix(arena,{x:0,y:0});
+    drawMatrix(player.matrix,player.pos);
+  }
+
+  document.addEventListener("keydown", e=>{
+    if(e.key==="ArrowLeft"){ player.pos.x--; if(collide(arena,player)) player.pos.x++; else moveS.play().catch(()=>{}); }
+    if(e.key==="ArrowRight"){ player.pos.x++; if(collide(arena,player)) player.pos.x--; else moveS.play().catch(()=>{}); }
+    if(e.key==="ArrowDown") playerDrop();
+    if(e.key==="ArrowUp"){ rotate(player.matrix); if(collide(arena,player)) rotate(player.matrix); else rotateS.play().catch(()=>{}); }
+  });
+
+  function playerDrop(){
+    player.pos.y++;
+    if(collide(arena,player)){
+      player.pos.y--;
+      merge(arena,player);
+      resetPlayer();
+      arenaSweep();
+    }
+  }
+
+  let lastTime = 0;
+  let dropCounter = 0;
+  let dropInterval = 500;
+  function update(time=0){
+    const delta = time - lastTime;
+    lastTime = time;
+    dropCounter += delta;
+    if(dropCounter>dropInterval){ playerDrop(); dropCounter=0; }
+    draw();
+    if(container.style.display==='block') requestAnimationFrame(update);
+  }
+
+  resetPlayer();
+  update();
+}
+
+// ---------------- FLAPPY ----------------
+function startFlappy(container){
+  const canvas = document.createElement('canvas');
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  const flapS = new Audio("move.mp3");
+  const hitS = new Audio("hit.mp3");
+  const scoreS = new Audio("score.mp3");
+  const failS = new Audio("fail.mp3");
+  const levelupS = new Audio("levelup.mp3");
+
+  let bird = {x:50, y:canvas.height/2, v:0};
+  let pipes = [];
+  let score = 0;
+
+  function resetGame(){
+    bird.y = canvas.height/2;
+    bird.v = 0;
+    pipes = [];
+    score = 0;
+  }
+
+  function update(){
+    bird.v += 0.5;
+    bird.y += bird.v;
+    if(bird.y > canvas.height || bird.y < 0){ hitS.play().catch(()=>{}); resetGame(); }
+
+    if(pipes.length===0 || pipes[pipes.length-1].x < canvas.width-200){
+      pipes.push({x:canvas.width, gap:150+Math.random()*100});
+    }
+
+    pipes.forEach((p)=>{
+      p.x -= 2;
+      if(bird.x+30>p.x && bird.x<p.x+60 && (bird.y<p.gap-60 || bird.y>p.gap+60)){
+        hitS.play().catch(()=>{});
+        resetGame();
+      }
+      if(p.x+60 === bird.x){ score++; scoreS.play().catch(()=>{}); if(score%5===0) levelupS.play().catch(()=>{}); }
+    });
+    pipes = pipes.filter(p=>p.x+60>0);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="yellow";
+    ctx.fillRect(bird.x,bird.y,30,30);
+
+    ctx.fillStyle="green";
+    pipes.forEach(p=>{
+      ctx.fillRect(p.x,0,60,p.gap-60);
+      ctx.fillRect(p.x,p.gap+60,60,canvas.height);
+    });
+
+    ctx.fillStyle="white";
+    ctx.font="30px Arial";
+    ctx.fillText("Score: "+score,20,40);
+  }
+
+  document.addEventListener("keydown", ()=>{ bird.v=-7; flapS.play().catch(()=>{}); });
+  document.addEventListener("click", ()=>{ bird.v=-7; flapS.play().catch(()=>{}); });
+
+  function loop(){ update(); draw(); if(container.style.display==='block') requestAnimationFrame(loop); }
+  loop();
+}
+</script>
+
+</body>
+</html>
