@@ -1,44 +1,60 @@
-/* MOBILE APP LOOK */
+/* ===============================
+   MOBILE APP / LAUNCHER FIX
+================================ */
+
 .launcher {
-  padding-bottom: 90px;
+  padding: 40px 8% 90px;
 }
 
+/* FIXED GRID — responsive launcher */
 .launcher-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 18px;
   margin-top: 30px;
 }
 
+/* CLEAN TILE */
 .launcher-tile {
   height: 140px;
   background: rgba(255,255,255,0.22);
   border-radius: 26px;
   backdrop-filter: blur(18px);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: 0.35s cubic-bezier(.2,.8,.2,1);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
+/* ICON */
 .launcher-tile span {
   font-size: 2.2rem;
+  margin-bottom: 6px;
 }
 
+/* HOVER = LAUNCHER FEEL */
 .launcher-tile:hover {
-  transform: scale(1.08) translateY(-6px);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
 }
 
-/* PLAY MODE */
+/* ===============================
+   PLAY MODE FIX
+================================ */
+
 .play-mode {
   margin: 0;
   background: black;
+  overflow: hidden;
 }
 
+/* iframe overflow fix */
 iframe {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   border: none;
 }
