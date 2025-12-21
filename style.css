@@ -1,188 +1,84 @@
-/* ================================
-   GLOBAL RESET
-================================ */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    background:
-        radial-gradient(circle at top, #00ffff, #001018 65%),
-        linear-gradient(135deg, #001018, #000);
-
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: white;
-}
-
-/* ================================
-   GLASS CONTAINERS
-================================ */
-#modeScreen,
-#game {
-    background: rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-
-    border-radius: 22px;
-    padding: 32px 40px;
     text-align: center;
-
-    box-shadow:
-        0 0 45px rgba(0, 255, 255, 0.35),
-        inset 0 0 25px rgba(255, 255, 255, 0.08);
+    gap: 15px;
 }
 
-/* ================================
-   HEADINGS & TEXT
-================================ */
-h1 {
-    margin-top: 0;
-    letter-spacing: 1px;
+.hero h1 {
+    font-size: 3rem;
 }
 
-#moves {
-    margin-bottom: 14px;
-    font-size: 15px;
-    opacity: 0.9;
-}
-
-/* ================================
-   PUZZLE GRID
-================================ */
-#puzzle {
-    width: 300px;
-    height: 300px;
-    margin: 22px auto;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 8px;
-}
-
-/* ================================
-   PUZZLE TILES (IMAGE + NEON)
-================================ */
-.tile {
-    position: relative;
-    border-radius: 14px;
-
-    /* Image (DO NOT set background-position here) */
-    background-image: url("puzzle.png");
-    background-size: 300px 300px;
-    background-repeat: no-repeat;
-
-    /* Image enhancement */
-    filter: brightness(1.18) contrast(1.15) saturate(1.25);
-
-    cursor: pointer;
-
-    /* Neon glow */
-    box-shadow:
-        0 0 20px rgba(0, 255, 255, 1),
-        inset 0 0 14px rgba(255, 255, 255, 0.35);
-
-    transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        filter 0.22s ease;
-}
-
-/* Glow overlay */
-.tile::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 14px;
-    background:
-        radial-gradient(circle at top, rgba(0,255,255,0.35), transparent 70%);
-    pointer-events: none;
-}
-
-/* Hover / press */
-.tile:hover {
-    box-shadow:
-        0 0 30px rgba(0, 255, 255, 1),
-        inset 0 0 18px rgba(255, 255, 255, 0.45);
-}
-
-.tile:active {
-    transform: scale(0.94);
-}
-
-/* Empty tile */
-.empty {
-    background: none;
-    box-shadow: none;
-    filter: none;
-    cursor: default;
-}
-
-/* ================================
-   BUTTONS (NEON GLASS)
-================================ */
-button {
-    margin: 8px;
-    padding: 10px 28px;
-
-    font-size: 16px;
-    letter-spacing: 0.5px;
-
-    border-radius: 22px;
+.hero button {
+    padding: 10px 20px;
     border: none;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+    color: white;
     cursor: pointer;
-
-    background: linear-gradient(135deg, #00f2ff, #009999);
-    color: black;
-
-    box-shadow: 0 0 18px rgba(0,255,255,0.9);
-
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
+    backdrop-filter: blur(10px);
 }
 
-button:hover {
-    box-shadow: 0 0 28px rgba(0,255,255,1);
+.hero button:hover {
+    background: rgba(255,255,255,0.35);
 }
 
-button:active {
-    transform: scale(0.95);
+/* SECTIONS */
+section {
+    padding: 60px 10%;
 }
 
-/* ================================
-   WIN EFFECT
-================================ */
-.win {
-    animation: winGlow 0.7s infinite alternate;
+.about p {
+    max-width: 600px;
+    line-height: 1.6;
 }
 
-@keyframes winGlow {
-    from {
-        box-shadow: 0 0 25px rgba(0,255,255,0.8);
-    }
-    to {
-        box-shadow: 0 0 55px rgba(0,255,255,1);
-    }
+/* PROJECTS */
+.card-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-/* ================================
-   MOBILE OPTIMIZATION
-================================ */
-@media (max-width: 400px) {
-    #puzzle {
-        width: 240px;
-        height: 240px;
-    }
+.card {
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s;
+}
 
-    .tile {
-        background-size: 240px 240px;
-    }
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #aeeaff;
+    text-decoration: none;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.7;
 }
