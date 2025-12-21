@@ -1,3 +1,4 @@
+alert("JS LOADED");
 // DOM
 const modeScreen = document.getElementById("modeScreen");
 const game = document.getElementById("game");
