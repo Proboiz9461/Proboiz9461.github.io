@@ -1,46 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Games Hub</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+<section class="games launcher">
+  <h2>Games</h2>
 
-<nav>
-  <h1 class="logo">MyHub</h1>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="games.html" class="active">Games</a>
-    <a href="about.html">About</a>
-  </div>
-</nav>
-
-<section class="games">
-  <h2>Games Hub</h2>
-
-  <div class="game-grid">
-    <div class="game-card">
-      <h3>Sliding Puzzle</h3>
-      <p>Image puzzle game</p>
-      <a href="#">Play</a>
-    </div>
-
-    <div class="game-card">
+  <div class="launcher-grid">
+    <div class="launcher-tile" onclick="openGame('tetris.html')">
+      <span>🎮</span>
       <h3>Tetris</h3>
-      <p>Classic block game</p>
-      <a href="#">Play</a>
     </div>
 
-    <div class="game-card">
-      <h3>Flappy Bird</h3>
-      <p>Tap to fly</p>
-      <a href="#">Play</a>
+    <div class="launcher-tile" onclick="openGame('flappy.html')">
+      <span>🐦</span>
+      <h3>Flappy</h3>
+    </div>
+
+    <div class="launcher-tile" onclick="openGame('puzzle.html')">
+      <span>🧩</span>
+      <h3>Puzzle</h3>
     </div>
   </div>
 </section>
-
-<script src="main.js"></script>
-</body>
-</html>
