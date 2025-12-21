@@ -5,17 +5,22 @@ const modeScreen = document.getElementById("modeScreen");
 const game = document.getElementById("game");
 const puzzle = document.getElementById("puzzle");
 const movesEl = document.getElementById("moves");
+const solveBtn = document.getElementById("solveBtn");
 
 // ================================
 // STATE
 // ================================
 let tiles = [1, 2, 3, 4, 5, 6, 7, 8, null];
 let moves = 0;
+let isAdmin = false;
 
 // ================================
 // MODE
 // ================================
 function startNormal() {
+    isAdmin = false;
+    solveBtn.style.display = "none";
+
     modeScreen.style.display = "none";
     game.style.display = "block";
     init();
@@ -24,7 +29,12 @@ function startNormal() {
 function startAdmin() {
     const pwd = prompt("Enter admin password:");
     if (pwd === "67") {
-        startNormal();
+        isAdmin = true;
+        solveBtn.style.display = "inline-block";
+
+        modeScreen.style.display = "none";
+        game.style.display = "block";
+        init();
     } else {
         alert("Wrong password");
     }
@@ -119,6 +129,18 @@ function randomMove() {
 }
 
 // ================================
+// SOLVE (ADMIN ONLY)
+// ================================
+function solvePuzzle() {
+    if (!isAdmin) return;
+
+    tiles = [1, 2, 3, 4, 5, 6, 7, 8, null];
+    moves = 0;
+    movesEl.textContent = "Moves: 0";
+    draw();
+}
+
+// ================================
 // SOLVED CHECK
 // ================================
 function isSolved() {
@@ -158,4 +180,3 @@ puzzle.addEventListener("touchend", e => {
 function tryMove(i) {
     if (i >= 0 && i < 9) move(i);
 }
-
