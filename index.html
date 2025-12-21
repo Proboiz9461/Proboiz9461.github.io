@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Easy Slide Puzzle</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Sliding Puzzle</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Slide Puzzle Game</h1>
+<div id="modeScreen">
+    <h1>Select Mode</h1>
+    <button onclick="startNormal()">Normal</button>
+    <button onclick="startAdmin()">Admin</button>
+</div>
 
-  <div id="modeSelect">
-    <button id="normalBtn">Normal</button>
-    <button id="adminBtn">Admin</button>
-  </div>
+<div id="game" style="display:none;">
+    <h1>Sliding Puzzle</h1>
+    <div id="moves">Moves: 0</div>
+    <div id="puzzle"></div>
+    <button onclick="shuffle()">Shuffle</button>
+</div>
 
-  <div id="puzzle"></div>
-
-  <div class="buttons">
-    <button id="shuffleBtn">Shuffle</button>
-    <button id="solveBtn" disabled>Solve</button>
-  </div>
-
-  <p>Moves: <span id="moves">0</span></p>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
