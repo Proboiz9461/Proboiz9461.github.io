@@ -12,40 +12,26 @@ let tiles = [1, 2, 3, 4, 5, 6, 7, 8, null];
 function startNormal() {
     modeScreen.style.display = "none";
     game.style.display = "block";
-    drawPuzzle();
-}
-
-function startAdmin() {
-    const pwd = prompt("Enter admin password:");
-    if (pwd === "67") {
-        modeScreen.style.display = "none";
-        game.style.display = "block";
-        drawPuzzle();
-    } else {
-        alert("Wrong password");
-    }
-}
-
-// ------------------
-// DRAW
-// ------------------
-function drawPuzzle() {
+function draw() {
     puzzle.innerHTML = "";
 
-    tiles.forEach((value, index) => {
+    tiles.forEach((v, i) => {
         const tile = document.createElement("div");
 
-        if (value === null) {
+        if (v === null) {
             tile.className = "tile empty";
         } else {
             tile.className = "tile";
-            tile.textContent = value;
-            tile.onclick = () => moveTile(index);
+            tile.style.backgroundPosition =
+                `${-((v - 1) % 3) * 100}px ${-Math.floor((v - 1) / 3) * 100}px`;
+            tile.textContent = ""; // IMPORTANT: remove numbers
+            tile.onclick = () => move(i);
         }
 
         puzzle.appendChild(tile);
     });
 }
+
 
 // ------------------
 // REAL SLIDE LOGIC
