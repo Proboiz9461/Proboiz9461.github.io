@@ -1,7 +1,8 @@
 const puzzle = document.getElementById("puzzle");
 const shuffleBtn = document.getElementById("shuffleBtn");
-const adminBtn = document.getElementById("adminBtn");
 const solveBtn = document.getElementById("solveBtn");
+const normalBtn = document.getElementById("normalBtn");
+const adminBtn = document.getElementById("adminBtn");
 const movesText = document.getElementById("moves");
 
 let tiles = [];
@@ -35,15 +36,14 @@ function createPuzzle() {
 
 function moveTile(index) {
   const emptyIndex = tiles.findIndex(t => t.classList.contains("empty"));
-
-  const validMoves = [
+  const valid = [
     emptyIndex - 1,
     emptyIndex + 1,
     emptyIndex - 3,
     emptyIndex + 3
   ];
 
-  if (!validMoves.includes(index)) return;
+  if (!valid.includes(index)) return;
 
   puzzle.insertBefore(tiles[index], tiles[emptyIndex]);
   [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
@@ -53,17 +53,16 @@ function moveTile(index) {
 }
 
 function shufflePuzzle() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 80; i++) {
     const emptyIndex = tiles.findIndex(t => t.classList.contains("empty"));
-    const movesArr = [
+    const options = [
       emptyIndex - 1,
       emptyIndex + 1,
       emptyIndex - 3,
       emptyIndex + 3
     ].filter(i => i >= 0 && i < 9);
 
-    const rand = movesArr[Math.floor(Math.random() * movesArr.length)];
-    moveTile(rand);
+    moveTile(options[Math.floor(Math.random() * options.length)]);
   }
   moves = 0;
   movesText.textContent = moves;
@@ -72,15 +71,3 @@ function shufflePuzzle() {
 function solvePuzzle() {
   if (!adminAccess) return;
   createPuzzle();
-}
-
-adminBtn.addEventListener("click", () => {
-  adminAccess = true;
-  solveBtn.disabled = false;
-  alert("Admin access granted");
-});
-
-shuffleBtn.addEventListener("click", shufflePuzzle);
-solveBtn.addEventListener("click", solvePuzzle);
-
-createPuzzle();
