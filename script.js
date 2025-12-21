@@ -5,7 +5,6 @@ const modeScreen = document.getElementById("modeScreen");
 const game = document.getElementById("game");
 const puzzle = document.getElementById("puzzle");
 const movesEl = document.getElementById("moves");
-const solveBtn = document.getElementById("solveBtn");
 
 // ================================
 // STATE
@@ -19,21 +18,28 @@ let isAdmin = false;
 // ================================
 function startNormal() {
     isAdmin = false;
-    solveBtn.style.display = "none";
 
     modeScreen.style.display = "none";
     game.style.display = "block";
+
+    const solveBtn = document.getElementById("solveBtn");
+    solveBtn.style.display = "none";
+
     init();
 }
 
 function startAdmin() {
     const pwd = prompt("Enter admin password:");
+
     if (pwd === "67") {
         isAdmin = true;
-        solveBtn.style.display = "inline-block";
 
         modeScreen.style.display = "none";
         game.style.display = "block";
+
+        const solveBtn = document.getElementById("solveBtn");
+        solveBtn.style.display = "inline-block";
+
         init();
     } else {
         alert("Wrong password");
