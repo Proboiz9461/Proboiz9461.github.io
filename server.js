@@ -9,40 +9,34 @@ const io = new Server(server);
 app.use(express.json());
 app.use(express.static(__dirname));
 
-let rooms = {}; // { roomName: { password: hashed, users: [] } }
+let rooms = {};
 
-app.post('/create-room', (req, res) => {
-  const { name, password } = req.body;
-  if (rooms[name]) return res.json({ success: false, message: "Room already exists" });
-
-  const hashed = password ? Buffer.from(password).toString('base64') : null;
-  rooms[name] = { password: hashed, users: [] };
-  res.json({ success: true });
+app.post('/create-room',(req,res)=>{
+  const {name,password}=req.body;
+  if(rooms[name]) return res.json({success:false,message:"Room exists"});
+  rooms[name]={password:password?Buffer.from(password).toString('base64'):null, users:[]};
+  res.json({success:true});
 });
 
-app.post('/join-room', (req, res) => {
-  const { name, password, user } = req.body;
-  const room = rooms[name];
-  if (!room) return res.json({ success: false, message: "Room does not exist" });
-
-  const hashed = password ? Buffer.from(password).toString('base64') : null;
-  if (room.password && room.password !== hashed)
-    return res.json({ success: false, message: "Incorrect password" });
-
-  if (!room.users.includes(user)) room.users.push(user);
-  res.json({ success: true, users: room.users });
+app.post('/join-room',(req,res)=>{
+  const {name,password,user}=req.body;
+  const room=rooms[name];
+  if(!room) return res.json({success:false,message:"Room does not exist"});
+  const hashed = password?Buffer.from(password).toString('base64'):null;
+  if(room.password && room.password!==hashed) return res.json({success:false,message:"Incorrect password"});
+  if(!room.users.includes(user)) room.users.push(user);
+  res.json({success:true,users:room.users});
 });
 
-io.on('connection', socket => {
-  socket.on('joinRoom', ({ room, user }) => {
+io.on('connection', socket=>{
+  socket.on('joinRoom', ({room,user})=>{
     socket.join(room);
-    io.to(room).emit('updateUsers', { users: rooms[room].users });
+    io.to(room).emit('updateUsers',{users:rooms[room].users});
   });
-
-  socket.on('chatMessage', ({ room, user, message }) => {
-    io.to(room).emit('message', { user, message });
+  socket.on('chatMessage', ({room,user,message})=>{
+    io.to(room).emit('message',{user,message});
   });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT=process.env.PORT||3000;
+server.listen(PORT,()=>console.log(`Server running on port ${PORT}`));
