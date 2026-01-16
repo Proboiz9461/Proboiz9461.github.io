@@ -1,12 +1,12 @@
-// Firebase config
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_FIREBASE_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_FIREBASE_PROJECT_ID-default-rtdb.firebaseio.com",
-  projectId: "YOUR_FIREBASE_PROJECT_ID",
-  storageBucket: "YOUR_FIREBASE_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyD296o21zfBE3nBvedbPrgEnMrfQFUbvPU",
+  authDomain: "online-chat-app-8b344.firebaseapp.com",
+  databaseURL: "https://online-chat-app-8b344-default-rtdb.firebaseio.com",
+  projectId: "online-chat-app-8b344",
+  storageBucket: "online-chat-app-8b344.firebasestorage.app",
+  messagingSenderId: "464010409036",
+  appId: "1:464010409036:web:0df1cc7d85740e270eb0e9",
+  measurementId: "G-VJL1LCEGSB"
 };
 
 firebase.initializeApp(firebaseConfig);
