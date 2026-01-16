@@ -1,7 +1,6 @@
 {
   "name": "global-chat",
   "version": "1.0.0",
-  "description": "Online Global Chat with password rooms",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
