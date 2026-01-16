@@ -1,20 +1,16 @@
 body {
   font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  margin: 0;
+  background: linear-gradient(135deg,#4e54c8,#8f94fb);
+  color: white;
   transition: 0.3s;
 }
 
-body.dark {
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
-  color: white;
-}
-
 body.light {
-  background: linear-gradient(135deg, #ffecd2, #fcb69f);
+  background: linear-gradient(135deg,#ffecd2,#fcb69f);
   color: #222;
 }
 
@@ -22,105 +18,114 @@ body.light {
   position: fixed;
   top: 10px;
   right: 20px;
+  z-index: 10;
 }
 
-.container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 25px;
-  padding: 30px;
+.chat-container {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  height: 85vh;
   margin-top: 50px;
-  width: 400px;
-  max-width: 95%;
+  border-radius: 20px;
+  overflow: hidden;
   box-shadow: 0 0 30px rgba(0,0,0,0.3);
-  transition: 0.3s;
 }
 
-body.light .container {
-  background: rgba(255,255,255,0.5);
-}
-
-h1, h3 {
-  text-align: center;
-  margin: 0 0 10px 0;
-}
-
-.box {
-  margin-bottom: 20px;
-  padding: 20px;
+.sidebar {
+  width: 250px;
   background: rgba(255,255,255,0.05);
-  border-radius: 15px;
-  transition: 0.3s;
+  backdrop-filter: blur(15px);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
-body.light .box {
-  background: rgba(255,255,255,0.3);
-}
-
-input, button {
-  width: 100%;
-  padding: 12px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 12px;
-}
-
-input {
-  background-color: rgba(255,255,255,0.1);
-  color: white;
-}
-
-body.light input {
-  background-color: rgba(255,255,255,0.9);
+body.light .sidebar {
+  background: rgba(255,255,255,0.6);
   color: #222;
 }
 
-input::placeholder {
-  color: rgba(255,255,255,0.7);
+.sidebar h2 {
+  margin-top: 0;
+  text-align: center;
 }
 
-button {
+#roomList div {
+  padding: 8px;
+  margin: 5px 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+body.light #roomList div {
+  background: rgba(0,0,0,0.05);
+}
+
+#roomList div:hover {
+  background: #ff69b4;
+  color: white;
+}
+
+.create-room input, .create-room button {
+  margin: 5px 0;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+.create-room button {
   background: #ff69b4;
   color: white;
   cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
 }
 
-button:hover {
-  background: #ff85c1;
+.chat-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+}
+
+body.light .chat-panel {
+  background: rgba(255,255,255,0.6);
+  color: #222;
+}
+
+.chat-header {
+  padding: 15px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 #messages {
-  background: rgba(255,255,255,0.05);
-  height: 300px;
-  overflow-y: auto;
+  flex: 1;
   padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 20px;
-}
-
-body.light #messages {
-  background: rgba(255,255,255,0.3);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .message-bubble {
-  padding: 8px 15px;
-  border-radius: 20px;
-  margin-bottom: 5px;
-  max-width: 80%;
-  display: inline-block;
+  max-width: 70%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 15px;
   word-wrap: break-word;
   transition: 0.3s;
 }
 
 .message-bubble.me {
+  align-self: flex-end;
   background: #ff69b4;
   color: white;
-  align-self: flex-end;
 }
 
 .message-bubble.other {
+  align-self: flex-start;
   background: rgba(255,255,255,0.2);
   color: white;
 }
@@ -130,17 +135,44 @@ body.light .message-bubble.other {
   color: #222;
 }
 
-.user-list {
+.typing {
+  font-size: 0.8em;
   color: #ccc;
-  margin-bottom: 10px;
-  font-size: 0.9em;
-  text-align: center;
+  margin-left: 10px;
 }
 
 .message-input {
   display: flex;
   gap: 5px;
+  padding: 10px;
 }
+
 .message-input input {
   flex: 1;
+  padding: 10px;
+  border-radius: 15px;
+  border: none;
+}
+
+.message-input button {
+  border-radius: 10px;
+  border: none;
+  background: #ff69b4;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width:768px){
+  .chat-container{
+    flex-direction: column;
+    height: 90vh;
+  }
+  .sidebar{
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .chat-panel{
+    flex: 1;
+  }
 }
