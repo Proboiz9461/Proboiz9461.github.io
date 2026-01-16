@@ -1,11 +1,27 @@
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
   margin: 0;
+  transition: 0.3s;
+}
+
+body.dark {
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  color: white;
+}
+
+body.light {
+  background: linear-gradient(135deg, #ffecd2, #fcb69f);
+  color: #222;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 20px;
 }
 
 .container {
@@ -17,11 +33,15 @@ body {
   width: 400px;
   max-width: 95%;
   box-shadow: 0 0 30px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+body.light .container {
+  background: rgba(255,255,255,0.5);
 }
 
 h1, h3 {
   text-align: center;
-  color: #fff;
   margin: 0 0 10px 0;
 }
 
@@ -30,6 +50,11 @@ h1, h3 {
   padding: 20px;
   background: rgba(255,255,255,0.05);
   border-radius: 15px;
+  transition: 0.3s;
+}
+
+body.light .box {
+  background: rgba(255,255,255,0.3);
 }
 
 input, button {
@@ -43,6 +68,11 @@ input, button {
 input {
   background-color: rgba(255,255,255,0.1);
   color: white;
+}
+
+body.light input {
+  background-color: rgba(255,255,255,0.9);
+  color: #222;
 }
 
 input::placeholder {
@@ -68,11 +98,36 @@ button:hover {
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 20px;
+}
+
+body.light #messages {
+  background: rgba(255,255,255,0.3);
+}
+
+.message-bubble {
+  padding: 8px 15px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  max-width: 80%;
+  display: inline-block;
+  word-wrap: break-word;
+  transition: 0.3s;
+}
+
+.message-bubble.me {
+  background: #ff69b4;
+  color: white;
+  align-self: flex-end;
+}
+
+.message-bubble.other {
+  background: rgba(255,255,255,0.2);
   color: white;
 }
 
-#messages div {
-  margin-bottom: 5px;
+body.light .message-bubble.other {
+  background: #fff;
+  color: #222;
 }
 
 .user-list {
@@ -80,4 +135,12 @@ button:hover {
   margin-bottom: 10px;
   font-size: 0.9em;
   text-align: center;
+}
+
+.message-input {
+  display: flex;
+  gap: 5px;
+}
+.message-input input {
+  flex: 1;
 }
