@@ -1,76 +1,57 @@
-* {
-  box-sizing: border-box;
-  font-family: system-ui, sans-serif;
+:root {
+  --bg:#0b1220; --card:#121a2f; --me:#00e5ff; --other:#2a3555;
+  --text:#fff;
+}
+body[data-theme="light"]{
+  --bg:#f2f4f8; --card:#fff; --me:#0077ff; --other:#ddd; --text:#000;
 }
 
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:system-ui; height:100vh;
+  display:flex; justify-content:center; align-items:center;
 }
 
-#login, #chat {
-  width: 360px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(15px);
-  border-radius: 16px;
-  padding: 20px;
-  color: white;
+#login,#chat{
+  width:380px; background:var(--card);
+  border-radius:16px; padding:16px;
 }
 
-.hidden {
-  display: none;
+.hidden{display:none}
+
+header{
+  display:flex; justify-content:space-between;
+  margin-bottom:8px;
 }
 
-#login input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: none;
+#messages{
+  height:300px; overflow:auto; padding:8px;
 }
 
-#login button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: #00e5ff;
-  font-weight: bold;
-  cursor: pointer;
+.bubble{
+  max-width:70%; margin:6px 0;
+  padding:10px; border-radius:14px;
+}
+.me{
+  background:var(--me); color:black;
+  margin-left:auto;
+}
+.other{
+  background:var(--other);
 }
 
-#messages {
-  height: 300px;
-  overflow-y: auto;
-  margin-bottom: 10px;
+#users,#typing{
+  font-size:12px; opacity:.7; margin-bottom:4px;
 }
 
-.message {
-  margin-bottom: 8px;
+.input{
+  display:flex; gap:6px;
 }
-
-.input-area {
-  display: flex;
-  gap: 8px;
+.input input{
+  flex:1; padding:10px; border-radius:8px;
+  border:none;
 }
-
-.input-area input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
+.input button{
+  padding:10px; border-radius:8px;
+  background:var(--me); border:none;
 }
-
-.input-area button {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  background: #00e5ff;
-  font-weight: bold;
-  cursor: pointer;
-}
-V
