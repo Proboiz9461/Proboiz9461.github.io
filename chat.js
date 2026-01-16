@@ -1,60 +1,50 @@
-const socket = io();
+// Firebase config
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_FIREBASE_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_FIREBASE_PROJECT_ID-default-rtdb.firebaseio.com",
+  projectId: "YOUR_FIREBASE_PROJECT_ID",
+  storageBucket: "YOUR_FIREBASE_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
 let currentRoom = '';
 let username = '';
 let darkMode = true;
-let typingTimeout;
+let typingTimeout = null;
 
-// Request notification permission
-if("Notification" in window){
-  Notification.requestPermission();
-}
-
-function toggleTheme() {
+// Theme toggle
+function toggleTheme(){
   darkMode = !darkMode;
   document.body.className = darkMode ? 'dark' : 'light';
 }
 
-// Emoji support
+// Emoji insert
 function insertEmoji(emoji){
   const input = document.getElementById('messageInput');
   input.value += emoji;
 }
 
-// Create Room
+// Create room
 function createRoom(){
-  const name = document.getElementById('roomName').value.trim();
+  const roomName = document.getElementById('roomName').value.trim();
   const password = document.getElementById('roomPassword').value;
-  if(!name) return alert("Enter room name");
 
-  fetch('/create-room',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({name,password})
-  }).then(res=>res.json()).then(data=>{
-    if(data.success){
-      alert("Room created! Click on it in the list to join.");
-      addRoomToList(name);
-    } else alert(data.message);
-  });
-}
+  if(!roomName) return alert("Enter room name");
 
-// Join Room from list
-function joinRoomFromList(room){
-  const password = prompt("Enter room password (if any):") || '';
-  username = prompt("Enter your name:") || 'Guest';
-
-  fetch('/join-room',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({name:room,password,user:username})
-  }).then(res=>res.json()).then(data=>{
-    if(data.success){
-      currentRoom = room;
-      document.getElementById('messages').innerHTML='';
-      document.getElementById('chatHeader').textContent = "Room: "+room;
-      updateUsers(data.users);
-      socket.emit('joinRoom',{room:currentRoom,user:username});
-    } else alert(data.message);
+  const roomRef = db.ref('rooms/'+roomName);
+  roomRef.get().then(snapshot=>{
+    if(snapshot.exists()){
+      alert("Room already exists");
+    } else {
+      roomRef.set({ password: password || '', createdAt: Date.now() });
+      alert("Room created! Click on it to join.");
+      addRoomToList(roomName);
+    }
   });
 }
 
@@ -62,64 +52,75 @@ function joinRoomFromList(room){
 function addRoomToList(room){
   const div = document.createElement('div');
   div.textContent = room;
-  div.onclick = ()=>joinRoomFromList(room);
+  div.onclick = ()=>joinRoom(room);
   document.getElementById('roomList').appendChild(div);
 }
 
-// Typing indicator
-function typing(){
-  if(!currentRoom) return;
-  socket.emit('typing',{room:currentRoom,user:username});
-  clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(()=>{socket.emit('stopTyping',{room:currentRoom});},1000);
+// Join room
+function joinRoom(room){
+  const roomRef = db.ref('rooms/'+room);
+  roomRef.get().then(snapshot=>{
+    if(!snapshot.exists()) return alert("Room does not exist");
+    const pwd = snapshot.val().password;
+    if(pwd){
+      const entered = prompt("Enter room password:");
+      if(entered !== pwd) return alert("Incorrect password");
+    }
+    username = prompt("Enter your name:") || 'Guest';
+    currentRoom = room;
+    document.getElementById('chatHeader').textContent = "Room: "+room;
+    document.getElementById('messages').innerHTML = '';
+    listenMessages();
+  });
 }
 
 // Send message
 function sendMessage(){
   const msg = document.getElementById('messageInput').value.trim();
   if(!msg || !currentRoom) return;
-  socket.emit('chatMessage',{room:currentRoom,user:username,message:msg});
+  const messagesRef = db.ref('rooms/'+currentRoom+'/messages');
+  messagesRef.push({user: username, message: msg, timestamp: Date.now()});
   document.getElementById('messageInput').value='';
 }
 
-// Receive message
-socket.on('message', data=>{
-  const messagesDiv = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.classList.add('message-bubble');
-  div.classList.add(data.user===username?'me':'other');
-  const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-  div.textContent = `${data.user}: ${data.message} (${time})`;
-  messagesDiv.appendChild(div);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+// Listen for new messages
+function listenMessages(){
+  const messagesRef = db.ref('rooms/'+currentRoom+'/messages');
+  messagesRef.off(); // remove old listeners
+  messagesRef.on('child_added', snapshot=>{
+    const data = snapshot.val();
+    const div = document.createElement('div');
+    div.classList.add('message-bubble');
+    div.classList.add(data.user===username?'me':'other');
+    const time = new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    div.textContent = `${data.user}: ${data.message} (${time})`;
+    document.getElementById('messages').appendChild(div);
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 
-  // Push notification
-  if(document.hidden && data.user !== username){
-    if(Notification.permission==="granted"){
-      new Notification(`New message from ${data.user}`,{body:data.message});
+    // Play sound & notifications
+    if(data.user!==username){
+      document.getElementById('messageSound').play();
+      if(Notification.permission==="granted") new Notification(`New message from ${data.user}`,{body:data.message});
     }
-  }
-
-  // Play sound
-  if(data.user !== username){
-    document.getElementById('messageSound').play();
-  }
-});
-
-// Update users list
-socket.on('updateUsers', data=>{
-  updateUsers(data.users);
-});
-
-function updateUsers(users){
-  document.getElementById('typingIndicator').textContent = users.typing ? users.typing.join(', ') + " is typing..." : '';
+  });
 }
 
-// Typing indicators
-socket.on('userTyping', data=>{
-  document.getElementById('typingIndicator').textContent = `${data.user} is typing...`;
-});
+// Typing indicator
+function typing(){
+  if(!currentRoom) return;
+  const typingRef = db.ref('rooms/'+currentRoom+'/typing/'+username);
+  typingRef.set(true);
+  typingRef.onDisconnect().remove();
+  clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(()=>{typingRef.remove();},1000);
+}
 
-socket.on('userStopTyping', ()=>{
-  document.getElementById('typingIndicator').textContent = '';
-});
+// Listen typing
+function listenTyping(){
+  const typingRef = db.ref('rooms/'+currentRoom+'/typing');
+  typingRef.on('value', snapshot=>{
+    const users = Object.keys(snapshot.val() || {}).filter(u=>u!==username);
+    document.getElementById('typingIndicator').textContent = users.length>0 ? users.join(', ')+" is typing..." : '';
+  });
+}
+ 
