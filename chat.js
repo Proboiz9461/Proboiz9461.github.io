@@ -13,32 +13,28 @@ function insertEmoji(e) {
 }
 
 function createRoom() {
-  const name = roomName.value.trim();
-  if (!name) return alert("Room name required");
-  db.ref("rooms/" + name).set({ password: roomPassword.value });
+  const r = roomName.value.trim();
+  if (!r) return;
+  db.ref("rooms/" + r).set({ password: roomPassword.value });
 }
 
 function loadRooms() {
   db.ref("rooms").on("child_added", snap => {
-    const div = document.createElement("div");
-    div.textContent = snap.key;
-    div.onclick = () => joinRoom(snap.key);
-    roomList.appendChild(div);
+    const d = document.createElement("div");
+    d.textContent = snap.key;
+    d.onclick = () => joinRoom(snap.key);
+    roomList.appendChild(d);
   });
 }
 
 function joinRoom(r) {
   db.ref("rooms/" + r).get().then(snap => {
-    if (!snap.exists()) return;
     const pwd = snap.val().password;
-    if (pwd) {
-      const p = prompt("Room password:");
-      if (p !== pwd) return alert("Wrong password");
-    }
+    if (pwd && prompt("Password") !== pwd) return;
     user = prompt("Your name") || "Guest";
     room = r;
     messages.innerHTML = "";
-    chatHeader.textContent = "Room: " + r;
+    chatHeader.textContent = r;
     listenMessages();
   });
 }
@@ -57,10 +53,10 @@ function listenMessages() {
   db.ref(`rooms/${room}/messages`).off();
   db.ref(`rooms/${room}/messages`).on("child_added", snap => {
     const m = snap.val();
-    const div = document.createElement("div");
-    div.className = "bubble " + (m.user === user ? "me" : "other");
-    div.innerText = `${m.user}: ${m.text}`;
-    messages.appendChild(div);
+    const b = document.createElement("div");
+    b.className = "bubble " + (m.user === user ? "me" : "other");
+    b.textContent = `${m.user}: ${m.text}`;
+    messages.appendChild(b);
     messages.scrollTop = messages.scrollHeight;
   });
 }
@@ -70,7 +66,7 @@ function typing() {
   db.ref(`typing/${room}/${user}`).set(true);
   typingTimer = setTimeout(() => {
     db.ref(`typing/${room}/${user}`).remove();
-  }, 1000);
+  }, 800);
 }
 
 window.onload = loadRooms;
