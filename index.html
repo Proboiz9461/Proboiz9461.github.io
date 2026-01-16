@@ -2,63 +2,62 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shaurya | Games & Projects</title>
+<title>GLOBAL COMMAND – 3D EARTH</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Cesium -->
+<script src="https://unpkg.com/cesium@1.114/Build/Cesium/Cesium.js"></script>
+<link href="https://unpkg.com/cesium@1.114/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="bg-glow"></div>
+<div class="hud-frame"></div>
 
-<header class="hero">
-  <h1>Shaurya Chauhan</h1>
-  <p>7th A DPS • Coding • Games • Creative Tech</p>
-
-  <div class="hero-buttons">
-    <a href="#games" class="btn primary">🎮 Play Games</a>
-    <a href="#projects" class="btn">🚀 Projects</a>
-  </div>
+<header class="top-bar">
+  <span>◉ GLOBAL COMMAND ONLINE</span>
 </header>
 
-<section id="games" class="glass-section">
-  <h2>Games Hub</h2>
+<div id="cesiumContainer"></div>
 
-  <div class="grid">
-    <div class="card">
-      <h3>Flappy Bird</h3>
-      <p>Classic arcade flying challenge</p>
-      <a href="flappy.html" class="btn small">Play</a>
-    </div>
+<div class="hud-panel" id="hud">
+  CLICK ANYWHERE ON EARTH
+</div>
 
-    <div class="card">
-      <h3>Tetris</h3>
-      <p>Legendary block puzzle game</p>
-      <a href="tetris.html" class="btn small">Play</a>
-    </div>
-  </div>
-</section>
+<script>
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
-<section id="projects" class="glass-section">
-  <h2>Projects</h2>
+const viewer = new Cesium.Viewer("cesiumContainer", {
+  timeline:false,
+  animation:false,
+  baseLayerPicker:false,
+  geocoder:false,
+  homeButton:false,
+  sceneModePicker:false,
+  navigationHelpButton:false,
+  infoBox:false,
+  fullscreenButton:false
+});
 
-  <div class="grid">
-    <div class="card">
-      <h3>Game Launcher</h3>
-      <p>Mobile-style launcher UI</p>
-    </div>
+viewer.scene.globe.enableLighting = true;
 
-    <div class="card">
-      <h3>Web Experiments</h3>
-      <p>HTML, CSS, JavaScript projects</p>
-    </div>
-  </div>
-</section>
+viewer.camera.flyTo({
+  destination: Cesium.Cartesian3.fromDegrees(0, 20, 20000000)
+});
 
-<footer>
-  <p>© 2026 Shaurya • Built with HTML & CSS</p>
-</footer>
+/* CLICK COORDINATES */
+const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+handler.setInputAction(movement => {
+  const pos = viewer.camera.pickEllipsoid(movement.position);
+  if(pos){
+    const carto = Cesium.Cartographic.fromCartesian(pos);
+    document.getElementById("hud").innerText =
+      `LAT ${(Cesium.Math.toDegrees(carto.latitude)).toFixed(2)} | LNG ${(Cesium.Math.toDegrees(carto.longitude)).toFixed(2)}`;
+  }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+</script>
 
 </body>
 </html>
