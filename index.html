@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Global Chat</title>
+<title>Global Chat GOD</title>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="favicon.ico">
 
@@ -13,34 +13,34 @@
 <body class="dark">
 
 <header>
-  <h1>Global Chat</h1>
+  <span class="logo">GlobalChat</span>
   <button onclick="toggleTheme()">🌗</button>
 </header>
 
-<div class="container">
+<div class="app">
 
   <aside>
     <h2>Rooms</h2>
     <div id="roomList"></div>
 
-    <input id="roomName" placeholder="Room name">
+    <input id="roomName" placeholder="New room">
     <input id="roomPassword" type="password" placeholder="Password (optional)">
-    <button onclick="createRoom()">Create Room</button>
+    <button class="primary" onclick="createRoom()">Create</button>
   </aside>
 
-  <main>
+  <section class="chat">
     <div id="chatHeader">Select a room</div>
     <div id="messages"></div>
     <div id="typing"></div>
 
     <div class="input-bar">
-      <input id="messageInput" placeholder="Type a message" oninput="typing()">
-      <button onclick="sendMessage()">Send</button>
-      <button onclick="insertEmoji('😊')">😊</button>
+      <input id="messageInput" placeholder="Message…" oninput="typing()">
+      <button onclick="insertEmoji('🔥')">🔥</button>
       <button onclick="insertEmoji('😂')">😂</button>
       <button onclick="insertEmoji('❤️')">❤️</button>
+      <button class="primary" onclick="sendMessage()">Send</button>
     </div>
-  </main>
+  </section>
 
 </div>
 
