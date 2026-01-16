@@ -1,57 +1,58 @@
-:root {
-  --bg:#0b1220; --card:#121a2f; --me:#00e5ff; --other:#2a3555;
-  --text:#fff;
-}
-body[data-theme="light"]{
-  --bg:#f2f4f8; --card:#fff; --me:#0077ff; --other:#ddd; --text:#000;
-}
-
-body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:system-ui; height:100vh;
-  display:flex; justify-content:center; align-items:center;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1f1f1f;
+  color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#login,#chat{
-  width:380px; background:var(--card);
-  border-radius:16px; padding:16px;
+.container {
+  width: 500px;
+  max-width: 90%;
+  margin-top: 50px;
 }
 
-.hidden{display:none}
-
-header{
-  display:flex; justify-content:space-between;
-  margin-bottom:8px;
+input, button {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
 }
 
-#messages{
-  height:300px; overflow:auto; padding:8px;
+input {
+  background-color: #333;
+  color: white;
 }
 
-.bubble{
-  max-width:70%; margin:6px 0;
-  padding:10px; border-radius:14px;
-}
-.me{
-  background:var(--me); color:black;
-  margin-left:auto;
-}
-.other{
-  background:var(--other);
+button {
+  background-color: #ff69b4;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-#users,#typing{
-  font-size:12px; opacity:.7; margin-bottom:4px;
+button:hover {
+  background-color: #ff85c1;
 }
 
-.input{
-  display:flex; gap:6px;
+#messages {
+  height: 300px;
+  overflow-y: scroll;
+  background: #222;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
-.input input{
-  flex:1; padding:10px; border-radius:8px;
-  border:none;
+
+#messages div {
+  margin-bottom: 5px;
 }
-.input button{
-  padding:10px; border-radius:8px;
-  background:var(--me); border:none;
+
+.user-list {
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  color: #aaa;
 }
