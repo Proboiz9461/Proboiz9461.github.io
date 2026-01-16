@@ -1,113 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Realtime Chat</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Global Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
+<body>
+  <div class="container">
+    <h2>Global Chat</h2>
 
-<div id="login">
-  <h2>Join Chat</h2>
-  <input id="username" placeholder="Username">
-  <input id="room" placeholder="Room name">
-  <button onclick="join()">Join</button>
-</div>
+    <div id="createRoomContainer">
+      <input type="text" id="roomName" placeholder="Room Name" />
+      <input type="password" id="roomPassword" placeholder="Password (optional)" />
+      <button onclick="createRoom()">Create Room</button>
+    </div>
 
-<div id="chat" class="hidden">
+    <div id="joinRoomContainer">
+      <input type="text" id="joinRoomName" placeholder="Room to join" />
+      <input type="password" id="joinRoomPassword" placeholder="Password (if any)" />
+      <input type="text" id="username" placeholder="Your name" />
+      <button onclick="joinRoom()">Join Room</button>
+    </div>
 
-<header>
-  <span id="roomName"></span>
-  <button onclick="toggleTheme()">🌓</button>
-</header>
+    <div class="user-list" id="userList"></div>
+    <div id="messages"></div>
 
-<div id="users"></div>
+    <input type="text" id="messageInput" placeholder="Type a message" />
+    <button onclick="sendMessage()">Send</button>
+  </div>
 
-<div id="messages"></div>
-<div id="typing"></div>
-
-<div class="input">
-  <input id="msg" placeholder="Message">
-  <button onclick="send()">Send</button>
-</div>
-
-</div>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyD296o21zfBE3nBvedbPrgEnMrfQFUbvPU",
-  authDomain: "online-chat-app-8b344.firebaseapp.com",
-  databaseURL: "https://online-chat-app-8b344-default-rtdb.firebaseio.com",
-  projectId: "online-chat-app-8b344",
-};
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.database();
-let user="", room="", userRef, typingRef;
-
-function join(){
-  user = username.value.trim();
-  room = room.value.trim();
-  if(!user || !room) return;
-
-  login.style.display="none";
-  chat.classList.remove("hidden");
-  roomName.innerText = "Room: " + room;
-
-  userRef = db.ref(`rooms/${room}/users/${user}`);
-  userRef.set(true);
-  userRef.onDisconnect().remove();
-
-  typingRef = db.ref(`rooms/${room}/typing/${user}`);
-
-  listen();
-}
-
-function send(){
-  if(!msg.value.trim()) return;
-  db.ref(`rooms/${room}/messages`).push({
-    user, text: msg.value, time: Date.now()
-  });
-  msg.value="";
-  typingRef.remove();
-}
-
-msg.oninput = () => typingRef.set(true);
-
-function listen(){
-  db.ref(`rooms/${room}/messages`).limitToLast(100)
-  .on("child_added", snap=>{
-    const m=snap.val();
-    const div=document.createElement("div");
-    div.className = "bubble " + (m.user===user?"me":"other");
-    div.innerHTML = `<b>${m.user}</b><br>${m.text}`;
-    div.onclick = ()=> {
-      if(m.user===user) snap.ref.remove();
-    };
-    messages.appendChild(div);
-    messages.scrollTop=99999;
-  });
-
-  db.ref(`rooms/${room}/users`).on("value", snap=>{
-    users.innerText = "Online: " + Object.keys(snap.val()||{}).join(", ");
-  });
-
-  db.ref(`rooms/${room}/typing`).on("value", snap=>{
-    const list=Object.keys(snap.val()||{}).filter(u=>u!==user);
-    typing.innerText = list.length? list.join(", ")+" typing...":"";
-  });
-}
-
-function toggleTheme(){
-  document.body.dataset.theme =
-    document.body.dataset.theme==="dark"?"light":"dark";
-}
-</script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>
-
