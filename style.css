@@ -1,44 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Global Chat</title>
+body {
+  margin: 0;
+  background: #0f172a;
+  color: white;
+  font-family: Arial;
+}
 
-<link rel="stylesheet" href="style.css">
+#app {
+  display: flex;
+  height: 100vh;
+}
 
-<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
-</head>
+aside {
+  width: 260px;
+  background: #020617;
+  padding: 10px;
+  overflow-y: auto;
+}
 
-<body>
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-<div id="app">
+#chatHeader {
+  padding: 10px;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
 
-  <aside>
-    <h2>Rooms</h2>
-    <div id="roomList"></div>
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
 
-    <input id="roomName" placeholder="Room name">
-    <input id="roomPassword" placeholder="Password (optional)">
-    <button id="createBtn">Create Room</button>
-  </aside>
+.bubble {
+  max-width: 70%;
+  padding: 8px;
+  margin: 6px;
+  border-radius: 12px;
+  background: #1e293b;
+}
 
-  <main>
-    <div id="chatHeader">Select a room</div>
+.me {
+  background: #6366f1;
+  margin-left: auto;
+}
 
-    <div id="onlineUsers"></div>
-
-    <div id="messages"></div>
-
-    <div class="input">
-      <input id="messageInput" placeholder="Message">
-      <button id="sendBtn">Send</button>
-    </div>
-  </main>
-
-</div>
-
-<script src="firebase.js"></script>
-<script src="chat.js"></script>
-</body>
-</html>
+.input {
+  display: flex;
+  padding: 10px;
+  gap: 5px;
+}
