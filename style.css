@@ -1,55 +1,89 @@
-body {
-  margin: 0;
-  background: #0f172a;
-  color: white;
-  font-family: Arial;
+let room = "";
+let user = "";
+let isAdmin = false;
+
+/* ADMIN CHECK */
+function checkAdmin(name) {
+  if (name === "Shaurya Chauhan") isAdmin = true;
 }
 
-#app {
-  display: flex;
-  height: 100vh;
+/* CREATE ROOM */
+createBtn.onclick = () => {
+  if (!roomName.value) return;
+  db.ref("rooms/" + roomName.value).set({});
+};
+
+/* LOAD ROOMS */
+db.ref("rooms").on("child_added", snap => {
+  const div = document.createElement("div");
+  div.textContent = snap.key;
+  div.onclick = () => joinRoom(snap.key);
+  roomList.appendChild(div);
+});
+
+/* JOIN ROOM */
+function joinRoom(r) {
+  room = r;
+  user = prompt("Your name");
+  if (!user) return;
+
+  checkAdmin(user);
+  messages.innerHTML = "";
+  chatHeader.innerHTML = `Room: ${r} ${isAdmin ? "👑" : ""}`;
+
+  /* ONLINE */
+  db.ref(`online/${room}/${user}`).set(true);
+  db.ref(`online/${room}/${user}`).onDisconnect().remove();
+
+  db.ref(`online/${room}`).on("value", snap => {
+    onlineUsers.innerHTML = "";
+    snap.forEach(u => onlineUsers.innerHTML += `<div>${u.key}</div>`);
+  });
+
+  /* MESSAGES */
+  db.ref("rooms/" + room + "/messages").off();
+  db.ref("rooms/" + room + "/messages").on("child_added", snap => {
+    const m = snap.val();
+    const div = document.createElement("div");
+    div.className = "bubble " + (m.user === user ? "me" : "");
+
+    div.innerHTML = `
+      <b>${m.user}${m.admin ? " ✅" : ""}</b><br>
+      ${m.text}
+      <div>
+        <span onclick="react('${snap.key}','👍')">👍</span>
+        <span onclick="react('${snap.key}','😂')">😂</span>
+        <span onclick="react('${snap.key}','❤️')">❤️</span>
+      </div>
+    `;
+
+    if (isAdmin) {
+      const del = document.createElement("button");
+      del.textContent = "🗑";
+      del.onclick = () =>
+        db.ref(`rooms/${room}/messages/${snap.key}`).remove();
+      div.appendChild(del);
+    }
+
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  });
 }
 
-aside {
-  width: 260px;
-  background: #020617;
-  padding: 10px;
-  overflow-y: auto;
-}
+/* SEND */
+sendBtn.onclick = () => {
+  if (!messageInput.value || !room) return;
+  db.ref(`rooms/${room}/messages`).push({
+    user,
+    text: messageInput.value,
+    admin: isAdmin,
+    time: Date.now()
+  });
+  messageInput.value = "";
+};
 
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-#chatHeader {
-  padding: 10px;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-}
-
-#messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.bubble {
-  max-width: 70%;
-  padding: 8px;
-  margin: 6px;
-  border-radius: 12px;
-  background: #1e293b;
-}
-
-.me {
-  background: #6366f1;
-  margin-left: auto;
-}
-
-.input {
-  display: flex;
-  padding: 10px;
-  gap: 5px;
+/* REACT */
+function react(id, emoji) {
+  db.ref(`rooms/${room}/messages/${id}/reactions/${emoji}`)
+    .transaction(n => (n || 0) + 1);
 }
