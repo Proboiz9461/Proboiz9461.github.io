@@ -2,11 +2,9 @@ let room = "";
 let user = "";
 let isAdmin = false;
 
-/* GOD ADMIN CHECK */
+/* ADMIN CHECK */
 function checkAdmin(name) {
-  if (name === "Shaurya Chauhan") {
-    isAdmin = true;
-  }
+  if (name === "Shaurya Chauhan") isAdmin = true;
 }
 
 /* CREATE ROOM */
@@ -30,10 +28,19 @@ function joinRoom(r) {
   if (!user) return;
 
   checkAdmin(user);
-
   messages.innerHTML = "";
   chatHeader.innerHTML = `Room: ${r} ${isAdmin ? "👑" : ""}`;
 
+  /* ONLINE */
+  db.ref(`online/${room}/${user}`).set(true);
+  db.ref(`online/${room}/${user}`).onDisconnect().remove();
+
+  db.ref(`online/${room}`).on("value", snap => {
+    onlineUsers.innerHTML = "";
+    snap.forEach(u => onlineUsers.innerHTML += `<div>${u.key}</div>`);
+  });
+
+  /* MESSAGES */
   db.ref("rooms/" + room + "/messages").off();
   db.ref("rooms/" + room + "/messages").on("child_added", snap => {
     const m = snap.val();
@@ -43,15 +50,18 @@ function joinRoom(r) {
     div.innerHTML = `
       <b>${m.user}${m.admin ? " ✅" : ""}</b><br>
       ${m.text}
+      <div>
+        <span onclick="react('${snap.key}','👍')">👍</span>
+        <span onclick="react('${snap.key}','😂')">😂</span>
+        <span onclick="react('${snap.key}','❤️')">❤️</span>
+      </div>
     `;
 
-    /* ADMIN DELETE */
     if (isAdmin) {
       const del = document.createElement("button");
       del.textContent = "🗑";
-      del.onclick = () => {
-        db.ref("rooms/" + room + "/messages/" + snap.key).remove();
-      };
+      del.onclick = () =>
+        db.ref(`rooms/${room}/messages/${snap.key}`).remove();
       div.appendChild(del);
     }
 
@@ -60,16 +70,20 @@ function joinRoom(r) {
   });
 }
 
-/* SEND MESSAGE */
+/* SEND */
 sendBtn.onclick = () => {
   if (!messageInput.value || !room) return;
-
-  db.ref("rooms/" + room + "/messages").push({
+  db.ref(`rooms/${room}/messages`).push({
     user,
     text: messageInput.value,
     admin: isAdmin,
     time: Date.now()
   });
-
   messageInput.value = "";
 };
+
+/* REACT */
+function react(id, emoji) {
+  db.ref(`rooms/${room}/messages/${id}/reactions/${emoji}`)
+    .transaction(n => (n || 0) + 1);
+}
