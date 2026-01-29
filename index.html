@@ -1,44 +1,75 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Global Chat</title>
+let room = "";
+let user = "";
+let isAdmin = false;
 
-<link rel="stylesheet" href="style.css">
+/* GOD ADMIN CHECK */
+function checkAdmin(name) {
+  if (name === "Shaurya Chauhan") {
+    isAdmin = true;
+  }
+}
 
-<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
-</head>
+/* CREATE ROOM */
+createBtn.onclick = () => {
+  if (!roomName.value) return;
+  db.ref("rooms/" + roomName.value).set({});
+};
 
-<body>
+/* LOAD ROOMS */
+db.ref("rooms").on("child_added", snap => {
+  const div = document.createElement("div");
+  div.textContent = snap.key;
+  div.onclick = () => joinRoom(snap.key);
+  roomList.appendChild(div);
+});
 
-<div id="app">
+/* JOIN ROOM */
+function joinRoom(r) {
+  room = r;
+  user = prompt("Your name");
+  if (!user) return;
 
-  <aside>
-    <h2>Rooms</h2>
-    <div id="roomList"></div>
+  checkAdmin(user);
 
-    <input id="roomName" placeholder="Room name">
-    <input id="roomPassword" placeholder="Password (optional)">
-    <button id="createBtn">Create Room</button>
-  </aside>
+  messages.innerHTML = "";
+  chatHeader.innerHTML = `Room: ${r} ${isAdmin ? "👑" : ""}`;
 
-  <main>
-    <div id="chatHeader">Select a room</div>
+  db.ref("rooms/" + room + "/messages").off();
+  db.ref("rooms/" + room + "/messages").on("child_added", snap => {
+    const m = snap.val();
+    const div = document.createElement("div");
+    div.className = "bubble " + (m.user === user ? "me" : "");
 
-    <div id="onlineUsers"></div>
+    div.innerHTML = `
+      <b>${m.user}${m.admin ? " ✅" : ""}</b><br>
+      ${m.text}
+    `;
 
-    <div id="messages"></div>
+    /* ADMIN DELETE */
+    if (isAdmin) {
+      const del = document.createElement("button");
+      del.textContent = "🗑";
+      del.onclick = () => {
+        db.ref("rooms/" + room + "/messages/" + snap.key).remove();
+      };
+      div.appendChild(del);
+    }
 
-    <div class="input">
-      <input id="messageInput" placeholder="Message">
-      <button id="sendBtn">Send</button>
-    </div>
-  </main>
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  });
+}
 
-</div>
+/* SEND MESSAGE */
+sendBtn.onclick = () => {
+  if (!messageInput.value || !room) return;
 
-<script src="firebase.js"></script>
-<script src="chat.js"></script>
-</body>
-</html>
+  db.ref("rooms/" + room + "/messages").push({
+    user,
+    text: messageInput.value,
+    admin: isAdmin,
+    time: Date.now()
+  });
+
+  messageInput.value = "";
+};
