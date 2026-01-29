@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Global Chat</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database-compat.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+  <aside>
+    <h2>Rooms</h2>
+    <div id="roomList"></div>
+
+    <input id="roomName" placeholder="Room name">
+    <input id="roomPassword" placeholder="Password (optional)">
+    <button id="createBtn">Create Room</button>
+  </aside>
+
+  <main>
+    <div id="chatHeader">Select a room</div>
+
+    <div id="onlineUsers"></div>
+
+    <div id="messages"></div>
+
+    <div class="input">
+      <input id="messageInput" placeholder="Message">
+      <button id="sendBtn">Send</button>
+    </div>
+  </main>
+
+</div>
+
+<script src="firebase.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>
