@@ -1,12 +1,27 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAnd61h85OmJiC19GqpT4lpvSBpDExDzpM",
-  authDomain: "chat-5298d.firebaseapp.com",
-  projectId: "chat-5298d",
-  storageBucket: "chat-5298d.firebasestorage.app",
-  messagingSenderId: "24015709772",
-  appId: "1:24015709772:web:3442ad774b8b59138676e9",
-  measurementId: "G-Q1DCB9X2Q3"
-};
+const circle = document.getElementById("circle");
+const text = document.getElementById("text");
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+let breathing = false;
+let interval;
+
+function startBreathing() {
+  if (breathing) return;
+  breathing = true;
+
+  text.innerText = "Inhale";
+  circle.style.transform = "scale(1.4)";
+
+  interval = setInterval(() => {
+    text.innerText = "Inhale";
+    circle.style.transform = "scale(1.4)";
+
+    setTimeout(() => {
+      text.innerText = "Hold";
+    }, 4000);
+
+    setTimeout(() => {
+      text.innerText = "Exhale";
+      circle.style.transform = "scale(1)";
+    }, 7000);
+  }, 12000);
+}
