@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let startTime, interval;
   let running = false;
-  let lapCount = 1;
+  let eventCount = 1;
 
   const timer = document.getElementById("timer");
   const solo = document.getElementById("solo");
@@ -40,17 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
       `${String(ms).padStart(2, "0")}`;
   }
 
-  window.stopTimer = function () {
-    clearInterval(interval);
-    running = false;
+  function logEvent(label) {
+    const li = document.createElement("li");
+    li.textContent = `${eventCount++}. ${label} — ${timer.innerText}`;
+    laps.appendChild(li);
+  }
+
+  window.withAir = function () {
+    if (!running) return;
+    logEvent("With Air 🌬️");
   };
 
-  window.lapTimer = function () {
+  window.withoutAir = function () {
     if (!running) return;
-
-    const li = document.createElement("li");
-    li.innerText = `Lap ${lapCount++} — ${timer.innerText}`;
-    laps.appendChild(li);
+    logEvent("Without Air 🚫");
   };
 
 });
