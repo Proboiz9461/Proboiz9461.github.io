@@ -4,38 +4,39 @@
   <meta charset="UTF-8" />
   <title>Breathers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Breathers – Relax. Breathe. Reset.">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
 </head>
 
 <body>
-  <header>
-    <h1>🌬️ BREATHERS</h1>
-    <p>Relax • Breathe • Reset</p>
-    <button onclick="startBreathing()">Start Breathing</button>
-  </header>
 
-  <main>
-    <section class="card">
-      <h2>Why Breathers?</h2>
-      <p>
-        Breathers helps you calm your mind using guided breathing,
-        smooth visuals, and relaxing animations.
-      </p>
-    </section>
+<header>
+  <h1>🌬️ BREATHERS</h1>
+  <p>Choose your mode</p>
+</header>
 
-    <section class="breathing-area">
-      <div class="circle" id="circle">
-        <span id="text">Ready?</span>
-      </div>
-    </section>
-  </main>
+<section class="modes">
+  <button onclick="openSolo()">Solo</button>
+  <button onclick="openDuo()">Duo</button>
+  <button onclick="openCustom()">Custom</button>
+</section>
 
-  <footer>
-    <p>© 2026 Breathers • Made by Shaurya</p>
-  </footer>
+<section class="solo hidden" id="solo">
+  <h2>Solo Breathing Session</h2>
 
-  <script src="script.js"></script>
+  <div class="timer" id="timer">00:00.00</div>
+
+  <div class="controls">
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="lapTimer()">Lap</button>
+  </div>
+
+  <ul class="laps" id="laps"></ul>
+</section>
+
+<footer>
+  © 2026 Breathers
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
