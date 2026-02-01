@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Breathers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
@@ -11,7 +11,7 @@
 
 <header>
   <h1>🌬️ BREATHERS</h1>
-  <p>Choose your mode</p>
+  <p>Choose your breathing mode</p>
 </header>
 
 <section class="modes">
@@ -26,8 +26,8 @@
   <div class="timer" id="timer">00:00.00</div>
 
   <div class="controls">
-    <button onclick="stopTimer()">Stop</button>
-    <button onclick="lapTimer()">Lap</button>
+    <button class="air" onclick="withAir()">With Air</button>
+    <button class="no-air" onclick="withoutAir()">Without Air</button>
   </div>
 
   <ul class="laps" id="laps"></ul>
