@@ -1,89 +1,81 @@
-let room = "";
-let user = "";
-let isAdmin = false;
-
-/* ADMIN CHECK */
-function checkAdmin(name) {
-  if (name === "Shaurya Chauhan") isAdmin = true;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* CREATE ROOM */
-createBtn.onclick = () => {
-  if (!roomName.value) return;
-  db.ref("rooms/" + roomName.value).set({});
-};
-
-/* LOAD ROOMS */
-db.ref("rooms").on("child_added", snap => {
-  const div = document.createElement("div");
-  div.textContent = snap.key;
-  div.onclick = () => joinRoom(snap.key);
-  roomList.appendChild(div);
-});
-
-/* JOIN ROOM */
-function joinRoom(r) {
-  room = r;
-  user = prompt("Your name");
-  if (!user) return;
-
-  checkAdmin(user);
-  messages.innerHTML = "";
-  chatHeader.innerHTML = `Room: ${r} ${isAdmin ? "👑" : ""}`;
-
-  /* ONLINE */
-  db.ref(`online/${room}/${user}`).set(true);
-  db.ref(`online/${room}/${user}`).onDisconnect().remove();
-
-  db.ref(`online/${room}`).on("value", snap => {
-    onlineUsers.innerHTML = "";
-    snap.forEach(u => onlineUsers.innerHTML += `<div>${u.key}</div>`);
-  });
-
-  /* MESSAGES */
-  db.ref("rooms/" + room + "/messages").off();
-  db.ref("rooms/" + room + "/messages").on("child_added", snap => {
-    const m = snap.val();
-    const div = document.createElement("div");
-    div.className = "bubble " + (m.user === user ? "me" : "");
-
-    div.innerHTML = `
-      <b>${m.user}${m.admin ? " ✅" : ""}</b><br>
-      ${m.text}
-      <div>
-        <span onclick="react('${snap.key}','👍')">👍</span>
-        <span onclick="react('${snap.key}','😂')">😂</span>
-        <span onclick="react('${snap.key}','❤️')">❤️</span>
-      </div>
-    `;
-
-    if (isAdmin) {
-      const del = document.createElement("button");
-      del.textContent = "🗑";
-      del.onclick = () =>
-        db.ref(`rooms/${room}/messages/${snap.key}`).remove();
-      div.appendChild(del);
-    }
-
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-  });
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  text-align: center;
 }
 
-/* SEND */
-sendBtn.onclick = () => {
-  if (!messageInput.value || !room) return;
-  db.ref(`rooms/${room}/messages`).push({
-    user,
-    text: messageInput.value,
-    admin: isAdmin,
-    time: Date.now()
-  });
-  messageInput.value = "";
-};
+header {
+  padding: 50px 20px;
+}
 
-/* REACT */
-function react(id, emoji) {
-  db.ref(`rooms/${room}/messages/${id}/reactions/${emoji}`)
-    .transaction(n => (n || 0) + 1);
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+header p {
+  opacity: 0.85;
+  margin: 10px 0 25px;
+}
+
+button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: #fff;
+  color: #764ba2;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+main {
+  padding: 40px 20px;
+}
+
+.card {
+  max-width: 600px;
+  margin: auto;
+  padding: 25px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.breathing-area {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  transition: transform 4s ease-in-out;
+}
+
+footer {
+  padding: 20px;
+  opacity: 0.7;
+  font-size: 0.9rem;
 }
