@@ -1,27 +1,53 @@
-const circle = document.getElementById("circle");
-const text = document.getElementById("text");
+let startTime, interval;
+let running = false;
+let lapCount = 1;
 
-let breathing = false;
-let interval;
+const timer = document.getElementById("timer");
+const solo = document.getElementById("solo");
+const laps = document.getElementById("laps");
 
-function startBreathing() {
-  if (breathing) return;
-  breathing = true;
+function openSolo() {
+  solo.classList.remove("hidden");
+  startStopwatch();
+}
 
-  text.innerText = "Inhale";
-  circle.style.transform = "scale(1.4)";
+function openDuo() {
+  alert("Duo mode coming soon 👥");
+}
 
-  interval = setInterval(() => {
-    text.innerText = "Inhale";
-    circle.style.transform = "scale(1.4)";
+function openCustom() {
+  alert("Custom mode coming soon ⚙️");
+}
 
-    setTimeout(() => {
-      text.innerText = "Hold";
-    }, 4000);
+function startStopwatch() {
+  if (running) return;
+  running = true;
+  startTime = Date.now();
 
-    setTimeout(() => {
-      text.innerText = "Exhale";
-      circle.style.transform = "scale(1)";
-    }, 7000);
-  }, 12000);
+  interval = setInterval(updateTimer, 10);
+}
+
+function updateTimer() {
+  const diff = Date.now() - startTime;
+  const ms = Math.floor((diff % 1000) / 10);
+  const sec = Math.floor(diff / 1000) % 60;
+  const min = Math.floor(diff / 60000);
+
+  timer.innerText =
+    `${String(min).padStart(2, "0")}:` +
+    `${String(sec).padStart(2, "0")}.` +
+    `${String(ms).padStart(2, "0")}`;
+}
+
+function stopTimer() {
+  clearInterval(interval);
+  running = false;
+}
+
+function lapTimer() {
+  if (!running) return;
+
+  const li = document.createElement("li");
+  li.innerText = `Lap ${lapCount++} — ${timer.innerText}`;
+  laps.appendChild(li);
 }
