@@ -2,41 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Breathers</title>
+  <title>Breathers Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
 
-<header>
-  <h1>🌬️ BREATHERS</h1>
-  <p>Choose your breathing mode</p>
-</header>
+<!-- LOGIN -->
+<section id="loginBox" class="card">
+  <h2>Login to Breathers</h2>
 
-<section class="modes">
+  <button onclick="loginGoogle()">Google</button>
+  <button onclick="loginGithub()">GitHub</button>
+  <button onclick="loginMicrosoft()">Microsoft</button>
+  <button onclick="loginYahoo()">Yahoo</button>
+  <button onclick="loginApple()">Apple</button>
+</section>
+
+<!-- APP -->
+<section id="app" class="hidden">
+  <h2 id="userName"></h2>
+  <img id="userPic" class="avatar">
+
+  <button onclick="logout()">Logout</button>
+
+  <hr>
+
+  <!-- YOUR BREATHERS APP -->
   <button onclick="openSolo()">Solo</button>
-  <button onclick="openDuo()">Duo</button>
-  <button onclick="openCustom()">Custom</button>
 </section>
 
-<section class="solo hidden" id="solo">
-  <h2>Solo Breathing Session</h2>
-
-  <div class="timer" id="timer">00:00.00</div>
-
-  <div class="controls">
-    <button class="air" onclick="withAir()">With Air</button>
-    <button class="no-air" onclick="withoutAir()">Without Air</button>
-  </div>
-
-  <ul class="laps" id="laps"></ul>
-</section>
-
-<footer>
-  © 2026 Breathers
-</footer>
-
+<script src="firebase.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
