@@ -1,59 +1,36 @@
-document.addEventListener("DOMContentLoaded", () => {
+const loginBox = document.getElementById("loginBox");
+const app = document.getElementById("app");
+const userName = document.getElementById("userName");
+const userPic = document.getElementById("userPic");
 
-  let startTime, interval;
-  let running = false;
-  let eventCount = 1;
+// PROVIDERS
+const google = new firebase.auth.GoogleAuthProvider();
+const github = new firebase.auth.GithubAuthProvider();
+const microsoft = new firebase.auth.OAuthProvider('microsoft.com');
+const yahoo = new firebase.auth.OAuthProvider('yahoo.com');
+const apple = new firebase.auth.OAuthProvider('apple.com');
 
-  const timer = document.getElementById("timer");
-  const solo = document.getElementById("solo");
-  const laps = document.getElementById("laps");
+// LOGIN FUNCTIONS
+function loginGoogle() { auth.signInWithPopup(google); }
+function loginGithub() { auth.signInWithPopup(github); }
+function loginMicrosoft() { auth.signInWithPopup(microsoft); }
+function loginYahoo() { auth.signInWithPopup(yahoo); }
+function loginApple() { auth.signInWithPopup(apple); }
 
-  window.openSolo = function () {
-    solo.classList.remove("hidden");
-    startStopwatch();
-  };
+function logout() {
+  auth.signOut();
+}
 
-  window.openDuo = function () {
-    alert("Duo mode coming soon 👥");
-  };
+// AUTH STATE
+auth.onAuthStateChanged(user => {
+  if (user) {
+    loginBox.classList.add("hidden");
+    app.classList.remove("hidden");
 
-  window.openCustom = function () {
-    alert("Custom mode coming soon ⚙️");
-  };
-
-  function startStopwatch() {
-    if (running) return;
-    running = true;
-    startTime = Date.now();
-    interval = setInterval(updateTimer, 10);
+    userName.innerText = user.displayName;
+    userPic.src = user.photoURL;
+  } else {
+    loginBox.classList.remove("hidden");
+    app.classList.add("hidden");
   }
-
-  function updateTimer() {
-    const diff = Date.now() - startTime;
-    const ms = Math.floor((diff % 1000) / 10);
-    const sec = Math.floor(diff / 1000) % 60;
-    const min = Math.floor(diff / 60000);
-
-    timer.innerText =
-      `${String(min).padStart(2, "0")}:` +
-      `${String(sec).padStart(2, "0")}.` +
-      `${String(ms).padStart(2, "0")}`;
-  }
-
-  function logEvent(label) {
-    const li = document.createElement("li");
-    li.textContent = `${eventCount++}. ${label} — ${timer.innerText}`;
-    laps.appendChild(li);
-  }
-
-  window.withAir = function () {
-    if (!running) return;
-    logEvent("With Air 🌬️");
-  };
-
-  window.withoutAir = function () {
-    if (!running) return;
-    logEvent("Without Air 🚫");
-  };
-
 });
