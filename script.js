@@ -1,36 +1,61 @@
+// 🔹 Firebase v9 Modular SDK (NO COMPAT)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+// 🔐 YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyA_Na0eivLj652OIfV94hPhBNUC0k8CndI",
+  authDomain: "breathers-2026.firebaseapp.com",
+  projectId: "breathers-2026",
+  appId: "1:73555421893:web:987d540dd10f47da71deac"
+};
+
+// Init
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Providers
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
+
+// UI refs
 const loginBox = document.getElementById("loginBox");
-const app = document.getElementById("app");
+const appBox = document.getElementById("app");
 const userName = document.getElementById("userName");
 const userPic = document.getElementById("userPic");
 
-// PROVIDERS
-const google = new firebase.auth.GoogleAuthProvider();
-const github = new firebase.auth.GithubAuthProvider();
-const microsoft = new firebase.auth.OAuthProvider('microsoft.com');
-const yahoo = new firebase.auth.OAuthProvider('yahoo.com');
-const apple = new firebase.auth.OAuthProvider('apple.com');
+document.getElementById("googleBtn").onclick = () =>
+  signInWithRedirect(auth, googleProvider);
 
-// LOGIN FUNCTIONS
-function loginGoogle() { auth.signInWithPopup(google); }
-function loginGithub() { auth.signInWithPopup(github); }
-function loginMicrosoft() { auth.signInWithPopup(microsoft); }
-function loginYahoo() { auth.signInWithPopup(yahoo); }
-function loginApple() { auth.signInWithPopup(apple); }
+document.getElementById("githubBtn").onclick = () =>
+  signInWithRedirect(auth, githubProvider);
 
-function logout() {
-  auth.signOut();
-}
+document.getElementById("logoutBtn").onclick = () =>
+  signOut(auth);
 
-// AUTH STATE
-auth.onAuthStateChanged(user => {
+// Handle redirect result (important)
+getRedirectResult(auth).catch(err => {
+  console.error(err.code, err.message);
+});
+
+// Auth state
+onAuthStateChanged(auth, user => {
   if (user) {
     loginBox.classList.add("hidden");
-    app.classList.remove("hidden");
+    appBox.classList.remove("hidden");
 
-    userName.innerText = user.displayName;
+    userName.textContent = user.displayName;
     userPic.src = user.photoURL;
   } else {
     loginBox.classList.remove("hidden");
-    app.classList.add("hidden");
+    appBox.classList.add("hidden");
   }
 });
