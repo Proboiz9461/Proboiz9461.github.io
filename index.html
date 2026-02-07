@@ -2,42 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Breathers Login</title>
+  <title>Breathers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <section id="loginBox" class="card">
   <h2>Login to Breathers</h2>
-
-  <button onclick="loginGoogle()">Google</button>
-  <button onclick="loginGithub()">GitHub</button>
-  <button onclick="loginMicrosoft()">Microsoft</button>
-  <button onclick="loginYahoo()">Yahoo</button>
-  <button onclick="loginApple()">Apple</button>
+  <button id="googleBtn">Login with Google</button>
+  <button id="githubBtn">Login with GitHub</button>
 </section>
 
-<!-- APP -->
 <section id="app" class="hidden">
   <h2 id="userName"></h2>
   <img id="userPic" class="avatar">
-
-  <button onclick="logout()">Logout</button>
+  <br><br>
+  <button id="logoutBtn">Logout</button>
 
   <hr>
 
-  <!-- YOUR BREATHERS APP -->
+  <!-- Breathers App -->
   <button onclick="openSolo()">Solo</button>
 </section>
 
-<script src="firebase.js"></script>
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
