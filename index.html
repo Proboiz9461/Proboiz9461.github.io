@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Breathers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proboiz Mega Fun Page (50+)</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <header>
+    <h1>Proboiz Mega Fun Page 🎮🧪</h1>
+    <p>Everything runs directly on this page. No external redirects.</p>
+  </header>
 
-<section id="loginBox" class="card">
-  <h2>Login to Breathers</h2>
-  <button id="googleBtn">Login with Google</button>
-  <button id="githubBtn">Login with GitHub</button>
-</section>
+  <section class="controls">
+    <input id="searchInput" type="search" placeholder="Search mini game or tool..." />
+    <button class="filter active" data-type="all">All</button>
+    <button class="filter" data-type="game">Games</button>
+    <button class="filter" data-type="tool">Funny Tools</button>
+    <button id="randomBtn">Open Random</button>
+    <p id="count"></p>
+  </section>
 
-<section id="app" class="hidden">
-  <h2 id="userName"></h2>
-  <img id="userPic" class="avatar">
-  <br><br>
-  <button id="logoutBtn">Logout</button>
+  <main>
+    <section id="projectGrid" class="grid" aria-live="polite"></section>
 
-  <hr>
+    <section id="playground" class="playground">
+      <h2 id="playTitle">Choose any card above</h2>
+      <div id="playArea">Your selected mini game/tool will load here.</div>
+    </section>
+  </main>
 
-  <!-- Breathers App -->
-  <button onclick="openSolo()">Solo</button>
-</section>
-
-<script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
