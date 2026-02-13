@@ -23,6 +23,21 @@
     <button class="filter" data-type="game">Games</button>
     <button class="filter" data-type="tool">Useful Tools</button>
     <button id="randomBtn">Random Launch</button>
+  <title>Proboiz Mega Fun Page (50+)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Proboiz Mega Fun Page 🎮🧪</h1>
+    <p>Everything runs directly on this page. No external redirects.</p>
+  </header>
+
+  <section class="controls">
+    <input id="searchInput" type="search" placeholder="Search mini game or tool..." />
+    <button class="filter active" data-type="all">All</button>
+    <button class="filter" data-type="game">Games</button>
+    <button class="filter" data-type="tool">Funny Tools</button>
+    <button id="randomBtn">Open Random</button>
     <p id="count"></p>
   </section>
 
@@ -39,6 +54,12 @@
       <div id="modalArea">Loading...</div>
     </div>
   </div>
+
+    <section id="playground" class="playground">
+      <h2 id="playTitle">Choose any card above</h2>
+      <div id="playArea">Your selected mini game/tool will load here.</div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
