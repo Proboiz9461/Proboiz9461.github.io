@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Breathers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>50+ GitHub Games & Funny Tools</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <header class="hero">
+    <h1>🎮 50+ GitHub Games & Funny Tools 🛠️</h1>
+    <p>
+      A giant collection of playable projects, game engines, weird utilities,
+      meme tools, and fun experiments you can explore on GitHub.
+    </p>
+  </header>
 
-<section id="loginBox" class="card">
-  <h2>Login to Breathers</h2>
-  <button id="googleBtn">Login with Google</button>
-  <button id="githubBtn">Login with GitHub</button>
-</section>
+  <main class="container">
+    <section class="controls card">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search by name, tag, or description..."
+        aria-label="Search projects"
+      />
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="game">Games</button>
+        <button class="filter-btn" data-filter="tool">Funny Tools</button>
+        <button id="randomBtn">Surprise Me</button>
+      </div>
+      <p id="resultCount" class="result-count"></p>
+    </section>
 
-<section id="app" class="hidden">
-  <h2 id="userName"></h2>
-  <img id="userPic" class="avatar">
-  <br><br>
-  <button id="logoutBtn">Logout</button>
+    <section id="cardGrid" class="grid" aria-live="polite"></section>
+  </main>
 
-  <hr>
+  <footer>
+    <p>Made for GitHub explorers who like fun projects.</p>
+  </footer>
 
-  <!-- Breathers App -->
-  <button onclick="openSolo()">Solo</button>
-</section>
-
-<script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
