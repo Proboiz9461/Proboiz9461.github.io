@@ -1,4 +1,13 @@
 :root {
+  --bg: #070a1b;
+  --bg2: #1a1f4f;
+  --panel: rgba(26, 34, 82, 0.72);
+  --line: rgba(166, 149, 255, 0.42);
+  --txt: #eef4ff;
+  --muted: #cfc7f2;
+  --a1: #8ec5ff;
+  --a2: #7b8dff;
+  --a3: #ff73c5;
   --bg: #060c1d;
   --bg2: #101f45;
   --panel: rgba(20, 36, 76, 0.72);
@@ -17,6 +26,12 @@ body {
   font-family: Inter, 'Segoe UI', Arial, sans-serif;
   color: var(--txt);
   background:
+    radial-gradient(1000px 420px at 0% 0%, #355dc5, transparent 55%),
+    radial-gradient(850px 380px at 100% 0%, #8d4fd2, transparent 52%),
+    linear-gradient(145deg, var(--bg), var(--bg2));
+  overflow-x: hidden;
+}
+
     radial-gradient(1000px 420px at 0% 0%, #264d9c, transparent 55%),
     radial-gradient(850px 380px at 100% 0%, #355eb5, transparent 50%),
     linear-gradient(145deg, var(--bg), var(--bg2));
@@ -65,6 +80,9 @@ body {
 }
 .aurora::before {
   background:
+    radial-gradient(circle at 20% 26%, #8ec5ff35, transparent 28%),
+    radial-gradient(circle at 78% 32%, #ff73c532, transparent 30%),
+    radial-gradient(circle at 52% 85%, #7f8cff33, transparent 32%);
     radial-gradient(circle at 20% 26%, #9dc4ff30, transparent 28%),
     radial-gradient(circle at 78% 32%, #7ea8ff2f, transparent 30%),
     radial-gradient(circle at 52% 85%, #5b8de52c, transparent 32%);
@@ -72,6 +90,7 @@ body {
   animation: auroraDrift 14s ease-in-out infinite alternate;
 }
 .aurora::after {
+  background: linear-gradient(120deg, #8ec5ff12, #7b8dff14, #ff73c516);
   background: linear-gradient(120deg, #9dc4ff0f, #6ea3ff12, #4a7ee013);
 }
 
@@ -99,6 +118,8 @@ body {
   backdrop-filter: blur(12px);
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 8, 30, .38), inset 0 0 20px rgba(157,196,255,.06);
+}
+
 }
 
 .hero { text-align: center; padding: 22px 16px; margin-bottom: 14px; animation: fadeUp .55s ease; }
@@ -364,6 +385,10 @@ header {
 .pill {
   font-size: .82rem;
   color: #e9f1ff;
+  border: 1px solid #9b8be5;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #2b2b75;
   border: 1px solid #7897dc;
   border-radius: 999px;
   padding: 5px 10px;
@@ -392,6 +417,11 @@ header {
   width: min(430px, 100%);
   padding: 11px 12px;
   border-radius: 12px;
+  border: 1px solid #9d96eb;
+  background: #1b2458;
+  color: var(--txt);
+}
+#searchInput:focus { outline: 2px solid #c28cff66; }
   border: 1px solid #7b9be1;
   background: #102454;
   color: var(--txt);
@@ -410,6 +440,15 @@ header {
 }
 .card {
   border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(31,44,96,.88), rgba(24,27,74,.85));
+  border-radius: 14px;
+  padding: 12px;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #c79cff;
+  box-shadow: 0 12px 24px rgba(4, 12, 34, .35);
   background: linear-gradient(180deg, rgba(19,35,74,.88), rgba(14,27,60,.84));
   border-radius: 14px;
   padding: 12px;
@@ -435,6 +474,7 @@ header {
   display: inline-block;
   font-size: .72rem;
   border-radius: 999px;
+  background: linear-gradient(135deg, #4f67d7, #b35ddb);
   background: linear-gradient(135deg, #2e57ad, #3a6fcf);
   background: linear-gradient(135deg, #3050cd, #5e50ca);
   padding: 4px 9px;
@@ -443,6 +483,9 @@ header {
 .btn, button {
   border: 0;
   border-radius: 999px;
+  background: linear-gradient(135deg, var(--a1), var(--a2), var(--a3));
+  color: #140b2f;
+  font-weight: 700;
   background: linear-gradient(135deg, var(--a1), var(--a2));
   color: #0a1b44;
   font-weight: 700;
@@ -462,6 +505,10 @@ header {
 .tool-head p { margin: 7px 0 0; color: var(--muted); }
 .toolbar { display:flex; gap:8px; flex-wrap: wrap; margin-top:10px; }
 button, input, textarea, select {
+  border: 1px solid #9c8ee6;
+  border-radius: 12px;
+  padding: 10px;
+  background: #232862;
   border: 1px solid #6f8fda;
   border-radius: 12px;
   padding: 10px;
@@ -475,6 +522,8 @@ button, input, textarea, select {
 }
 pre.out, #out {
   white-space: pre-wrap;
+  background: #1a1d52;
+  border: 1px dashed #a18fe5;
   background: #0b1c45;
   border: 1px dashed #6f90dc;
 /* tool page */
@@ -500,6 +549,7 @@ pre.out, #out {
   padding: 10px;
   margin-top: 10px;
 }
+.back { color: #d5beff; text-decoration: none; font-weight: 700; }
 .back { color: #b4d4ff; text-decoration: none; font-weight: 700; }
 
 @keyframes fadeUp {
@@ -515,6 +565,7 @@ pre.out, #out {
 .egg-modal {
   position: fixed;
   inset: 0;
+  background: rgba(10, 8, 28, .76);
   background: rgba(4, 10, 26, .72);
   display: grid;
   place-items: center;
@@ -542,7 +593,13 @@ pre.out, #out {
   .page, .tool-wrap { padding: 12px; }
   .grid { grid-template-columns: 1fr; }
 }
+.egg-card h2 { margin: 0 0 8px; }
+.egg-card p { margin: 0 0 12px; color: var(--muted); }
+.egg-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
+@keyframes eggPop {
+  from { transform: scale(.95); opacity: .1; }
+  to { transform: scale(1); opacity: 1; }
 .card {
   border: 1px solid var(--line);
   background: rgba(10, 16, 34, .78);
