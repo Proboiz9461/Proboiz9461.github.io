@@ -67,5 +67,7 @@ eggRandomBtn?.addEventListener('click', () => {
   if (link) window.location.href = link.getAttribute('href');
 });
 
+});
+
 input?.addEventListener('input', applySearch);
 applySearch();
