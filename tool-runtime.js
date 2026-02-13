@@ -2,27 +2,6 @@ const cfg = window.TOOL_CONFIG || { title: 'Tool', mode: 'calc' };
 const app = document.getElementById('toolApp');
 const clearBtn = document.getElementById('clearBtn');
 
-if (!document.querySelector('.aurora')) {
-  const aur = document.createElement('div');
-  aur.className = 'aurora';
-  document.body.prepend(aur);
-}
-if (!document.getElementById('cursorDot')) {
-  const c = document.createElement('div');
-  c.className = 'cursor-dot';
-  c.id = 'cursorDot';
-  document.body.appendChild(c);
-}
-const cursorDot = document.getElementById('cursorDot');
-window.addEventListener('mousemove', (e) => {
-  if (!cursorDot) return;
-  cursorDot.style.left = `${e.clientX}px`;
-  cursorDot.style.top = `${e.clientY}px`;
-});
-window.addEventListener('keydown', (e) => {
-  if (e.key.toLowerCase() === 'b') window.location.href = '../index.html';
-});
-
 const h = (s) => s.replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 const rnd = (n) => Math.floor(Math.random() * n);
 const out = () => document.getElementById('out');
