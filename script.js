@@ -34,6 +34,18 @@ cards.forEach((card, i) => {
   }, i * 12);
 });
 
+});
+
+cards.forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(10px)';
+  setTimeout(() => {
+    card.style.transition = 'opacity .25s ease, transform .25s ease';
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }, i * 12);
+});
+
 // Easter egg: type "proboiz" anywhere on the index page
 let eggBuffer = '';
 window.addEventListener('keydown', (e) => {
@@ -65,6 +77,8 @@ eggRandomBtn?.addEventListener('click', () => {
   const picked = pool[Math.floor(Math.random() * pool.length)];
   const link = picked.querySelector('a.btn');
   if (link) window.location.href = link.getAttribute('href');
+});
+
 });
 
 input?.addEventListener('input', applySearch);
