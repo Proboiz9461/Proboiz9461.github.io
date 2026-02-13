@@ -3,41 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>50+ GitHub Games & Funny Tools</title>
+  <title>Proboiz Mega Fun Page (50+)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="hero">
-    <h1>🎮 50+ GitHub Games & Funny Tools 🛠️</h1>
-    <p>
-      A giant collection of playable projects, game engines, weird utilities,
-      meme tools, and fun experiments you can explore on GitHub.
-    </p>
+  <header>
+    <h1>Proboiz Mega Fun Page 🎮🧪</h1>
+    <p>Everything runs directly on this page. No external redirects.</p>
   </header>
 
-  <main class="container">
-    <section class="controls card">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search by name, tag, or description..."
-        aria-label="Search projects"
-      />
-      <div class="filter-row">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="game">Games</button>
-        <button class="filter-btn" data-filter="tool">Funny Tools</button>
-        <button id="randomBtn">Surprise Me</button>
-      </div>
-      <p id="resultCount" class="result-count"></p>
+  <section class="controls">
+    <input id="searchInput" type="search" placeholder="Search mini game or tool..." />
+    <button class="filter active" data-type="all">All</button>
+    <button class="filter" data-type="game">Games</button>
+    <button class="filter" data-type="tool">Funny Tools</button>
+    <button id="randomBtn">Open Random</button>
+    <p id="count"></p>
+  </section>
+
+  <main>
+    <section id="projectGrid" class="grid" aria-live="polite"></section>
+
+    <section id="playground" class="playground">
+      <h2 id="playTitle">Choose any card above</h2>
+      <div id="playArea">Your selected mini game/tool will load here.</div>
     </section>
-
-    <section id="cardGrid" class="grid" aria-live="polite"></section>
   </main>
-
-  <footer>
-    <p>Made for GitHub explorers who like fun projects.</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
