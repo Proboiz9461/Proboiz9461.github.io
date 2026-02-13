@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Breathers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proboiz GOD Level Funverse</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+  <div id="cursorDot"></div>
 
-<section id="loginBox" class="card">
-  <h2>Login to Breathers</h2>
-  <button id="googleBtn">Login with Google</button>
-  <button id="githubBtn">Login with GitHub</button>
-</section>
+  <header class="hero glass">
+    <h1>⚡ PROBOIZ FUNVERSE — GOD LEVEL UI ⚡</h1>
+    <p>60+ built-in mini games + useful tools. Everything opens in a center popup on this page only.</p>
+  </header>
 
-<section id="app" class="hidden">
-  <h2 id="userName"></h2>
-  <img id="userPic" class="avatar">
-  <br><br>
-  <button id="logoutBtn">Logout</button>
+  <section class="controls glass">
+    <input id="searchInput" type="search" placeholder="Search games/tools..." />
+    <button class="filter active" data-type="all">All</button>
+    <button class="filter" data-type="game">Games</button>
+    <button class="filter" data-type="tool">Useful Tools</button>
+    <button id="randomBtn">Random Launch</button>
+    <p id="count"></p>
+  </section>
 
-  <hr>
+  <main>
+    <section id="projectGrid" class="grid" aria-live="polite"></section>
+  </main>
 
-  <!-- Breathers App -->
-  <button onclick="openSolo()">Solo</button>
-</section>
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card glass">
+      <div class="modal-top">
+        <h2 id="modalTitle">Mini App</h2>
+        <button id="closeModal" class="danger">✕</button>
+      </div>
+      <div id="modalArea">Loading...</div>
+    </div>
+  </div>
 
-<script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
