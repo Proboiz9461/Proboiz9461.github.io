@@ -1,3 +1,15 @@
+:root {
+  --bg: #0f1226;
+  --card: #171a36;
+  --text: #f5f7ff;
+  --accent: #76e4f7;
+  --accent-2: #ff7edb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -33,6 +45,29 @@ button {
   background: #334155;
   color: #fff;
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0f1020;
+}
+
+.result-count {
+  margin: 0.75rem 0 0;
+  opacity: 0.9;
+}
+
+.grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
 }
 
 button.active {
