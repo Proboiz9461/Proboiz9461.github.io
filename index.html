@@ -1,37 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NovaGrid 100 — Futuristic Tools & Games</title>
+  <title>MathVerse 200 | Futuristic Maths Tools Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background-glow"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
   <header class="hero">
-    <h1>🚀 NovaGrid 100</h1>
-    <p>50 futuristic tools + 50 instant games in one animated control deck.</p>
-    <div class="hero-stats">
-      <span>⚙️ 50 Tools</span>
-      <span>🎮 50 Games</span>
-      <span>✨ Neon UI + Live Animations</span>
+    <p class="kicker">NEXT-GEN MATHEMATICS PLATFORM</p>
+    <h1>MathVerse 200</h1>
+    <p class="subtitle">A bluish futuristic hub with <strong>200 maths tools</strong> for students, engineers, analysts, and curious minds.</p>
+    <div class="hud">
+      <span id="toolCount">200 Tools</span>
+      <span>8 Categories</span>
+      <span>Realtime Search</span>
     </div>
   </header>
 
   <main>
     <section class="controls">
-      <input id="searchInput" type="text" placeholder="Search tools or games..." />
-      <div class="tabs">
-        <button class="tab active" data-filter="all">All 100</button>
-        <button class="tab" data-filter="tool">Tools</button>
-        <button class="tab" data-filter="game">Games</button>
-      </div>
+      <input id="search" type="search" placeholder="Search any maths tool..." aria-label="Search maths tools" />
+      <select id="category" aria-label="Filter by category">
+        <option value="all">All Categories</option>
+      </select>
     </section>
 
-    <section id="grid" class="grid"></section>
+    <section>
+      <div class="tools-header">
+        <h2>Tool Deck</h2>
+        <p id="resultsText">Showing 200 tools</p>
+      </div>
+      <div id="toolGrid" class="tool-grid" aria-live="polite"></div>
+    </section>
   </main>
 
-  
+  <template id="cardTemplate">
+    <article class="card">
+      <h3></h3>
+      <p class="category"></p>
+      <p class="desc"></p>
+      <button type="button">Open Tool</button>
+    </article>
+  </template>
 
   <script src="script.js"></script>
 </body>

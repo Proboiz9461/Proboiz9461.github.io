@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const a=document.getElementById('a').value;const b=document.getElementById('b').value;out.textContent=`Std Deviation: inputA=${a||'∅'} | inputB=${b||'∅'}`;};
