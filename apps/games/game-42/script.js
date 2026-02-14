@@ -1,0 +1,1 @@
+let score=0;const out=document.getElementById('out');document.getElementById('play').onclick=()=>{score+=Math.floor(Math.random()*3);out.textContent=`Score: ${score}`};document.getElementById('reset').onclick=()=>{score=0;out.textContent='Score: 0'};
