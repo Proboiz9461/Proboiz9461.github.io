@@ -1,37 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Shaurya's Creations</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background-glow"></div>
+  <div class="bg"></div>
   <header class="hero">
     <h1>🚀 Shaurya's Creations</h1>
-    <p>50 futuristic tools + 50 fun games built to feel alive.</p>
-    <div class="hero-stats">
-      <span>⚙️ 50 Tools</span>
-      <span>🎮 50 Games</span>
-      <span>✨ Neon UI + Live Animations</span>
-    </div>
+    <p>50 tools + 50 fun games. Each app has separate HTML, CSS, and JS.</p>
+    <div class="chips"><span>⚙️ 50 Tools</span><span>🎮 50 Games</span><span>🧩 100 Standalone Apps</span></div>
   </header>
 
   <main>
     <section class="controls">
-      <input id="searchInput" type="text" placeholder="Search tools or games..." />
-      <div class="tabs">
-        <button class="tab active" data-filter="all">All 100</button>
-        <button class="tab" data-filter="tool">Tools</button>
-        <button class="tab" data-filter="game">Games</button>
+      <input id="search" placeholder="Search apps..." />
+      <div>
+        <button class="tab active" data-type="all">All</button>
+        <button class="tab" data-type="tool">Tools</button>
+        <button class="tab" data-type="game">Games</button>
       </div>
     </section>
-
     <section id="grid" class="grid"></section>
   </main>
-
-  
 
   <script src="script.js"></script>
 </body>
