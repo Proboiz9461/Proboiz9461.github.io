@@ -1,2 +1,0 @@
-const game=document.getElementById('game');const out=document.getElementById('out');
-let c=0,end=0;game.innerHTML='<button id=s>Start 5s</button><button id=cbtn disabled>Click!</button>';s.onclick=()=>{c=0;end=performance.now()+5000;cbtn.disabled=false;const loop=()=>{let left=Math.max(0,Math.ceil((end-performance.now())/1000));out.textContent=`Clicks: ${c} | ${left}s`;if(performance.now()<end)requestAnimationFrame(loop);else{cbtn.disabled=true;out.textContent=`🏁 Final: ${c}`}};loop()};cbtn.onclick=()=>c++;

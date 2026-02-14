@@ -1,2 +1,0 @@
-const game=document.getElementById('game');const out=document.getElementById('out');
-let t0=0,timer;game.innerHTML='<button id=s>Start</button><button id=t disabled>TAP!</button>';s.onclick=()=>{t.disabled=true;out.textContent='Wait for GO...';clearTimeout(timer);timer=setTimeout(()=>{out.textContent='GO!';t0=performance.now();t.disabled=false},1200+Math.random()*2200)};t.onclick=()=>{out.textContent=`⚡ ${Math.round(performance.now()-t0)} ms`;t.disabled=true};
