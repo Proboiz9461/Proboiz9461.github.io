@@ -112,23 +112,5 @@ button {
 .card p { margin: 0 0 .8rem; color: #c7d4ff; font-size: .9rem; min-height: 2.5rem; }
 .tag { font-size: .8rem; color: var(--neon); }
 
-dialog {
-  width: min(720px, 94vw);
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: #090d24;
-  color: var(--txt);
-  padding: 1rem;
-}
-dialog::backdrop { background: rgba(0,0,0,.6); }
-.dialog-header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
-#dialogBody { margin-top: .7rem; display: grid; gap: .6rem; }
-.result {
-  background: rgba(6, 13, 42, 0.88);
-  border: 1px solid var(--line);
-  border-radius: .7rem;
-  padding: .7rem;
-  color: #adf8ff;
-}
 .row { display: flex; gap: .5rem; flex-wrap: wrap; }
 .row > * { flex: 1; min-width: 120px; }
