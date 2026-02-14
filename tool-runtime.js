@@ -13,11 +13,37 @@ if (!document.getElementById('cursorDot')) {
   c.id = 'cursorDot';
   document.body.appendChild(c);
 }
+if (!document.getElementById('cursorRing')) {
+  const r = document.createElement('div');
+  r.className = 'cursor-ring';
+  r.id = 'cursorRing';
+  document.body.appendChild(r);
+}
 const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+function applyCursorTheme(mode) {
+  const themes = {
+    neo: { dot: '#8ec5ff', ring: '#7b8dff' },
+    pink: { dot: '#ff8ed3', ring: '#b38dff' },
+    ice: { dot: '#ffffff', ring: '#9cd9ff' },
+  };
+  const t = themes[mode] || themes.neo;
+  if (cursorDot) cursorDot.style.background = `radial-gradient(circle, #fff, ${t.dot})`;
+  if (cursorRing) {
+    cursorRing.style.borderColor = t.ring;
+    cursorRing.style.boxShadow = `0 0 18px ${t.ring}88`;
+  }
+}
+applyCursorTheme(localStorage.getItem('cursor_theme') || 'neo');
 window.addEventListener('mousemove', (e) => {
-  if (!cursorDot) return;
-  cursorDot.style.left = `${e.clientX}px`;
-  cursorDot.style.top = `${e.clientY}px`;
+  if (cursorDot) {
+    cursorDot.style.left = `${e.clientX}px`;
+    cursorDot.style.top = `${e.clientY}px`;
+  }
+  if (cursorRing) {
+    cursorRing.style.left = `${e.clientX}px`;
+    cursorRing.style.top = `${e.clientY}px`;
+  }
 });
 window.addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'b') window.location.href = '../index.html';
