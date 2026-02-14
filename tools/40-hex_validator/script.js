@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';out.textContent=/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(A)?`Valid hex: ${A}`:'Invalid hex';};

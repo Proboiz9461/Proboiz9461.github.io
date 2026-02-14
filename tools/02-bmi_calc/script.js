@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';let w=+A,h=+B;out.textContent=`BMI: ${(w/(h*h)).toFixed(2)}`;};

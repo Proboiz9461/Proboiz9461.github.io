@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';out.textContent=`${Math.floor(Math.random()*(+B-+A+1))+ +A}`;};

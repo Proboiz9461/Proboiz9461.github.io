@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';let P=+A,r=+B/1200,n=+C;let emi=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);out.textContent=`EMI: $${emi.toFixed(2)}`;};

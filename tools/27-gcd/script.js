@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';let a=Math.abs(+A),b=Math.abs(+B);while(b)[a,b]=[b,a%b];out.textContent=`GCD = ${a}`;};

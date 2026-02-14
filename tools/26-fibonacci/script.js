@@ -1,1 +1,0 @@
-const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';let n=Math.min(30,+A||10),a=0,b=1,res=[];for(let i=0;i<n;i++){res.push(a);[a,b]=[b,a+b]}out.textContent=res.join(', ');};
