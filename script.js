@@ -1,60 +1,73 @@
-const grid = document.getElementById('grid');
-const searchInput = document.getElementById('searchInput');
-const tabs = [...document.querySelectorAll('.tab')];
+const categories = [
+  "Algebra", "Geometry", "Calculus", "Statistics",
+  "Trigonometry", "Number Theory", "Linear Algebra", "Finance Maths"
+];
 
 const toolNames = [
-  'Smart Calculator','BMI Analyzer','GCD Finder','LCM Finder','Prime Checker','Factorial','Fibonacci','Percentage','Power Tool','Square Root','Cube Root','Linear Solver','Quadratic Roots','Circle Area','Circle Circumference','Triangle Area','Rectangle Area','Simple Interest','Compound Interest','Average Finder','Median Finder','Mode Finder','Std Deviation','Decimal to Binary','Binary to Decimal','Decimal to Hex','Hex to Decimal','KM to Miles','Miles to KM','Celsius to Fahrenheit','Fahrenheit to Celsius','Seconds to HMS','Loan EMI','Discount Calculator','Tax Calculator','Tip Calculator','Age in Days','Leap Year Check','Roman Numeral','ASCII Char','Character Count','Word Count','Text Reverse','Palindrome Test','Random Number','Password Maker','UUID Lite','Slug Maker','Hash Lite','Color Generator'
+  "Solver", "Simplifier", "Generator", "Visualizer", "Calculator",
+  "Explorer", "Analyzer", "Converter", "Comparator", "Optimizer"
 ];
 
-const gameNames = [
-  'Neon Guess','Cyber Dice Duel','Hyper Coin Toss','Quantum RPS','Pulse Reflex','Math Blaster','Target Lock','Code Breaker','Word Scramble','Memory Spark','Orbit Guess','Laser Odds','Data Rush','Rune Match','Cipher Sprint','Storm Pick','Crystal Flip','Nexus Numbers','Grid Hunter','Echo Choice','Pixel Duel','Turbo Toss','Lucky Reactor','Nova Smash','Blink Battle','Arcade Odds','Orbital Toss','Starfield Steps','Rapid Puzzle','Signal Tap','Wave Match','Helix Hunt','Prism Path','Fusion Flip','Aero Pick','Void Quest','Rocket Guess','Meteor Match','Cosmo Roll','Byte Clash','Circuit Spin','Holo Tactics','Plasma Toss','AI Duel','Speed Node','Pulse Clash','Cyber Quest','Infinity Pick','Zenith Zone','Galaxy Gamble'
+const descriptions = [
+  "Fast and precise computation for daily math workflows.",
+  "Interactive helper for learning and problem solving.",
+  "Realtime output with clean futuristic interface.",
+  "Great for students, teachers, and professionals.",
+  "Built for speed, clarity, and accuracy."
 ];
 
-const apps = [
-  ...toolNames.map((name, i) => ({
-    id: `tool-${String(i + 1).padStart(2, '0')}`,
-    type: 'tool',
+const tools = Array.from({ length: 200 }, (_, i) => {
+  const category = categories[i % categories.length];
+  const name = `${category} ${toolNames[i % toolNames.length]} ${String(i + 1).padStart(3, "0")}`;
+  return {
+    id: i + 1,
     name,
-    description: 'Standalone tool (own HTML/CSS/JS files).',
-    href: `apps/tools/tool-${String(i + 1).padStart(2, '0')}/index.html`
-  })),
-  ...gameNames.map((name, i) => ({
-    id: `game-${String(i + 1).padStart(2, '0')}`,
-    type: 'game',
-    name,
-    description: 'Standalone game (own HTML/CSS/JS files).',
-    href: `apps/games/game-${String(i + 1).padStart(2, '0')}/index.html`
-  }))
-];
+    category,
+    description: descriptions[i % descriptions.length]
+  };
+});
 
-let activeFilter = 'all';
+const searchInput = document.getElementById("search");
+const categorySelect = document.getElementById("category");
+const toolGrid = document.getElementById("toolGrid");
+const cardTemplate = document.getElementById("cardTemplate");
+const resultsText = document.getElementById("resultsText");
 
-function render() {
-  const term = searchInput.value.trim().toLowerCase();
-  const list = apps.filter(app =>
-    (activeFilter === 'all' || app.type === activeFilter) &&
-    (`${app.name} ${app.id}`.toLowerCase().includes(term))
-  );
-
-  grid.innerHTML = list.map(app => `
-    <article class="card">
-      <small>${app.id.toUpperCase()}</small>
-      <h3>${app.name}</h3>
-      <p>${app.description}</p>
-      <div class="row">
-        <span class="tag">${app.type === 'tool' ? '🧰 TOOL' : '🎮 GAME'}</span>
-        <a href="${app.href}"><button>Open File App</button></a>
-      </div>
-    </article>
-  `).join('');
+for (const category of categories) {
+  const option = document.createElement("option");
+  option.value = category;
+  option.textContent = category;
+  categorySelect.append(option);
 }
 
-tabs.forEach(tab => tab.addEventListener('click', () => {
-  tabs.forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  activeFilter = tab.dataset.filter;
-  render();
-}));
+function render() {
+  const q = searchInput.value.trim().toLowerCase();
+  const selectedCategory = categorySelect.value;
 
-searchInput.addEventListener('input', render);
+  const filtered = tools.filter((tool) => {
+    const matchesSearch = !q || tool.name.toLowerCase().includes(q) || tool.description.toLowerCase().includes(q);
+    const matchesCategory = selectedCategory === "all" || tool.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  toolGrid.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+
+  for (const tool of filtered) {
+    const card = cardTemplate.content.cloneNode(true);
+    card.querySelector("h3").textContent = tool.name;
+    card.querySelector(".category").textContent = tool.category;
+    card.querySelector(".desc").textContent = tool.description;
+    card.querySelector("button").addEventListener("click", () => {
+      alert(`${tool.name} is coming online soon in MathVerse.`);
+    });
+    fragment.append(card);
+  }
+
+  toolGrid.append(fragment);
+  resultsText.textContent = `Showing ${filtered.length} tools`;
+}
+
+searchInput.addEventListener("input", render);
+categorySelect.addEventListener("change", render);
 render();
