@@ -1,0 +1,1 @@
+const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const A=document.getElementById('a')?.value,B=document.getElementById('b')?.value,C=document.getElementById('c')?.value,T=document.getElementById('t')?.value||'';if(!A||!B)out.textContent='Select both dates';else out.textContent=`${Math.round(Math.abs(new Date(B)-new Date(A))/86400000)} days`;};
