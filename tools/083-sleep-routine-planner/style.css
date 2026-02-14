@@ -1,0 +1,13 @@
+:root{--bg:#060d22;--text:#eaf2ff;--muted:#a9beef}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Inter,Segoe UI,sans-serif;min-height:100vh;color:var(--text);cursor:none;background:radial-gradient(1000px 500px at 20% 0%,rgba(101,151,255,.34),transparent 60%),linear-gradient(160deg,#060d22,#0a1a43 52%,#0d275c)}
+.page{width:min(980px,92%);margin:22px auto;padding:20px;border:1px solid #3f61b0;border-radius:18px;background:linear-gradient(165deg,rgba(16,36,84,.92),rgba(20,47,109,.86));box-shadow:0 18px 55px rgba(0,0,0,.33)}
+h1{margin:0 0 6px;font-size:clamp(1.2rem,2.8vw,2rem)}p{color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+input,textarea,select,button{padding:11px 12px;border-radius:12px;border:1px solid #3f62b0;background:#0b183f;color:var(--text);cursor:none;font-size:.95rem}
+input,textarea,select{flex:1;min-width:150px}textarea{min-height:120px;resize:vertical}
+button{background:linear-gradient(140deg,#7aa8ff,#64d7ff);border:none;color:#00163e;font-weight:700}
+.out{margin-top:8px;padding:12px;border-radius:12px;background:rgba(0,0,0,.22);border:1px solid rgba(130,170,255,.3);white-space:pre-wrap;min-height:80px}
+a{color:#cae0ff;text-decoration:none}
+.cursor-dot,.cursor-ring{position:fixed;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;z-index:99999;border-radius:50%}.cursor-dot{width:8px;height:8px;background:#8db8ff}.cursor-ring{width:28px;height:28px;border:2px solid #9bc4ff}
+@media (max-width:700px){.cursor-dot,.cursor-ring{display:none}body,input,textarea,select,button,a{cursor:auto}}

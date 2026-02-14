@@ -1,53 +1,100 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MathVerse 200 | Futuristic Maths Tools Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <header class="hero">
-    <p class="kicker">NEXT-GEN MATHEMATICS PLATFORM</p>
-    <h1>MathVerse 200</h1>
-    <p class="subtitle">A bluish futuristic hub with <strong>200 maths tools</strong> for students, engineers, analysts, and curious minds.</p>
-    <div class="hud">
-      <span id="toolCount">200 Tools</span>
-      <span>8 Categories</span>
-      <span>Realtime Search</span>
-    </div>
-  </header>
-
-  <main>
-    <section class="controls">
-      <input id="search" type="search" placeholder="Search any maths tool..." aria-label="Search maths tools" />
-      <select id="category" aria-label="Filter by category">
-        <option value="all">All Categories</option>
-      </select>
-    </section>
-
-    <section>
-      <div class="tools-header">
-        <h2>Tool Deck</h2>
-        <p id="resultsText">Showing 200 tools</p>
-      </div>
-      <div id="toolGrid" class="tool-grid" aria-live="polite"></div>
-    </section>
-  </main>
-
-  <template id="cardTemplate">
-    <article class="card">
-      <h3></h3>
-      <p class="category"></p>
-      <p class="desc"></p>
-      <button type="button">Open Tool</button>
-    </article>
-  </template>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!doctype html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1.0'><title>100 Useful Tools Hub</title><link rel='stylesheet' href='style.css'></head><body><main class='page'><section class='hero'><h1>100 Useful Tools (No Games)</h1><p>All tools are now functional. Enter the phrase to open the formal certificate page.</p><div class='search'><input id='searchInput' placeholder='Type exactly: I Am A Human , Not Nirbhay'><button id='verify'>Verify</button></div></section><section><h2>Tool Directory</h2><div class='grid'><div class='card'><a href='tools/001-case-converter/index.html'>Tool 1: Case Converter</a></div>
+<div class='card'><a href='tools/002-slug-maker/index.html'>Tool 2: Slug Maker</a></div>
+<div class='card'><a href='tools/003-hashtag-generator/index.html'>Tool 3: Hashtag Generator</a></div>
+<div class='card'><a href='tools/004-bio-generator/index.html'>Tool 4: Bio Generator</a></div>
+<div class='card'><a href='tools/005-email-masker/index.html'>Tool 5: Email Masker</a></div>
+<div class='card'><a href='tools/006-username-generator/index.html'>Tool 6: Username Generator</a></div>
+<div class='card'><a href='tools/007-password-generator/index.html'>Tool 7: Password Generator</a></div>
+<div class='card'><a href='tools/008-passphrase-generator/index.html'>Tool 8: Passphrase Generator</a></div>
+<div class='card'><a href='tools/009-text-summarizer/index.html'>Tool 9: Text Summarizer</a></div>
+<div class='card'><a href='tools/010-bullet-point-maker/index.html'>Tool 10: Bullet Point Maker</a></div>
+<div class='card'><a href='tools/011-sentence-rewriter/index.html'>Tool 11: Sentence Rewriter</a></div>
+<div class='card'><a href='tools/012-tone-changer/index.html'>Tool 12: Tone Changer</a></div>
+<div class='card'><a href='tools/013-keyword-extractor/index.html'>Tool 13: Keyword Extractor</a></div>
+<div class='card'><a href='tools/014-stopword-remover/index.html'>Tool 14: Stopword Remover</a></div>
+<div class='card'><a href='tools/015-duplicate-line-cleaner/index.html'>Tool 15: Duplicate Line Cleaner</a></div>
+<div class='card'><a href='tools/016-whitespace-normalizer/index.html'>Tool 16: Whitespace Normalizer</a></div>
+<div class='card'><a href='tools/017-json-formatter/index.html'>Tool 17: Json Formatter</a></div>
+<div class='card'><a href='tools/018-json-minifier/index.html'>Tool 18: Json Minifier</a></div>
+<div class='card'><a href='tools/019-csv-to-json/index.html'>Tool 19: Csv To Json</a></div>
+<div class='card'><a href='tools/020-json-to-csv/index.html'>Tool 20: Json To Csv</a></div>
+<div class='card'><a href='tools/021-base64-encoder/index.html'>Tool 21: Base64 Encoder</a></div>
+<div class='card'><a href='tools/022-base64-decoder/index.html'>Tool 22: Base64 Decoder</a></div>
+<div class='card'><a href='tools/023-url-encoder/index.html'>Tool 23: Url Encoder</a></div>
+<div class='card'><a href='tools/024-url-decoder/index.html'>Tool 24: Url Decoder</a></div>
+<div class='card'><a href='tools/025-html-escape/index.html'>Tool 25: Html Escape</a></div>
+<div class='card'><a href='tools/026-html-unescape/index.html'>Tool 26: Html Unescape</a></div>
+<div class='card'><a href='tools/027-markdown-preview/index.html'>Tool 27: Markdown Preview</a></div>
+<div class='card'><a href='tools/028-regex-tester/index.html'>Tool 28: Regex Tester</a></div>
+<div class='card'><a href='tools/029-color-palette-generator/index.html'>Tool 29: Color Palette Generator</a></div>
+<div class='card'><a href='tools/030-gradient-generator/index.html'>Tool 30: Gradient Generator</a></div>
+<div class='card'><a href='tools/031-contrast-checker/index.html'>Tool 31: Contrast Checker</a></div>
+<div class='card'><a href='tools/032-lorem-ipsum-generator/index.html'>Tool 32: Lorem Ipsum Generator</a></div>
+<div class='card'><a href='tools/033-qr-text-generator/index.html'>Tool 33: Qr Text Generator</a></div>
+<div class='card'><a href='tools/034-uuid-generator/index.html'>Tool 34: Uuid Generator</a></div>
+<div class='card'><a href='tools/035-timestamp-converter/index.html'>Tool 35: Timestamp Converter</a></div>
+<div class='card'><a href='tools/036-timezone-note-converter/index.html'>Tool 36: Timezone Note Converter</a></div>
+<div class='card'><a href='tools/037-date-formatter/index.html'>Tool 37: Date Formatter</a></div>
+<div class='card'><a href='tools/038-meeting-agenda-builder/index.html'>Tool 38: Meeting Agenda Builder</a></div>
+<div class='card'><a href='tools/039-todo-prioritizer/index.html'>Tool 39: Todo Prioritizer</a></div>
+<div class='card'><a href='tools/040-pomodoro-planner/index.html'>Tool 40: Pomodoro Planner</a></div>
+<div class='card'><a href='tools/041-habit-tracker-note/index.html'>Tool 41: Habit Tracker Note</a></div>
+<div class='card'><a href='tools/042-reading-list-organizer/index.html'>Tool 42: Reading List Organizer</a></div>
+<div class='card'><a href='tools/043-bookmark-organizer/index.html'>Tool 43: Bookmark Organizer</a></div>
+<div class='card'><a href='tools/044-file-name-sanitizer/index.html'>Tool 44: File Name Sanitizer</a></div>
+<div class='card'><a href='tools/045-folder-structure-planner/index.html'>Tool 45: Folder Structure Planner</a></div>
+<div class='card'><a href='tools/046-project-name-ideas/index.html'>Tool 46: Project Name Ideas</a></div>
+<div class='card'><a href='tools/047-release-note-generator/index.html'>Tool 47: Release Note Generator</a></div>
+<div class='card'><a href='tools/048-changelog-builder/index.html'>Tool 48: Changelog Builder</a></div>
+<div class='card'><a href='tools/049-commit-message-helper/index.html'>Tool 49: Commit Message Helper</a></div>
+<div class='card'><a href='tools/050-pr-description-helper/index.html'>Tool 50: Pr Description Helper</a></div>
+<div class='card'><a href='tools/051-email-subject-line-helper/index.html'>Tool 51: Email Subject Line Helper</a></div>
+<div class='card'><a href='tools/052-cold-email-draft-helper/index.html'>Tool 52: Cold Email Draft Helper</a></div>
+<div class='card'><a href='tools/053-meeting-minutes-formatter/index.html'>Tool 53: Meeting Minutes Formatter</a></div>
+<div class='card'><a href='tools/054-interview-question-list/index.html'>Tool 54: Interview Question List</a></div>
+<div class='card'><a href='tools/055-resume-bullet-enhancer/index.html'>Tool 55: Resume Bullet Enhancer</a></div>
+<div class='card'><a href='tools/056-cover-letter-starter/index.html'>Tool 56: Cover Letter Starter</a></div>
+<div class='card'><a href='tools/057-linkedin-post-draft/index.html'>Tool 57: Linkedin Post Draft</a></div>
+<div class='card'><a href='tools/058-tweet-draft-helper/index.html'>Tool 58: Tweet Draft Helper</a></div>
+<div class='card'><a href='tools/059-youtube-title-helper/index.html'>Tool 59: Youtube Title Helper</a></div>
+<div class='card'><a href='tools/060-youtube-description-helper/index.html'>Tool 60: Youtube Description Helper</a></div>
+<div class='card'><a href='tools/061-blog-title-brainstormer/index.html'>Tool 61: Blog Title Brainstormer</a></div>
+<div class='card'><a href='tools/062-meta-description-writer/index.html'>Tool 62: Meta Description Writer</a></div>
+<div class='card'><a href='tools/063-faq-generator/index.html'>Tool 63: Faq Generator</a></div>
+<div class='card'><a href='tools/064-policy-template-starter/index.html'>Tool 64: Policy Template Starter</a></div>
+<div class='card'><a href='tools/065-terms-snippet-builder/index.html'>Tool 65: Terms Snippet Builder</a></div>
+<div class='card'><a href='tools/066-privacy-snippet-builder/index.html'>Tool 66: Privacy Snippet Builder</a></div>
+<div class='card'><a href='tools/067-invoice-note-builder/index.html'>Tool 67: Invoice Note Builder</a></div>
+<div class='card'><a href='tools/068-client-brief-template/index.html'>Tool 68: Client Brief Template</a></div>
+<div class='card'><a href='tools/069-bug-report-template/index.html'>Tool 69: Bug Report Template</a></div>
+<div class='card'><a href='tools/070-feature-request-template/index.html'>Tool 70: Feature Request Template</a></div>
+<div class='card'><a href='tools/071-support-reply-helper/index.html'>Tool 71: Support Reply Helper</a></div>
+<div class='card'><a href='tools/072-apology-message-draft/index.html'>Tool 72: Apology Message Draft</a></div>
+<div class='card'><a href='tools/073-thank-you-message-draft/index.html'>Tool 73: Thank You Message Draft</a></div>
+<div class='card'><a href='tools/074-follow-up-message-draft/index.html'>Tool 74: Follow Up Message Draft</a></div>
+<div class='card'><a href='tools/075-birthday-message-draft/index.html'>Tool 75: Birthday Message Draft</a></div>
+<div class='card'><a href='tools/076-wedding-wish-draft/index.html'>Tool 76: Wedding Wish Draft</a></div>
+<div class='card'><a href='tools/077-travel-checklist-builder/index.html'>Tool 77: Travel Checklist Builder</a></div>
+<div class='card'><a href='tools/078-packing-list-builder/index.html'>Tool 78: Packing List Builder</a></div>
+<div class='card'><a href='tools/079-meal-plan-builder/index.html'>Tool 79: Meal Plan Builder</a></div>
+<div class='card'><a href='tools/080-grocery-list-builder/index.html'>Tool 80: Grocery List Builder</a></div>
+<div class='card'><a href='tools/081-workout-plan-note/index.html'>Tool 81: Workout Plan Note</a></div>
+<div class='card'><a href='tools/082-water-reminder-plan/index.html'>Tool 82: Water Reminder Plan</a></div>
+<div class='card'><a href='tools/083-sleep-routine-planner/index.html'>Tool 83: Sleep Routine Planner</a></div>
+<div class='card'><a href='tools/084-meditation-plan-builder/index.html'>Tool 84: Meditation Plan Builder</a></div>
+<div class='card'><a href='tools/085-mood-journal-starter/index.html'>Tool 85: Mood Journal Starter</a></div>
+<div class='card'><a href='tools/086-affirmation-generator/index.html'>Tool 86: Affirmation Generator</a></div>
+<div class='card'><a href='tools/087-goal-breakdown-helper/index.html'>Tool 87: Goal Breakdown Helper</a></div>
+<div class='card'><a href='tools/088-decision-pros-cons/index.html'>Tool 88: Decision Pros Cons</a></div>
+<div class='card'><a href='tools/089-risk-checklist-builder/index.html'>Tool 89: Risk Checklist Builder</a></div>
+<div class='card'><a href='tools/090-swot-note-builder/index.html'>Tool 90: Swot Note Builder</a></div>
+<div class='card'><a href='tools/091-brainstorm-canvas/index.html'>Tool 91: Brainstorm Canvas</a></div>
+<div class='card'><a href='tools/092-mind-map-text-exporter/index.html'>Tool 92: Mind Map Text Exporter</a></div>
+<div class='card'><a href='tools/093-storyboard-beat-sheet/index.html'>Tool 93: Storyboard Beat Sheet</a></div>
+<div class='card'><a href='tools/094-script-scene-starter/index.html'>Tool 94: Script Scene Starter</a></div>
+<div class='card'><a href='tools/095-podcast-outline-builder/index.html'>Tool 95: Podcast Outline Builder</a></div>
+<div class='card'><a href='tools/096-lesson-plan-builder/index.html'>Tool 96: Lesson Plan Builder</a></div>
+<div class='card'><a href='tools/097-study-plan-builder/index.html'>Tool 97: Study Plan Builder</a></div>
+<div class='card'><a href='tools/098-flashcard-csv-builder/index.html'>Tool 98: Flashcard Csv Builder</a></div>
+<div class='card'><a href='tools/099-revision-checklist-builder/index.html'>Tool 99: Revision Checklist Builder</a></div>
+<div class='card'><a href='tools/100-certificate-text-builder/index.html'>Tool 100: Certificate Text Builder</a></div></div></section></main><script src='script.js'></script></body></html>
