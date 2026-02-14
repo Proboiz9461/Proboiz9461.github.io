@@ -32,30 +32,4 @@ function simulateCO2() {
 
     chart.update();
 
-    document.getElementById("co2Value").innerText = "CO₂: " + value;
-
-    if (value > threshold) {
-        fanOn = true;
-        document.getElementById("fanStatus").innerText = "Fan: ON";
-        document.getElementById("fanStatus").style.color = "red";
-    } else {
-        fanOn = false;
-        document.getElementById("fanStatus").innerText = "Fan: OFF";
-        document.getElementById("fanStatus").style.color = "lightgreen";
-    }
-}
-
-setInterval(simulateCO2, 2000);
-
-function showSection(id) {
-    document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
-    document.getElementById(id).classList.remove("hidden");
-}
-
-function toggleTheme() {
-    document.body.classList.toggle("light");
-}
-
-function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("active");
-}
+    documen
