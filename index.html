@@ -1,53 +1,99 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MathVerse 200 | Futuristic Maths Tools Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <header class="hero">
-    <p class="kicker">NEXT-GEN MATHEMATICS PLATFORM</p>
-    <h1>MathVerse 200</h1>
-    <p class="subtitle">A bluish futuristic hub with <strong>200 maths tools</strong> for students, engineers, analysts, and curious minds.</p>
-    <div class="hud">
-      <span id="toolCount">200 Tools</span>
-      <span>8 Categories</span>
-      <span>Realtime Search</span>
-    </div>
-  </header>
-
-  <main>
-    <section class="controls">
-      <input id="search" type="search" placeholder="Search any maths tool..." aria-label="Search maths tools" />
-      <select id="category" aria-label="Filter by category">
-        <option value="all">All Categories</option>
-      </select>
-    </section>
-
-    <section>
-      <div class="tools-header">
-        <h2>Tool Deck</h2>
-        <p id="resultsText">Showing 200 tools</p>
-      </div>
-      <div id="toolGrid" class="tool-grid" aria-live="polite"></div>
-    </section>
-  </main>
-
-  <template id="cardTemplate">
-    <article class="card">
-      <h3></h3>
-      <p class="category"></p>
-      <p class="desc"></p>
-      <button type="button">Open Tool</button>
-    </article>
-  </template>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tools & Games Directory</title><link rel="stylesheet" href="style.css"></head><body><main><h1>Tools & Games Directory</h1><p class="muted">Each tool and game now has separate HTML, CSS, and JS files.</p><h2>50 Tools</h2><section class="grid"><div class="card"><a href="tools/01-tip_calc/index.html">Tool 1: Tip Calculator</a></div>
+<div class="card"><a href="tools/02-bmi_calc/index.html">Tool 2: BMI Calculator</a></div>
+<div class="card"><a href="tools/03-c_to_f/index.html">Tool 3: Celsius to Fahrenheit</a></div>
+<div class="card"><a href="tools/04-f_to_c/index.html">Tool 4: Fahrenheit to Celsius</a></div>
+<div class="card"><a href="tools/05-km_to_miles/index.html">Tool 5: Km to Miles</a></div>
+<div class="card"><a href="tools/06-miles_to_km/index.html">Tool 6: Miles to Km</a></div>
+<div class="card"><a href="tools/07-word_counter/index.html">Tool 7: Word Counter</a></div>
+<div class="card"><a href="tools/08-char_counter/index.html">Tool 8: Character Counter</a></div>
+<div class="card"><a href="tools/09-uppercase/index.html">Tool 9: Uppercase Converter</a></div>
+<div class="card"><a href="tools/10-lowercase/index.html">Tool 10: Lowercase Converter</a></div>
+<div class="card"><a href="tools/11-title_case/index.html">Tool 11: Title Case</a></div>
+<div class="card"><a href="tools/12-reverse_text/index.html">Tool 12: Reverse Text</a></div>
+<div class="card"><a href="tools/13-password_gen/index.html">Tool 13: Password Generator</a></div>
+<div class="card"><a href="tools/14-simple_interest/index.html">Tool 14: Simple Interest</a></div>
+<div class="card"><a href="tools/15-compound_interest/index.html">Tool 15: Compound Interest</a></div>
+<div class="card"><a href="tools/16-loan_emi/index.html">Tool 16: Loan EMI</a></div>
+<div class="card"><a href="tools/17-percentage_finder/index.html">Tool 17: Percentage Finder</a></div>
+<div class="card"><a href="tools/18-percentage_change/index.html">Tool 18: Percentage Change</a></div>
+<div class="card"><a href="tools/19-age_days/index.html">Tool 19: Age in Days</a></div>
+<div class="card"><a href="tools/20-seconds_formatter/index.html">Tool 20: Seconds Formatter</a></div>
+<div class="card"><a href="tools/21-random_number/index.html">Tool 21: Random Number</a></div>
+<div class="card"><a href="tools/22-dice_roller/index.html">Tool 22: Dice Roller</a></div>
+<div class="card"><a href="tools/23-coin_flip/index.html">Tool 23: Coin Flip</a></div>
+<div class="card"><a href="tools/24-prime_checker/index.html">Tool 24: Prime Checker</a></div>
+<div class="card"><a href="tools/25-factorial/index.html">Tool 25: Factorial</a></div>
+<div class="card"><a href="tools/26-fibonacci/index.html">Tool 26: Fibonacci</a></div>
+<div class="card"><a href="tools/27-gcd/index.html">Tool 27: GCD Finder</a></div>
+<div class="card"><a href="tools/28-lcm/index.html">Tool 28: LCM Finder</a></div>
+<div class="card"><a href="tools/29-quadratic/index.html">Tool 29: Quadratic Solver</a></div>
+<div class="card"><a href="tools/30-circle_area/index.html">Tool 30: Area of Circle</a></div>
+<div class="card"><a href="tools/31-circle_circ/index.html">Tool 31: Circumference</a></div>
+<div class="card"><a href="tools/32-rect_area/index.html">Tool 32: Rectangle Area</a></div>
+<div class="card"><a href="tools/33-tri_area/index.html">Tool 33: Triangle Area</a></div>
+<div class="card"><a href="tools/34-speed_calc/index.html">Tool 34: Speed Calculator</a></div>
+<div class="card"><a href="tools/35-pace_calc/index.html">Tool 35: Pace Calculator</a></div>
+<div class="card"><a href="tools/36-water_intake/index.html">Tool 36: Water Intake</a></div>
+<div class="card"><a href="tools/37-calorie_burn/index.html">Tool 37: Calorie Burn</a></div>
+<div class="card"><a href="tools/38-bin_to_dec/index.html">Tool 38: Binary to Decimal</a></div>
+<div class="card"><a href="tools/39-dec_to_bin/index.html">Tool 39: Decimal to Binary</a></div>
+<div class="card"><a href="tools/40-hex_validator/index.html">Tool 40: Hex Validator</a></div>
+<div class="card"><a href="tools/41-slug_gen/index.html">Tool 41: Slug Generator</a></div>
+<div class="card"><a href="tools/42-trim_spaces/index.html">Tool 42: Trim Spaces</a></div>
+<div class="card"><a href="tools/43-reading_time/index.html">Tool 43: Reading Time</a></div>
+<div class="card"><a href="tools/44-date_diff/index.html">Tool 44: Date Difference</a></div>
+<div class="card"><a href="tools/45-countdown_days/index.html">Tool 45: Countdown Days</a></div>
+<div class="card"><a href="tools/46-vat_adder/index.html">Tool 46: VAT Adder</a></div>
+<div class="card"><a href="tools/47-discount_price/index.html">Tool 47: Discount Price</a></div>
+<div class="card"><a href="tools/48-split_bill/index.html">Tool 48: Split Bill</a></div>
+<div class="card"><a href="tools/49-leap_year/index.html">Tool 49: Leap Year Checker</a></div>
+<div class="card"><a href="tools/50-quote/index.html">Tool 50: Motivational Quote</a></div></section><h2>50 Games</h2><section class="grid"><div class="card"><a href="games/01-guess_1/index.html">Game 1: Mystery Number 1</a></div>
+<div class="card"><a href="games/02-guess_2/index.html">Game 2: Mystery Number 2</a></div>
+<div class="card"><a href="games/03-guess_3/index.html">Game 3: Mystery Number 3</a></div>
+<div class="card"><a href="games/04-guess_4/index.html">Game 4: Mystery Number 4</a></div>
+<div class="card"><a href="games/05-guess_5/index.html">Game 5: Mystery Number 5</a></div>
+<div class="card"><a href="games/06-guess_6/index.html">Game 6: Mystery Number 6</a></div>
+<div class="card"><a href="games/07-guess_7/index.html">Game 7: Mystery Number 7</a></div>
+<div class="card"><a href="games/08-guess_8/index.html">Game 8: Mystery Number 8</a></div>
+<div class="card"><a href="games/09-guess_9/index.html">Game 9: Mystery Number 9</a></div>
+<div class="card"><a href="games/10-guess_10/index.html">Game 10: Mystery Number 10</a></div>
+<div class="card"><a href="games/11-reaction_1/index.html">Game 11: Lightning Tap 1</a></div>
+<div class="card"><a href="games/12-reaction_2/index.html">Game 12: Lightning Tap 2</a></div>
+<div class="card"><a href="games/13-reaction_3/index.html">Game 13: Lightning Tap 3</a></div>
+<div class="card"><a href="games/14-reaction_4/index.html">Game 14: Lightning Tap 4</a></div>
+<div class="card"><a href="games/15-reaction_5/index.html">Game 15: Lightning Tap 5</a></div>
+<div class="card"><a href="games/16-reaction_6/index.html">Game 16: Lightning Tap 6</a></div>
+<div class="card"><a href="games/17-reaction_7/index.html">Game 17: Lightning Tap 7</a></div>
+<div class="card"><a href="games/18-reaction_8/index.html">Game 18: Lightning Tap 8</a></div>
+<div class="card"><a href="games/19-reaction_9/index.html">Game 19: Lightning Tap 9</a></div>
+<div class="card"><a href="games/20-reaction_10/index.html">Game 20: Lightning Tap 10</a></div>
+<div class="card"><a href="games/21-clicker_1/index.html">Game 21: Turbo Clicker 1</a></div>
+<div class="card"><a href="games/22-clicker_2/index.html">Game 22: Turbo Clicker 2</a></div>
+<div class="card"><a href="games/23-clicker_3/index.html">Game 23: Turbo Clicker 3</a></div>
+<div class="card"><a href="games/24-clicker_4/index.html">Game 24: Turbo Clicker 4</a></div>
+<div class="card"><a href="games/25-clicker_5/index.html">Game 25: Turbo Clicker 5</a></div>
+<div class="card"><a href="games/26-clicker_6/index.html">Game 26: Turbo Clicker 6</a></div>
+<div class="card"><a href="games/27-clicker_7/index.html">Game 27: Turbo Clicker 7</a></div>
+<div class="card"><a href="games/28-clicker_8/index.html">Game 28: Turbo Clicker 8</a></div>
+<div class="card"><a href="games/29-clicker_9/index.html">Game 29: Turbo Clicker 9</a></div>
+<div class="card"><a href="games/30-clicker_10/index.html">Game 30: Turbo Clicker 10</a></div>
+<div class="card"><a href="games/31-math_1/index.html">Game 31: Brain Calc 1</a></div>
+<div class="card"><a href="games/32-math_2/index.html">Game 32: Brain Calc 2</a></div>
+<div class="card"><a href="games/33-math_3/index.html">Game 33: Brain Calc 3</a></div>
+<div class="card"><a href="games/34-math_4/index.html">Game 34: Brain Calc 4</a></div>
+<div class="card"><a href="games/35-math_5/index.html">Game 35: Brain Calc 5</a></div>
+<div class="card"><a href="games/36-math_6/index.html">Game 36: Brain Calc 6</a></div>
+<div class="card"><a href="games/37-math_7/index.html">Game 37: Brain Calc 7</a></div>
+<div class="card"><a href="games/38-math_8/index.html">Game 38: Brain Calc 8</a></div>
+<div class="card"><a href="games/39-math_9/index.html">Game 39: Brain Calc 9</a></div>
+<div class="card"><a href="games/40-math_10/index.html">Game 40: Brain Calc 10</a></div>
+<div class="card"><a href="games/41-rps_1/index.html">Game 41: RPS Arena 1</a></div>
+<div class="card"><a href="games/42-rps_2/index.html">Game 42: RPS Arena 2</a></div>
+<div class="card"><a href="games/43-rps_3/index.html">Game 43: RPS Arena 3</a></div>
+<div class="card"><a href="games/44-rps_4/index.html">Game 44: RPS Arena 4</a></div>
+<div class="card"><a href="games/45-rps_5/index.html">Game 45: RPS Arena 5</a></div>
+<div class="card"><a href="games/46-rps_6/index.html">Game 46: RPS Arena 6</a></div>
+<div class="card"><a href="games/47-rps_7/index.html">Game 47: RPS Arena 7</a></div>
+<div class="card"><a href="games/48-rps_8/index.html">Game 48: RPS Arena 8</a></div>
+<div class="card"><a href="games/49-rps_9/index.html">Game 49: RPS Arena 9</a></div>
+<div class="card"><a href="games/50-rps_10/index.html">Game 50: RPS Arena 10</a></div></section></main></body></html>
