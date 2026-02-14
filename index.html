@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart CO₂ Vehicle Safety System</title>
+<title>Smart CO₂ Safety System</title>
 
 <link rel="stylesheet" href="style.css">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -16,90 +19,59 @@
 <div class="container">
 
 <aside id="sidebar" class="sidebar">
-    <h2>CO₂ Safety System</h2>
-    <nav>
-        <a onclick="showSection('dashboard')">Dashboard</a>
-        <a onclick="showSection('overview')">Overview</a>
-        <a onclick="showSection('architecture')">Architecture</a>
-        <a onclick="showSection('components')">Components</a>
-        <a onclick="showSection('wiring')">Wiring</a>
-        <a onclick="showSection('gallery')">Gallery</a>
-        <a onclick="showSection('documentation')">Documentation</a>
-    </nav>
+<h2>CO₂ System</h2>
+<nav>
+<a onclick="showSection('dashboard')">3D Dashboard</a>
+<a onclick="showSection('overview')">Overview</a>
+<a onclick="showSection('deployment')">Deployment</a>
+<a onclick="showSection('chatbot')">AI Assistant</a>
+<a onclick="showSection('report')">Generate Report</a>
+</nav>
 </aside>
 
 <main class="content">
 
-<section id="dashboard" class="active">
-    <h1>Live CO₂ Monitoring</h1>
-    <canvas id="co2Chart"></canvas>
-    <div class="status-box">
-        <h2 id="co2Value">CO₂: 0</h2>
-        <h3 id="fanStatus">Fan: OFF</h3>
-    </div>
+<!-- 3D DASHBOARD -->
+<section id="dashboard">
+<h1>3D CO₂ Visualization</h1>
+<div id="threeContainer"></div>
+<h2 id="co2Value">CO₂: 0</h2>
+<h3 id="fanStatus">Fan: OFF</h3>
 </section>
 
-<section id="overview" class="hidden fade">
-    <h1>Project Overview</h1>
-    <p>
-    An intelligent embedded system that detects hazardous CO₂ levels inside enclosed vehicles 
-    and activates ventilation automatically or through voice commands.
-    </p>
+<!-- OVERVIEW -->
+<section id="overview" class="hidden">
+<h1>Project Overview</h1>
+<p>
+This embedded system monitors CO₂ concentration inside enclosed vehicles
+and activates ventilation automatically or via trained voice commands.
+</p>
 </section>
 
-<section id="architecture" class="hidden fade">
-    <h1>System Architecture</h1>
-    <ul>
-        <li>Input Layer → MQ-135 + Voice Module + Buttons</li>
-        <li>Processing → Arduino Mega 2560</li>
-        <li>Output → Relay + Fan + LEDs + LCD + Speaker</li>
-    </ul>
+<!-- DEPLOYMENT -->
+<section id="deployment" class="hidden">
+<h1>Deployment Guide</h1>
+<ol>
+<li>Create GitHub Repository</li>
+<li>Upload index.html, style.css, script.js</li>
+<li>Go to Settings → Pages</li>
+<li>Select Branch: main</li>
+<li>Save → Your site goes live</li>
+</ol>
 </section>
 
-<section id="components" class="hidden fade">
-    <h1>Components</h1>
-    <ul>
-        <li>Arduino Mega 2560</li>
-        <li>MQ-135 Gas Sensor</li>
-        <li>Gravity Voice Recognition Module</li>
-        <li>1-Channel 5V Relay</li>
-        <li>12V DC Fan</li>
-        <li>16x2 I2C LCD</li>
-        <li>2 Push Buttons</li>
-        <li>LED Indicators</li>
-        <li>Speaker</li>
-    </ul>
+<!-- AI CHATBOT -->
+<section id="chatbot" class="hidden">
+<h1>AI Project Assistant</h1>
+<div class="chatbox" id="chatbox"></div>
+<input type="text" id="userInput" placeholder="Ask about the project...">
+<button onclick="sendMessage()">Send</button>
 </section>
 
-<section id="wiring" class="hidden fade">
-    <h1>Pin Mapping</h1>
-    <table>
-        <tr><th>Component</th><th>Pin</th></tr>
-        <tr><td>MQ-135</td><td>A0</td></tr>
-        <tr><td>Relay</td><td>D8</td></tr>
-        <tr><td>Green LED</td><td>D10</td></tr>
-        <tr><td>Red LED</td><td>D11</td></tr>
-        <tr><td>Buttons</td><td>D5, D6</td></tr>
-        <tr><td>Speaker</td><td>D9</td></tr>
-        <tr><td>Voice TX/RX</td><td>19 / 18</td></tr>
-        <tr><td>LCD SDA/SCL</td><td>20 / 21</td></tr>
-    </table>
-</section>
-
-<section id="gallery" class="hidden fade">
-    <h1>Project Gallery</h1>
-    <img src="assets/circuit.png" class="gallery-img">
-    <img src="assets/setup.jpg" class="gallery-img">
-</section>
-
-<section id="documentation" class="hidden fade">
-    <h1>Documentation</h1>
-    <a href="assets/report.pdf" download class="download-btn">Download Project Report</a>
-    <pre>
-if (gasValue > threshold) fanON();
-if (voiceCmd == YES) fanON();
-if (voiceCmd == NO) fanOFF();
-    </pre>
+<!-- REPORT GENERATOR -->
+<section id="report" class="hidden">
+<h1>Auto Generate Project PDF</h1>
+<button onclick="generatePDF()">Download Project Report</button>
 </section>
 
 </main>
@@ -107,4 +79,4 @@ if (voiceCmd == NO) fanOFF();
 
 <script src="script.js"></script>
 </body>
-</html>
+</html
