@@ -1,0 +1,1 @@
+const out=document.getElementById('out');document.getElementById('run').onclick=()=>{const a=document.getElementById('a').value;const b=document.getElementById('b').value;out.textContent=`Smart Calculator: inputA=${a||'∅'} | inputB=${b||'∅'}`;};
