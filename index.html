@@ -1,53 +1,61 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shaurya Chauhan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #fdfcfb; /* Clean, professional off-white */
-      color: #2d2d2d;
+      /* Gradient background to make the "Glass" effect visible */
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      background-attachment: fixed;
+      color: #2d3436;
       min-height: 100vh;
-      padding: 0;
-      margin: 0;
+      display: flex;
+      justify-content: center;
     }
 
-    /* WIDE FIT WRAPPER */
     .pw-wrap {
       width: 100%;
-      max-width: 100%; /* Removes the 800px constraint */
-      min-height: 100vh;
-      padding: 3rem 5%; /* Flexible side padding for wide screens */
-      background: #fdfcfb;
+      max-width: 1200px;
+      padding: 3rem 5%;
       position: relative;
+    }
+
+    /* THE LIQUID GLASS EFFECT */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     }
 
     .pw-header { 
       text-align: left; 
       margin-bottom: 2.5rem; 
-      border-bottom: 1px solid #eee;
-      padding-bottom: 1.5rem;
+      padding: 2rem;
     }
     
     .pw-title { 
-      font-size: 28px; 
+      font-size: 32px; 
       font-weight: 600; 
       color: #1a1a1a; 
-      letter-spacing: -0.5px; 
+      letter-spacing: -0.8px; 
     }
     
     .pw-subtitle { 
-      font-size: 14px; 
-      color: #666; 
-      margin-top: 5px;
+      font-size: 15px; 
+      color: #576574; 
+      margin-top: 8px;
     }
 
-    /* STATS GRID - Now spans wider */
     .pw-stats { 
       display: grid; 
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -56,19 +64,20 @@
     }
 
     .pw-stat {
-      background: #ffffff;
-      border: 1px solid #eaeaea;
-      border-radius: 12px;
       padding: 1.5rem;
-      transition: transform 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
     
-    .pw-stat:hover { transform: translateY(-2px); }
+    .pw-stat:hover { 
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.6);
+    }
 
-    .pw-stat-val { font-size: 24px; font-weight: 600; display: block; }
-    .pw-stat-sub { font-size: 13px; color: #666; margin-top: 4px; display: block; font-weight: 500; }
-    .pw-stat-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px; display: block; }
+    .pw-stat-val { font-size: 26px; font-weight: 600; display: block; color: #1e272e; }
+    .pw-stat-sub { font-size: 13px; color: #576574; margin-top: 4px; display: block; font-weight: 500; }
+    .pw-stat-label { font-size: 11px; color: #8395a7; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; display: block; }
 
     .pw-controls-row {
       display: flex;
@@ -77,78 +86,80 @@
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
       gap: 15px;
+      padding: 0 10px;
     }
 
-    .pw-toggle { display: flex; gap: 4px; background: #eee; padding: 4px; border-radius: 10px; }
+    .pw-toggle { 
+      display: flex; 
+      gap: 4px; 
+      background: rgba(255, 255, 255, 0.3); 
+      padding: 5px; 
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
     .pw-btn {
-      padding: 8px 20px;
+      padding: 8px 24px;
       border-radius: 8px;
       border: none;
       background: transparent;
-      color: #666;
+      color: #576574;
       font-size: 13px;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
       transition: all 0.2s;
     }
 
     .pw-btn.active {
       background: #ffffff;
-      color: #000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #2e86de;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .pw-legend { display: flex; flex-wrap: wrap; gap: 20px; }
-    .pw-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #555; font-weight: 500; }
-    .pw-legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .pw-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2d3436; font-weight: 600; }
+    .pw-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
 
     .pw-card {
-      background: #ffffff;
-      border: 1px solid #eaeaea;
-      border-radius: 16px;
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
 
-    .pw-chart-wrap { position: relative; width: 100%; height: 850px; }
-
-    .pw-footer { text-align: left; font-size: 12px; color: #999; }
+    .pw-chart-wrap { position: relative; width: 100%; height: 800px; }
 
     .pw-signature {
       margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid #eee;
+      padding: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .pw-sig-name { font-size: 16px; font-weight: 600; color: #1a1a1a; }
-    .pw-sig-class { font-size: 14px; color: #666; margin-left: 10px; }
+    .pw-sig-name { font-size: 18px; font-weight: 600; color: #2d3436; }
+    .pw-sig-class { font-size: 14px; color: #576574; margin-left: 8px; }
+    .pw-footer { font-size: 12px; color: #8395a7; }
   </style>
 </head>
 <body>
 
 <div class="pw-wrap">
-  <div class="pw-header">
+  <div class="pw-header glass-panel">
     <h1 class="pw-title">Energy Consumption Analytics</h1>
     <p class="pw-subtitle">Comparative monthly analysis based on 8-hour daily usage cycles.</p>
   </div>
 
   <div class="pw-stats">
-    <div class="pw-stat" style="border-left: 4px solid #e09060;">
+    <div class="pw-stat glass-panel" style="border-top: 4px solid #e09060;">
       <span class="pw-stat-label">Peak Consumption</span>
       <span class="pw-stat-val">291.7 kWh</span>
       <span class="pw-stat-sub">Air Conditioner</span>
     </div>
-    <div class="pw-stat" style="border-left: 4px solid #7aaed4;">
+    <div class="pw-stat glass-panel" style="border-top: 4px solid #7aaed4;">
       <span class="pw-stat-label">System Average</span>
       <span class="pw-stat-val">60.8 kWh</span>
       <span class="pw-stat-sub">Computing Devices</span>
     </div>
-    <div class="pw-stat" style="border-left: 4px solid #6dbb96;">
+    <div class="pw-stat glass-panel" style="border-top: 4px solid #6dbb96;">
       <span class="pw-stat-label">Estimated Cost</span>
       <span class="pw-stat-val">₹2,334</span>
       <span class="pw-stat-sub">Monthly Peak Unit</span>
@@ -164,24 +175,24 @@
       <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#b0a898;"></span>Office</span>
       <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#e09060;"></span>Appliances</span>
     </div>
-    <div class="pw-toggle">
+    <div class="pw-toggle glass-panel">
       <button class="pw-btn active" id="btnKwh" onclick="switchMode('kwh')">kWh Usage</button>
       <button class="pw-btn" id="btnInr" onclick="switchMode('inr')">Cost (INR)</button>
     </div>
   </div>
 
-  <div class="pw-card">
+  <div class="pw-card glass-panel">
     <div class="pw-chart-wrap">
       <canvas id="pwChart"></canvas>
     </div>
   </div>
 
-  <div class="pw-signature">
+  <div class="pw-signature glass-panel">
     <div>
       <span class="pw-sig-name">Shaurya Chauhan</span>
       <span class="pw-sig-class">Class VIII A</span>
     </div>
-    <p class="pw-footer">Calculated at ₹8/kWh. All values are simulation-based estimates.</p>
+    <p class="pw-footer">Calculated at ₹8/kWh. Simulation-based estimates.</p>
   </div>
 </div>
 
@@ -225,15 +236,16 @@
 
   let mode = 'kwh';
 
-  const chart = new Chart(document.getElementById('pwChart'), {
+  const ctx = document.getElementById('pwChart').getContext('2d');
+  const chart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: sorted.map(d => d.label),
       datasets: [{
         data: kwhData,
-        backgroundColor: sorted.map(d => d.color),
-        borderRadius: 4,
-        barThickness: 18
+        backgroundColor: sorted.map(d => d.color + 'CC'), // CC adds slight transparency to bars
+        borderRadius: 6,
+        barThickness: 16
       }]
     },
     options: {
@@ -244,15 +256,16 @@
         legend: { display: false },
         tooltip: {
           padding: 12,
-          backgroundColor: '#1a1a1a',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          backdropFilter: 'blur(4px)',
           callbacks: {
             label: ctx => mode === 'kwh' ? ` ${ctx.parsed.x} kWh` : ` ₹${ctx.parsed.x}`
           }
         }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { color: '#999' } },
-        y: { grid: { display: false }, ticks: { color: '#444', font: { weight: 500 } } }
+        x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#8395a7' } },
+        y: { grid: { display: false }, ticks: { color: '#2d3436', font: { weight: 600, size: 12 } } }
       }
     }
   });
@@ -265,5 +278,6 @@
     chart.update();
   }
 </script>
+
 </body>
 </html>
