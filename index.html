@@ -1,82 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart CO₂ Safety System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monthly Energy Usage — Shaurya Chauhan VIII A</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link rel="stylesheet" href="style.css">
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8e2d8;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    .pw-wrap {
+      width: 100%;
+      max-width: 800px;
+      background: linear-gradient(160deg, #f5f2ee 0%, #ede8e1 40%, #f0ebe3 100%);
+      min-height: 980px;
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(180,140,100,0.15);
+    }
+
+    .pw-wrap::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(255,165,80,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .pw-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(210,180,140,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .pw-header { text-align: center; margin-bottom: 1.5rem; }
+    .pw-title { font-size: 21px; font-weight: 600; color: #3a3228; letter-spacing: -0.3px; margin-bottom: 4px; }
+    .pw-subtitle { font-size: 12px; color: #a09080; }
+
+    .pw-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+
+    .pw-stat {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(210,190,160,0.4);
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .pw-stat-val { font-size: 18px; font-weight: 600; display: block; line-height: 1.2; }
+    .pw-stat-sub { font-size: 10px; color: #b09880; margin-top: 2px; display: block; }
+    .pw-stat-label { font-size: 9px; color: #c0a888; margin-top: 1px; display: block; }
+
+    .pw-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 1.25rem; }
+
+    .pw-btn {
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(200,170,130,0.5);
+      background: rgba(255,255,255,0.5);
+      color: #8a7060;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .pw-btn.active {
+      background: rgba(255,140,60,0.18);
+      border-color: rgba(255,140,60,0.5);
+      color: #c06020;
+    }
+
+    .pw-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: center; margin-bottom: 1.25rem; }
+    .pw-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #8a7a6a; }
+    .pw-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    .pw-card {
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(210,190,165,0.45);
+      border-radius: 18px;
+      backdrop-filter: blur(14px);
+      padding: 1.25rem 1.25rem 1.25rem 0.5rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .pw-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,160,80,0.35), transparent);
+    }
+
+    .pw-chart-wrap { position: relative; width: 100%; height: 740px; }
+
+    .pw-footer { text-align: center; font-size: 10px; color: #b8a890; margin-bottom: 1rem; }
+
+    .pw-sig-wrap { display: flex; justify-content: center; margin-top: 1.25rem; }
+
+    .pw-signature {
+      text-align: center;
+      padding: 0.65rem 1.75rem;
+      background: rgba(255,255,255,0.45);
+      border: 1px solid rgba(210,190,160,0.4);
+      border-radius: 50px;
+    }
+
+    .pw-sig-label { font-size: 9px; color: #c0a888; display: block; margin-bottom: 2px; }
+    .pw-sig-name { font-size: 13px; font-weight: 600; color: #c06020; letter-spacing: 0.2px; }
+    .pw-sig-class { font-size: 11px; color: #a08060; margin-left: 6px; font-weight: 400; }
+  </style>
 </head>
 <body>
 
-<button class="menu-btn" onclick="toggleSidebar()">☰</button>
-<button class="theme-btn" onclick="toggleTheme()">🌙</button>
+<div class="pw-wrap">
 
-<div class="container">
+  <div class="pw-header">
+    <p class="pw-title">Monthly Energy Usage — When In Use</p>
+    <p class="pw-subtitle">Full load &middot; 8 hrs/day &middot; Toggle between kWh and INR cost</p>
+  </div>
 
-<aside id="sidebar" class="sidebar">
-<h2>CO₂ System</h2>
-<nav>
-<a onclick="showSection('dashboard')">3D Dashboard</a>
-<a onclick="showSection('overview')">Overview</a>
-<a onclick="showSection('deployment')">Deployment</a>
-<a onclick="showSection('chatbot')">AI Assistant</a>
-<a onclick="showSection('report')">Generate Report</a>
-</nav>
-</aside>
+  <div class="pw-stats">
+    <div class="pw-stat">
+      <span class="pw-stat-val" style="color:#d05818;">291.7 kWh</span>
+      <span class="pw-stat-sub" style="color:#d07030;">&#8776; &#8377;2,334/mo</span>
+      <span class="pw-stat-label">Highest &middot; Air Conditioner</span>
+    </div>
+    <div class="pw-stat">
+      <span class="pw-stat-val" style="color:#7a90b0;">60.8 kWh</span>
+      <span class="pw-stat-sub" style="color:#9aaac0;">&#8776; &#8377;486/mo</span>
+      <span class="pw-stat-label">Avg Computer &middot; Desktop PC</span>
+    </div>
+    <div class="pw-stat">
+      <span class="pw-stat-val" style="color:#7ab090;">0.2 kWh</span>
+      <span class="pw-stat-sub" style="color:#9ac0a8;">&#8776; &#8377;1.3/mo</span>
+      <span class="pw-stat-label">Lowest &middot; Smartwatch</span>
+    </div>
+  </div>
 
-<main class="content">
+  <div class="pw-toggle">
+    <button class="pw-btn active" id="btnKwh" onclick="switchMode('kwh')">kWh / month</button>
+    <button class="pw-btn" id="btnInr" onclick="switchMode('inr')">INR &#8377; / month</button>
+  </div>
 
-<!-- 3D DASHBOARD -->
-<section id="dashboard">
-<h1>3D CO₂ Visualization</h1>
-<div id="threeContainer"></div>
-<h2 id="co2Value">CO₂: 0</h2>
-<h3 id="fanStatus">Fan: OFF</h3>
-</section>
+  <div class="pw-legend">
+    <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#6dbb96;"></span>Mobile</span>
+    <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#7aaed4;"></span>Computers</span>
+    <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#b09ed4;"></span>Entertainment</span>
+    <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#d4908c;"></span>Smart Home</span>
+    <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#b0a898;"></span>Office</span>
+    <span class="pw-legend-item"><span class="pw-legend-dot" style="background:#e09060;"></span>Appliances</span>
+  </div>
 
-<!-- OVERVIEW -->
-<section id="overview" class="hidden">
-<h1>Project Overview</h1>
-<p>
-This embedded system monitors CO₂ concentration inside enclosed vehicles
-and activates ventilation automatically or via trained voice commands.
-</p>
-</section>
+  <div class="pw-card">
+    <div class="pw-chart-wrap">
+      <canvas id="pwChart" role="img" aria-label="Horizontal bar chart of monthly energy usage per device. Toggle between kWh and INR cost.">Monthly energy usage per device at full load.</canvas>
+    </div>
+  </div>
 
-<!-- DEPLOYMENT -->
-<section id="deployment" class="hidden">
-<h1>Deployment Guide</h1>
-<ol>
-<li>Create GitHub Repository</li>
-<li>Upload index.html, style.css, script.js</li>
-<li>Go to Settings → Pages</li>
-<li>Select Branch: main</li>
-<li>Save → Your site goes live</li>
-</ol>
-</section>
+  <p class="pw-footer">INR cost estimated at &#8377;8 per kWh (avg Indian domestic tariff). Values are approximate.</p>
 
-<!-- AI CHATBOT -->
-<section id="chatbot" class="hidden">
-<h1>AI Project Assistant</h1>
-<div class="chatbox" id="chatbox"></div>
-<input type="text" id="userInput" placeholder="Ask about the project...">
-<button onclick="sendMessage()">Send</button>
-</section>
+  <div class="pw-sig-wrap">
+    <div class="pw-signature">
+      <span class="pw-sig-label">Made by</span>
+      <div>
+        <span class="pw-sig-name">Shaurya Chauhan</span>
+        <span class="pw-sig-class">&middot; VIII A</span>
+      </div>
+    </div>
+  </div>
 
-<!-- REPORT GENERATOR -->
-<section id="report" class="hidden">
-<h1>Auto Generate Project PDF</h1>
-<button onclick="generatePDF()">Download Project Report</button>
-</section>
-
-</main>
 </div>
 
-<script src="script.js"></script>
+<script>
+  const INR_PER_KWH = 8;
+
+  const devices = [
+    { label: 'Air Conditioner', value: 3500, color: '#e09060' },
+    { label: 'Workstation', value: 1752, color: '#7aaed4' },
+    { label: 'Gaming PC', value: 1314, color: '#7aaed4' },
+    { label: 'Microwave', value: 600, color: '#e09060' },
+    { label: 'Washing Machine', value: 500, color: '#e09060' },
+    { label: 'Refrigerator', value: 500, color: '#e09060' },
+    { label: 'Desktop PC', value: 730, color: '#7aaed4' },
+    { label: 'Laser Printer', value: 365, color: '#b0a898' },
+    { label: 'Projector', value: 220, color: '#b09ed4' },
+    { label: 'Gaming Console', value: 175, color: '#b09ed4' },
+    { label: 'Smart TV', value: 175, color: '#b09ed4' },
+    { label: 'Laptop', value: 131, color: '#7aaed4' },
+    { label: 'MacBook', value: 102, color: '#7aaed4' },
+    { label: 'Monitor (24")', value: 88, color: '#b0a898' },
+    { label: 'Wi-Fi Router', value: 88, color: '#d4908c' },
+    { label: 'Inkjet Printer', value: 88, color: '#b0a898' },
+    { label: 'Chromebook', value: 73, color: '#7aaed4' },
+    { label: 'Smart Bulb', value: 30, color: '#d4908c' },
+    { label: 'Tablet', value: 25, color: '#6dbb96' },
+    { label: 'Voice Assistant', value: 25, color: '#d4908c' },
+    { label: 'Bluetooth Speaker', value: 20, color: '#b09ed4' },
+    { label: 'Smart Doorbell', value: 20, color: '#d4908c' },
+    { label: 'Streaming Stick', value: 15, color: '#b09ed4' },
+    { label: 'External HDD', value: 15, color: '#b0a898' },
+    { label: 'Smart Thermostat', value: 10, color: '#d4908c' },
+    { label: 'Webcam', value: 10, color: '#b0a898' },
+    { label: 'E-reader', value: 6, color: '#6dbb96' },
+    { label: 'Smartphone', value: 5, color: '#6dbb96' },
+    { label: 'Smartwatch', value: 2, color: '#6dbb96' },
+  ];
+
+  const sorted = [...devices].sort((a, b) => b.value - a.value);
+  const kwhData = sorted.map(d => parseFloat((d.value / 12).toFixed(1)));
+  const inrData = sorted.map(d => Math.round((d.value / 12) * INR_PER_KWH));
+
+  let mode = 'kwh';
+
+  const chart = new Chart(document.getElementById('pwChart'), {
+    type: 'bar',
+    data: {
+      labels: sorted.map(d => d.label),
+      datasets: [{
+        label: 'kWh/month',
+        data: kwhData,
+        backgroundColor: sorted.map(d => d.color + 'bb'),
+        borderColor: sorted.map(d => d.color),
+        borderWidth: 1,
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 500 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(60,45,30,0.88)',
+          borderColor: 'rgba(210,170,120,0.4)',
+          borderWidth: 1,
+          titleColor: 'rgba(255,235,210,0.9)',
+          bodyColor: 'rgba(255,220,180,0.75)',
+          padding: 10,
+          cornerRadius: 10,
+          callbacks: {
+            label: ctx => mode === 'kwh'
+              ? ' ' + ctx.parsed.x.toFixed(1) + ' kWh/month'
+              : ' \u20B9' + ctx.parsed.x.toLocaleString('en-IN') + '/month'
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'kWh per month', color: '#b09878', font: { size: 11 } },
+          grid: { color: 'rgba(180,155,120,0.15)' },
+          border: { color: 'rgba(180,155,120,0.2)' },
+          ticks: {
+            color: '#b09878',
+            font: { size: 10 },
+            callback: v => mode === 'kwh' ? v + ' kWh' : '\u20B9' + v.toLocaleString('en-IN')
+          }
+        },
+        y: {
+          grid: { display: false },
+          border: { color: 'transparent' },
+          ticks: { color: '#7a6a58', font: { size: 11 }, autoSkip: false }
+        }
+      }
+    }
+  });
+
+  function switchMode(m) {
+    mode = m;
+    document.getElementById('btnKwh').classList.toggle('active', m === 'kwh');
+    document.getElementById('btnInr').classList.toggle('active', m === 'inr');
+    chart.data.datasets[0].data = m === 'kwh' ? kwhData : inrData;
+    chart.data.datasets[0].label = m === 'kwh' ? 'kWh/month' : '\u20B9/month';
+    chart.options.scales.x.title.text = m === 'kwh' ? 'kWh per month' : 'INR \u20B9 per month';
+    chart.update();
+  }
+</script>
+
 </body>
-</html
+</html>
