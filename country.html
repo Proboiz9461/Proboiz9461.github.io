@@ -189,7 +189,7 @@
   <!-- Header -->
   <div class="header">
     <span class="header-emoji">⚡🇮🇳</span>
-    <p class="header-eyebrow">India Energy Waste Report 2025</p>
+    <p class="header-eyebrow">India Energy Waste Report</p>
     <h1 class="header-title">How Much Energy Does India<br>Waste on Idle Devices — Per Year?</h1>
     <p class="header-sub">Standby / phantom load power drained by plugged-in but not-in-use devices across India's 333 million electricity consumers</p>
   </div>
@@ -245,9 +245,9 @@
     </div>
   </div>
 
-  <!-- Bar chart: year-wise waste trend -->
+  <!-- Bar chart: year-wise waste trend (2019–2025 only) -->
   <div class="glass chart-card" style="margin-bottom:1.4rem;">
-    <p class="section-label">Projected Idle Waste Growth (TWh/year)</p>
+    <p class="section-label">Idle Waste Growth — Historical Data (TWh/year)</p>
     <div class="chart-wrap">
       <canvas id="trendChart"></canvas>
     </div>
@@ -281,7 +281,7 @@
 
   <!-- Sources -->
   <p class="sources">
-    Sources: Ministry of Power Year-End Review 2024 · Wikipedia Electricity Sector in India (FY 2024-25) · GlobalPetrolPrices.com (Sep 2025, ₹6.49/kWh avg) ·
+    Sources: Ministry of Power Year-End Review 2024 · Wikipedia Electricity Sector in India (FY 2024-25) · GlobalPetrolPrices.com (₹6.49/kWh avg) ·
     CXO Today / The Business Guardian (2024) · CEA India · Carbon intensity: 0.82 kg CO₂/kWh (India grid factor, CEA 2023).<br>
     Idle waste % based on IEA standby power research and India-specific household studies. All figures are estimates/approximations.
   </p>
@@ -355,22 +355,22 @@ devices.forEach(d => {
     </div>`;
 });
 
-// ── Trend chart ──
+// ── Trend chart — 2019 to 2025 only, no projections ──
 new Chart(document.getElementById('trendChart'), {
   type: 'bar',
   data: {
-    labels: ['2019','2020','2021','2022','2023','2024','2025','2026 (proj)','2027 (proj)','2028 (proj)'],
+    labels: ['2019','2020','2021','2022','2023','2024','2025'],
     datasets: [
       {
         label: 'Total Consumption (TWh)',
-        data: [1208,1150,1200,1320,1390,1462,1538,1620,1710,1800],
+        data: [1208, 1150, 1200, 1320, 1390, 1462, 1538],
         backgroundColor: 'rgba(122,174,212,0.35)',
         borderColor: '#7aaed4', borderWidth: 1.5,
         borderRadius: 5, yAxisID: 'y',
       },
       {
         label: 'Idle Waste (TWh)',
-        data: [60.4,57.5,60.0,66.0,69.5,73.1,76.9,81.0,85.5,90.0],
+        data: [60.4, 57.5, 60.0, 66.0, 69.5, 73.1, 76.9],
         backgroundColor: 'rgba(224,128,80,0.7)',
         borderColor: '#e08050', borderWidth: 1,
         borderRadius: 5, type: 'bar', yAxisID: 'y2',
@@ -419,14 +419,12 @@ const stateData = [
   { name:'Karnataka',   tariff:6.5,  pop:4.5, color:'#6dbb96' },
   { name:'Gujarat',     tariff:5.8,  pop:3.9, color:'#e07848' },
 ];
-// residential ~ 25% of 1538 TWh = 384.5 TWh; idle = 5% of that = 19.2 TWh residential idle
-// state share by pop%, 50% savings
-const residentialIdle = 19.2; // TWh
+const residentialIdle = 19.2;
 const totalPop = stateData.reduce((s,d)=>s+d.pop,0);
 const sg = document.getElementById('stateSavings');
 stateData.forEach(s => {
-  const shareKwh = (residentialIdle * 1e9 * s.pop / totalPop); // kWh
-  const saved = shareKwh * 0.5 * s.tariff; // ₹
+  const shareKwh = (residentialIdle * 1e9 * s.pop / totalPop);
+  const saved = shareKwh * 0.5 * s.tariff;
   const savedCr = (saved/1e7).toFixed(0);
   sg.innerHTML += `
     <div class="saving-box">
