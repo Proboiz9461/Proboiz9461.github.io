@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="sidebar glass">
+  <h3>SocialApp</h3>
+  <a href="dashboard.html">Home</a>
+  <a href="profile.html">Profile</a>
+  <a href="index.html">Logout</a>
+</div>
+
+<div class="main">
+  <div class="navbar glass">
+    <h3>Home Feed</h3>
+  </div>
+
+  <div class="glass" style="padding:15px; margin-bottom:20px;">
+    <textarea id="postContent" placeholder="What's happening?" style="width:100%; padding:10px; border-radius:10px;"></textarea>
+    <button onclick="createPost()">Post</button>
+  </div>
+
+  <div id="feed">
+    <div class="post glass">
+      <h4>User1</h4>
+      <p>This is a sample post.</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
